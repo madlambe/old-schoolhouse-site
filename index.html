@@ -2,14 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The Old Schoolhouse</title>
+  <title>The Old Schoolhouse | Luxury Holiday Let South Wales</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="description" content="The Old Schoolhouse is a luxury countryside holiday house in South Wales, designed for refined family and group stays. Bookings opening soon.">
+  <meta name="keywords" content="luxury holiday let South Wales, countryside house Wales, large group accommodation Wales, private holiday home Wales">
+  <meta name="author" content="The Old Schoolhouse">
+
+  <!-- Open Graph (for sharing) -->
+  <meta property="og:title" content="The Old Schoolhouse">
+  <meta property="og:description" content="A refined countryside house in South Wales. Bookings opening soon.">
+  <meta property="og:image" content="hero.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon (optional) -->
+  <!-- <link rel="icon" href="favicon.ico"> -->
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: #231f20;
+      background-color: #ffffff;
     }
 
     .hero {
@@ -20,45 +35,95 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     .overlay {
-      background: rgba(255,255,255,0.9);
-      padding: 40px;
-      border-radius: 12px;
+      background: rgba(255,255,255,0.85);
+      padding: 60px;
+      border-radius: 16px;
       text-align: center;
+      max-width: 600px;
     }
 
     h1 {
-      font-size: 40px;
+      font-family: "Trajan Pro", serif;
+      font-size: 48px;
       margin-bottom: 20px;
+      letter-spacing: 1px;
     }
 
-    .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      background: #23447c;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.6;
     }
+
+    .coming {
+      font-family: "Trajan Pro", serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: #23447c;
+      font-weight: 600;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    a {
+      color: #4d89a9;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    img.logo {
+      max-width: 200px;
+      margin-bottom: 25px;
+    }
+
   </style>
 </head>
 
 <body>
 
   <div class="hero">
-    <div class="overlay">
-      <h1>The Old Schoolhouse</h1>
-      <p>Bookings Opening Soon
-      Follow us on Instagram & Facebook for updates</p>
 
-      <div class="buttons">
-        <a href="https://www.instagram.com/the_old_schoolhouse_wales" target="_blank">Instagram</a>
-        <a href="https://www.facebook.com/theoldschoolhouse1867" target="_blank">Facebook</a>
+    <div class="overlay">
+
+      <!-- LOGO -->
+      <img src="logo.png" class="logo" alt="The Old Schoolhouse">
+
+      <h1>The Old Schoolhouse</h1>
+
+      <p>
+        A private countryside house in South Wales<br>
+        designed for refined stays.
+      </p>
+
+      <div class="coming">
+        <strong>Bookings Opening Soon<strong><br>
+        <span style=“font-size:16px; letter-spacing:1px;color:#4d89a9;”>
+            Join us on Instagram & Facebook for updates
+        </span>
       </div>
+
     </div>
+
+    <div class="footer">
+      <a href="https://www.instagram.com/the_old_schoolhouse_wales" target="_blank">Instagram</a>
+      |
+      <a href="https://www.facebook.com/theoldschoolhouse1867" target="_blank">Facebook</a>
+    </div>
+
   </div>
 
 </body>
