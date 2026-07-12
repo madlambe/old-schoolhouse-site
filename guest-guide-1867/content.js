@@ -3,7 +3,7 @@ window.GUEST_GUIDE = {
     title: "The Old Schoolhouse",
     subtitle: "Guest Guide",
     welcome: "Everything you need for your stay, in one place.",
-    heroImage: "assets/header.jpg"
+    heroImage: "/guest-guide-1867/assets/header.jpg"
   },
   categories: [
     {
