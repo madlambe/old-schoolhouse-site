@@ -65,11 +65,11 @@
  }
  guide.categories.forEach(cat=>{
    const visible=cat.items.filter(x=>x.complete||owner);
-   const card=document.createElement('a'); card.href=`#${cat.id}`;card.className='category-card';card.innerHTML=`${icon(cat.icon)}<span>${cat.title}</span><b>+</b>`;grid.append(card);
+   const card=document.createElement('a'); card.href=`#${cat.id}`;card.className='category-card';card.innerHTML=`${icon(cat.icon)}<span>${cat.title}</span>`;grid.append(card);
    const panel=document.createElement('section');panel.id=cat.id;panel.className='category-panel';
-   panel.innerHTML=`<div class="category-heading"><h2>${cat.title}</h2></div><div class="item-list"></div><a class="panel-back-to-top" href="#guide-menu" aria-label="Back to guide sections"><span>Back to top</span><span aria-hidden="true">↑</span></a>`;
+   panel.innerHTML=`<div class="category-heading"><h2>${cat.title}</h2></div><div class="item-list"></div><a class="panel-back-to-top" href="#top" aria-label="Back to the top of the page"><span>Back to top</span></a>`;
    const list=panel.querySelector('.item-list');
-   visible.forEach(item=>{const d=document.createElement('details');d.className=`guide-item${item.complete?'':' incomplete'}`;d.innerHTML=`<summary><span>${item.title}</span><b>+</b></summary><div class="item-content">${md(item.content,item.checklist)}</div>`;d.addEventListener('toggle',()=>d.querySelector('summary b').textContent=d.open?'−':'+');list.append(d)});
+   visible.forEach(item=>{const d=document.createElement('details');d.className=`guide-item${item.complete?'':' incomplete'}`;d.innerHTML=`<summary><span>${item.title}</span></summary><div class="item-content">${md(item.content,item.checklist)}</div>`;list.append(d)});
    if(!visible.length) panel.classList.add('empty');
    panels.append(panel);
  });
