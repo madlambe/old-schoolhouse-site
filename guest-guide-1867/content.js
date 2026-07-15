@@ -3,53 +3,279 @@ window.GUEST_GUIDE = {
     title: "The Old Schoolhouse",
     subtitle: "Guest Guide",
     welcome: "Everything you need for your stay, in one place.",
-    heroImage: "/guest-guide-1867/assets/header.jpg"
+    heroImage: "/guest-guide-1867/assets/header.jpg",
+    greetingTitle: "A Welcome from Us",
+    greeting: `A very warm welcome to The Old Schoolhouse, our beautiful 19th century house set in the blissful Monmouthshire countryside.
+
+As you will discover, this is a very special property which we are proud to own.
+
+Originally built in 1867, The Old Schoolhouse was historically at the heart of the local community. Opposite the village church, it was the home of the school master. As the years passed and the school closed, it later became a family home, with a number of extensions and renovations over the years; the most recent extension taking place in 2016.
+
+Given the age and setting of the property, a huge amount of thought has gone into the decoration and furnishings, with the goal of creating an interior which is comfortable and cosy, beautiful and unique, whilst maintaining historical features and offering a higher standard than your usual holiday home.
+
+Without a doubt one of the best features of The Old Schoolhouse is the tranquil large garden, pool area (including pool house) and the surrounding fields. Soak in the crisp, clean country air whilst enjoying the sounds of nature at its best.
+
+Occasionally you may find sheep in the field at the end of the garden. Feel free to pop down and say hello, but please refrain from feeding them.
+
+We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoolhouse. This is our home-away-from-home and we hope you feel very much at home here too. Our only request is that you follow the enclosed House Rules and treat our home as you would your own. Thank you!`,
+    signature: "Madelaine and Chris"
   },
   categories: [
     {
       id: "essentials", icon: "spark", title: "The Essentials",
       items: [
-        { id:"rules", title:"General House Rules", complete:true, content:`
-- The Old Schoolhouse is strictly a **NON-SMOKING** property.
+        { id:"rules", title:"General House Rules", complete:true, content:`- The Old Schoolhouse is strictly a **NON-SMOKING** property.
+- No shoes are to be worn in the house. Please use the shoe rack and Boot Room to store shoes.
 - Please use the coasters and placemats provided throughout on all surfaces.
-- The Old Schoolhouse has its own septic tank. **ONLY TOILET PAPER** may be flushed down the loos — nothing else at all.
+- The Old Schoolhouse is not on the mains and has its own septic tank. It is vital that **ONLY TOILET PAPER** is flushed down the loos — nothing else **AT ALL**. Cotton wool, sanitary products, wet wipes (including flushable ones), dental floss and all other waste must be disposed of appropriately.
 - Our refillable toiletries are part of the home and are topped up for each stay. Thank you for leaving them for future guests.
 - No parties allowed.
 - Maximum occupancy is 12 guests and 2 well-behaved dogs (downstairs only).
 - Quiet hours are **10pm to 8am**.`},
-        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`**Check-In:** 3pm\n\n**Check-Out:** 10am`},
-        { id:"wifi", title:"WiFi", complete:false, content:`**Network Name:** [TO COMPLETE]\n\n**Password:** TOSH1867`},
-        { id:"contacts", title:"Contacts", complete:true, content:`**Agent**\n\nBecky at Finest Retreats  \n[07498 368217](tel:+447498368217)\n\n**House Manager**\n\nMaison lives 5 minutes down the road, knows the property extremely well and is happy to assist with any issues that might arise during your stay.  \n[07717 198309](tel:+447717198309)`},
-        { id:"safety", title:"Safety", complete:false, content:`**Fire extinguishers**\n\nCan be found under the sink in the kitchen.\n\n**Smoke & Carbon Monoxide alarms**\n\nThere are three Smoke & Carbon Monoxide alarms, two downstairs and one at the top of the stairs. To silence a false alarm, press the **Test/Silence** button located on the cover of the alarm.\n\n**Carbon monoxide poisonous gas alarm**\n\nThis alarm is located on the fireplace on the top right shelf. **NEVER IGNORE THIS ALARM.**\n\n- Open the doors and windows.\n- Stop using all fuel-burning appliances.\n- Evacuate the property.\n- Do not re-enter until the alarm has stopped.\n- Seek medical help if poisoning is suspected.\n\n**Stop Cock for the Water**\n\n[TO COMPLETE: exact location]`},
-        { id:"emergency", title:"Local Emergency Services", complete:false, content:`**Emergency Ambulance, Fire & Police:** [999](tel:999)\n\n**Non-emergency medical assistance:** [111](tel:111)\n\n**Non-emergency police assistance:** [101](tel:101)\n\n**Nevill Hall Hospital**  \nBrecon Road, Abergavenny, NP7 7EG  \n[01873 732732](tel:+441873732732)  \n[TO COMPLETE: distance and journey time]\n\n**Royal Gwent Hospital**  \nCardiff Road, Newport, NP20 2UB  \n[01633 234234](tel:+441633234234)  \n[TO COMPLETE: distance and journey time]\n\n**Raglan Surgery**  \nChepstow Road, Raglan, NP15 2EN  \n[01291 690222](tel:+441291690222)\n\n**Monmouth Dental Practice**  \n16 St James’ Square, Monmouth, NP25 3DN  \n[01600 714236](tel:+441600714236)\n\n**Drybridge Veterinary Clinic**  \n2a Wonastow Road, Monmouth, NP25 5AH  \n[01600 712206](tel:+441600712206) or [01594 833526](tel:+441594833526)`}
+
+        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`**Check-In:** 4pm
+
+**Check-Out:** 10am
+
+A full Check-Out Checklist can be found in the **Check Out** section.
+
+**House Keys**
+
+These are stored in the key lock box on the left wall in the left wood shed (as you face the house). The code is **2017**. Please ensure the keys are safely locked back in the key lock box when you depart.
+
+**Security Alarm**
+
+The security alarm control is inside the hallway, to the left of the front door.
+
+**To turn off the alarm:** 4231
+
+**To set the alarm:** 4231 TICK
+
+Please set the alarm **EVERY time you leave the house**.`},
+
+        { id:"wifi", title:"WiFi", complete:true, content:`**Network Name:** OSH STARLINK
+
+**Password:** TOSH1867`},
+
+        { id:"contacts", title:"Contacts", complete:true, content:`Should you have any issues during your stay, please contact:
+
+**Agent**
+
+Becky at Finest Retreats  
+[07498 368217](tel:+447498368217)
+
+**House Manager**
+
+Our House Manager, Maison, lives nearby and knows the property extremely well. He is happy to assist with any issues that might arise during your stay.  
+[07717 198309](tel:+447717198309)`},
+
+        { id:"safety", title:"Safety", complete:true, content:`**Fire extinguishers**
+
+Fire extinguishers and a fire blanket can be found under the kitchen sink.
+
+**Smoke & Carbon Monoxide alarms**
+
+There are three Smoke & Carbon Monoxide alarms: two downstairs and one at the top of the stairs. They are connected to the main electricity supply.
+
+To silence a false alarm, press the **Test/Silence** button in the centre of the alarm cover. Please refer to the instruction manual [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
+
+**Carbon monoxide poisonous gas alarm**
+
+This alarm is on the fireplace, on the top right shelf. It provides an early warning of toxic carbon monoxide levels.
+
+**NEVER IGNORE THIS ALARM.** If it sounds:
+
+- Open the doors and windows to ventilate the property.
+- Stop using all fuel-burning appliances.
+- Evacuate the property, leaving the doors and windows open.
+- Do not re-enter until the alarm has stopped.
+- Seek medical help if poisoning is suspected, for example a headache or nausea.
+- Do not use heating appliances again until they have been checked by an expert.
+- To test the alarm, briefly press the test/reset button.
+
+Please refer to the user manual [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
+
+**Stop Cock for the Water**
+
+This is in the Boot Room, to the right of the tumble dryer, in the panel in the corner column.
+
+**Electricity / Security Alarm**
+
+Very short-lived power outages occasionally occur in the area. When this happens, the house security alarm may beep. To stop it, enter **4231 TICK**.`},
+
+        { id:"emergency", title:"Local Emergency Services", complete:true, content:`**Emergency Ambulance, Fire & Police:** [999](tel:999)
+
+**Non-emergency medical assistance:** [111](tel:111)
+
+**Non-emergency police assistance:** [101](tel:101)
+
+**For life-threatening illness or injury / Emergency Department**
+
+**The Grange University Hospital**  
+Caerleon Road, Llanfrechfa, Cwmbran, NP44 8YN  
+[01633 493100](tel:+441633493100)
+
+**For minor injuries**
+
+**Nevill Hall Hospital — Minor Injury Unit**  
+Brecon Road, Abergavenny, NP7 7EG  
+[01873 732732](tel:+441873732732)
+
+Please note: Nevill Hall Hospital does **not** have an Emergency Department. Life-threatening emergencies should go to The Grange University Hospital.
+
+**Doctor**
+
+**Castle Gate Medical Practice — Raglan Surgery**  
+Chepstow Road, Raglan, NP15 2EN  
+[01291 690222](tel:+441291690222)  
+Monday to Friday, 8am–6.30pm (excluding Bank Holidays).
+
+**Dentist**
+
+**Monmouth Dental Practice**  
+16 St James’ Square, Monmouth, NP25 3DN  
+[01600 714236](tel:+441600714236)
+
+**Veterinary Surgery**
+
+**Drybridge Veterinary Clinic**  
+2A Wonastow Road, Monmouth, NP25 5AH  
+[01600 712206](tel:+441600712206)  
+Monday to Friday, 8.30am–6.30pm; Saturday, 9am–12pm for urgent cases; closed Sunday and public holidays.`}
       ]
     },
+
     {
       id:"house", icon:"home", title:"House Information",
       items:[
         {id:"parking",title:"Parking",complete:true,content:`All vehicles are to be parked within the gravel driveway at the front of the house.`},
-        {id:"dogs",title:"Canine Guests",complete:true,content:`We adore dogs and very much welcome them. Please follow these rules:\n\n- Dogs are to remain **DOWNSTAIRS ONLY**.\n- Dogs are to keep **OFF ALL FURNITURE**.\n- Please pick up and bag waste from the garden daily and place it next to the black bin in the car port.\n- Do not leave dogs in the property by themselves.`},
-        {id:"waste",title:"Waste & Recycling",complete:true,content:`The kitchen waste bin has three sections:\n\n- **Hard plastics & tins** — rinse and dry first.\n- **Paper & cardboard**.\n- **General waste**.\n\n**Purple sacks:** hard plastics & tins  \n**Red sacks:** paper & cardboard  \n**Black bin:** sealed general-waste bags  \n**Green box:** rinsed and dried glass  \n**Blue bin:** sealed food-compost bags\n\n[BIN_COLLECTION_DATES]`},
-        {id:"television",title:"Television & Sound",complete:false,content:`The television can be found in the snug. Feel free to log into your own accounts, but please remember to log out before departure.\n\nThe surround sound works from the two Apple HomePod Minis. Please return both to the snug and plug them in beside the television before leaving.\n\n[TO COMPLETE: remote-control and connection instructions]`},
-        {id:"heating",title:"Central Heating & Wood Burning Fire",complete:false,content:`**Central heating**\n\nThe thermostat is in the perforated cupboard in the boot room.\n\n[TO COMPLETE: operating instructions]\n\n**Wood-burning fire**\n\n[TO COMPLETE: lighting, fuel, safety and extinguishing instructions]\n\n**Hot water**\n\n[TO COMPLETE]`},
-        {id:"appliances",title:"Appliances & Amenities",complete:false,content:`**Oven**\n\n[TO COMPLETE]\n\n**Extractor hood**\n\nPlease use it whenever cooking, especially on the highest setting for frying or strong odours.\n\n**Dishwasher**\n\nTablets are provided. Please load all dirty crockery and cutlery and start a cleaning cycle before departure.\n\n**Washing machine**\n\nLaundry tablets are provided.\n\n**Tumble dryer**\n\nPlease empty the fluff filter after every use.\n\n**Ironing**\n\nThe iron and ironing board are in the tall boot-room cupboard beside the coat area.\n\n**Hairdryer**\n\nIn the master-bedroom vanity unit. Please return it there.`}
+
+        {id:"dogs",title:"Canine Guests",complete:true,content:`We adore dogs and very much welcome them. Our goal is to provide high-quality accommodation for other guests and their dogs to enjoy. Please follow these rules:
+
+- Dogs are to remain **DOWNSTAIRS ONLY**. No dogs are allowed upstairs.
+- Dogs are to keep **OFF ALL FURNITURE**.
+- Please pick up and bag any waste from the garden daily and place it next to the black bin in the car port.
+- Do not leave dogs in the property by themselves. Even dogs used to being left at home can become distressed in new surroundings and may cause damage or excessive barking which disturbs the neighbours.`},
+
+        {id:"waste",title:"Waste & Recycling",complete:true,content:`We are very environmentally conscious and ask that you please follow these instructions.
+
+The waste bin is in front of the kitchen window and an enamel food-compost bin is on the windowsill.
+
+The kitchen waste bin has three sections:
+
+- **Hard plastics & tins** — rinse and dry first.
+- **Paper & cardboard**.
+- **General waste**.
+
+When the bins are full, place recycling directly into the relevant coloured sacks in the car port, without the plastic refuse bags:
+
+- **Purple recycling sack:** hard plastics & tins.
+- **Red recycling sack:** paper & cardboard.
+
+Keep general waste in sealed plastic refuse bags and place them in the **black bin**.
+
+Rinse and dry glass, then put it directly in the **green recycling box** in the car port.
+
+Seal the food-compost bag and place it in the **blue food-compost bin** in the car port.
+
+Please put the relevant sacks and bins at the roadside edge of the driveway on the night before collection.
+
+[BIN_COLLECTION_DATES]`},
+
+        {id:"television",title:"Television & Sound",complete:true,content:`The television is in the snug.
+
+Feel free to log into your own accounts, such as Netflix, Disney+ and BBC, but please remember to log out before departure.
+
+The surround sound works through the two Apple HomePod Minis. You are also welcome to connect your phones to them; instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
+
+Please return both HomePod Minis to the snug and plug them in beside the television before departure.`},
+
+        {id:"heating",title:"Central Heating",complete:true,content:`The thermostat is in the perforated cupboard in the Boot Room. Operating instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+
+        {id:"fire",title:"Wood Burning Fire",complete:false,content:`**[TO COMPLETE: lighting, fuel, safety and extinguishing instructions]**
+
+The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+
+        {id:"library",title:"Library",complete:true,content:`We are extremely fortunate to have some very old books — some over 100 years old — that have lived in The Old Schoolhouse for years. They are on the top shelf of the bookcase closest to the sofas.
+
+Please handle these with great care as they are fragile, and leave them on the same top shelf for future guests at the end of your stay.
+
+Feel free to enjoy the wide selection of other books while you are here.`},
+
+        {id:"games",title:"Games Table",complete:true,content:`The games table offers snooker, air hockey, table tennis and a games table. All accessories are in the small storage stool between the bookcases. Please return all accessories to the same stool before departure.
+
+Instructions on how to flip the table can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
+
+There is also a wide range of other games in the larger storage stools under the games table. Please keep them in their sets so future guests can enjoy them too.`},
+
+        {id:"oven",title:"Oven",complete:true,content:`When using the roasting trays, please line the bottom with foil to make washing up easier.`},
+
+        {id:"extractor",title:"Extractor Hood",complete:true,content:`Please use the extractor hood whenever cooking. If frying or cooking anything with a particularly strong odour, use the highest setting. There is also a light which can be used when cooking.`},
+
+        {id:"dishwasher",title:"Dishwasher",complete:true,content:`Dishwasher tablets have been provided for your stay.
+
+Please ensure all dirty crockery and cutlery are loaded into the machine and start a cleaning cycle before departure. Operating instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+
+        {id:"washing",title:"Washing Machine",complete:true,content:`Laundry tablets have been provided for your stay. The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+
+        {id:"drying",title:"Drying Clothes",complete:true,content:`Laundry hangers have been provided. Please leave them in the Boot Room for future guests at the end of your stay.
+
+You have several options for drying clothes, all in the Boot Room:
+
+- **Pulley:** gently lower it — do not let it fall suddenly. Raise it gently, holding the rope vertically rather than pulling it at an angle.
+- **Airing cupboard:** in the corner opposite the tumble dryer.
+- **Tumble dryer:** empty the lint filter and water tank after every use. The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+
+        {id:"ironing",title:"Ironing",complete:true,content:`The iron and ironing board are in the tall cupboard in the Boot Room, next to the coat area.`},
+
+        {id:"hairdryer",title:"Hairdryer",complete:true,content:`A hairdryer is provided in the master-bedroom vanity unit. Please return it there at the end of your stay.`}
       ]
     },
+
     {
       id:"outdoors", icon:"leaf", title:"Outdoors",
       items:[
-        {id:"garden",title:"Garden",complete:true,content:`Outdoor cushions are in the storage unit beside the garden steps. The padlock code is **1867**.\n\nPlease store cushions and covers overnight and whenever it rains. Before departure, return and lock the cushions away and replace all furniture covers.\n\nOur lawn robot, Hank, operates overnight. Please do not touch it or block its path.`},
-        {id:"bbq",title:"BBQ",complete:false,content:`The BBQ is on the patio outside the kitchen window. Please clean the BBQ and tools thoroughly after use.\n\n[TO COMPLETE: location of BBQ tools]`},
-        {id:"pool",title:"Pool & Pool House",complete:false,content:`The pool is operational from April to September. The Pool House kitchenette may be enjoyed year-round.\n\nOnly use the blue plastic glassware from the main kitchen around the pool.\n\nPool towels are supplied during operational months. Leave used towels in the boot room before departure.\n\n[TO COMPLETE: heating controls, key location, locking-up instructions, pool cover and cleaning]`},
-        {id:"field",title:"Field",complete:true,content:`Local farmers occasionally graze sheep in the field at the bottom of the garden. You are welcome to say hello, but please do not feed them.`}
+        {id:"garden",title:"Garden",complete:true,content:`We are fortunate to have a large private garden where you can enjoy the tranquillity of nature from the outdoor furniture. The protective furniture covers can be stored in the outdoor storage unit while in use.
+
+The outdoor cushions are in the storage unit by the garden steps. The padlock code is **1867**.
+
+Please do not leave cushions or covers out overnight or in the rain. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
+
+Our lawn robot, Hank, operates overnight. Please do not touch Hank or block his path. Contact Maison if you find any issues with him.
+
+Occasionally you may find Chris’s mother tending to the flowerbeds.`},
+
+        {id:"bbq",title:"BBQ",complete:true,content:`The BBQ is on the patio outside the kitchen window. The BBQ tools are in a black bag in the top drawer of the kitchen, to the left of the dishwasher.
+
+Please ensure the BBQ and tools are fully cleaned before departure. A supplementary cleaning fee will apply if this is not done thoroughly.`},
+
+        {id:"pool",title:"Pool & Pool House",complete:true,content:`The pool is operational from April to September.
+
+The Pool House has a kitchenette and can be enjoyed year-round. When relaxing by the pool, only use the blue plastic glassware from the Pool House kitchenette. Please leave it clean before departure; it is dishwasher safe.
+
+Feel free to use the pool towels supplied during the operational months. Leave any used pool towels in the Boot Room before departure.`},
+
+        {id:"field",title:"Field",complete:true,content:`Occasionally local farmers graze sheep in the field at the bottom of the garden. Please feel free to say hello to the animals, but do not feed them.`}
       ]
     },
+
     {
       id:"checkout", icon:"check", title:"Check Out",
       items:[
-        {id:"checklist",title:"Your Checklist",complete:false,checklist:true,content:`- Check out by **10am**.\n- Start the dishwasher with all dirty crockery and cutlery.\n- Sign out of all television apps.\n- Return and plug in both HomePod Minis.\n- Return the hairdryer to the master-bedroom vanity unit.\n- Return pool towels to the boot room.\n- Store and lock away outdoor cushions; replace furniture covers.\n- Clean the BBQ and tools thoroughly.\n- [TO COMPLETE: keys, windows, heating, rubbish, linen and final departure procedure]`}
+        {id:"checklist",title:"Your Checklist",complete:true,checklist:true,content:`- Ensure all dirty cutlery and crockery are in the dishwasher and start a cycle.
+- Take all rubbish to the correct bins in the car port, including emptying all bathroom bins.
+- Log out of all television accounts, such as Netflix and Disney+.
+- Empty the lint filter and water tank from the tumble dryer, if used.
+- Return all laundry hangers to the Boot Room.
+- Leave wooden hangers in the bedroom wardrobes.
+- Return the hairdryer to the master-bedroom vanity unit, if used.
+- Leave used pool towels in the Boot Room, if used.
+- Set the house security alarm before departure: **4231 TICK**.
+- Lock the bottom front-door lock.
+- Return the house keys to the key lock box in the wood shed.`}
       ]
     },
+
     {
       id:"amenities", icon:"pin", title:"Local Amenities",
       items:[
@@ -59,9 +285,12 @@ window.GUEST_GUIDE = {
         {id:"taxis",title:"Taxis",complete:false,content:`[TO COMPLETE]`}
       ]
     },
+
     {
       id:"things", icon:"map", title:"Things to Do",
-      items:[{id:"activities",title:"Things to Do",complete:false,content:`[TO COMPLETE]`}]
+      items:[
+        {id:"activities",title:"Things to Do",complete:false,content:`[TO COMPLETE]`}
+      ]
     }
   ]
 };

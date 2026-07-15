@@ -2,6 +2,8 @@
  const guide=window.GUEST_GUIDE, updates=window.GUEST_UPDATES||{}, owner=new URLSearchParams(location.search).get('edit')==='1';
  const grid=document.querySelector('#guide-menu'), panels=document.querySelector('#category-panels');
  document.querySelector('#welcome-line').textContent=guide.site.welcome;
+ const greeting=document.querySelector('#greeting-content');
+ if(greeting){greeting.innerHTML=md(guide.site.greeting||'')+`<p class="signature">${guide.site.signature||''}</p>`;document.querySelector('#greeting-title').textContent=guide.site.greetingTitle||'A Welcome from Us';}
  document.querySelector('.hero').style.backgroundImage=`linear-gradient(rgba(248,247,243,.80),rgba(248,247,243,.94)),url('${guide.site.heroImage}')`;
  if(owner){document.body.classList.add('owner-preview');document.querySelector('#editor-notice').hidden=false;}
  const paths={spark:'<path d="m12 3 1.6 5.3L19 10l-5.4 1.7L12 17l-1.6-5.3L5 10l5.4-1.7L12 3Z"/>',home:'<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V21h13V10.5"/><path d="M9 21v-6h6v6"/>',leaf:'<path d="M20 4C11 4 5 9 5 17c5 0 10-2 13-7"/><path d="M4 21c3-6 7-9 13-12"/>',check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',pin:'<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/>'};
@@ -54,7 +56,7 @@
  function md(s,checklist=false){
    const token='__BIN_COLLECTION_DATES__';
    let x=s.replace('[BIN_COLLECTION_DATES]',token).trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/_([^_]+)_/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/_([^_]+)_/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,label,url)=>{const external=/^https?:\/\//i.test(url);return `<a href="${url}"${external?' target="_blank" rel="noopener noreferrer"':''}>${label}</a>`;});
    const lines=x.split(/\n/), out=[]; let inList=false;
    for(const line of lines){
      if(/^[-] /.test(line)){if(!inList){out.push(`<ul class="${checklist?'checklist':''}">`);inList=true;} out.push(`<li>${line.slice(2)}</li>`)}
