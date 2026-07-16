@@ -14,7 +14,7 @@
 .category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:122px;gap:10px;scroll-margin-top:8px}
 .category-card{height:122px;background:#fff;text-decoration:none;color:var(--ink);border:1px solid rgba(35,68,124,.075);border-radius:11px;box-shadow:var(--shadow);padding:15px 10px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center;transition:transform .14s ease,box-shadow .14s ease,background-color .14s ease}
 .category-card svg{width:33px;height:33px;flex:0 0 auto;fill:none;stroke:var(--navy);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}
-.category-card span{font-family:"trajan-pro-3", serif;font-weight:400;font-size:.99rem;line-height:1.22;letter-spacing:.02em}
+.category-card span{font-family:"trajan-pro-3", serif;font-weight:700;font-size:.99rem;line-height:1.22;letter-spacing:.02em}
 .category-card:hover{transform:translateY(-1px);box-shadow:0 10px 27px rgba(28,44,68,.09)}
 .category-card:active{transform:translateY(2px) scale(.985);box-shadow:var(--shadow-pressed);background:#fbfaf7}
 .category-card:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
