@@ -181,11 +181,11 @@ Please put the relevant sacks and bins at the roadside edge of the driveway on t
 
         {id:"television",title:"Television & Sound",complete:true,content:`The television is in the snug.
 
-Feel free to log into your own accounts, such as Netflix, Disney+ and BBC, but please remember to log out before departure.
+Feel free to log into your own accounts, such as Netflix, Disney+ and BBC, but please **remember to log out before departure**.
 
 The surround sound works through the two Apple HomePod Minis. You are also welcome to connect your phones to them; instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
 
-Please return both HomePod Minis to the snug and plug them in beside the television before departure.`},
+Please **return both HomePod Minis to the snug** and plug them in beside the television before departure.`},
 
         {id:"heating",title:"Central Heating",complete:true,content:`The thermostat is in the perforated cupboard in the Boot Room. Operating instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
 
@@ -195,31 +195,34 @@ The instruction manual can be found [here ↗](https://drive.google.com/drive/fo
 
         {id:"library",title:"Library",complete:true,content:`We are extremely fortunate to have some very old books — some over 100 years old — that have lived in The Old Schoolhouse for years. They are on the top shelf of the bookcase closest to the sofas.
 
-Please handle these with great care as they are fragile, and leave them on the same top shelf for future guests at the end of your stay.
+**Please handle these with great care as they are fragile, and leave them on the same top shelf** for future guests at the end of your stay.
 
 Feel free to enjoy the wide selection of other books while you are here.`},
 
-        {id:"games",title:"Games Table",complete:true,content:`The games table offers snooker, air hockey, table tennis and a games table. All accessories are in the small storage stool between the bookcases. Please return all accessories to the same stool before departure.
+        {id:"games",title:"Games Table",complete:true,content:`The games table offers snooker, air hockey, table tennis and a games table. All accessories are in the small storage stool between the bookcases. Please **return all accessories to the same stool before departure**.
 
 Instructions on how to flip the table can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
 
-There is also a wide range of other games in the larger storage stools under the games table. Please keep them in their sets so future guests can enjoy them too.`},
+There is also a wide range of other games in the larger storage stools under the games table. **Please keep them in their sets** so future guests can enjoy them too.`},
 
         {id:"oven",title:"Oven",complete:true,content:`When using the roasting trays, please line the bottom with foil to make washing up easier.`},
 
-        {id:"extractor",title:"Extractor Hood",complete:true,content:`Please use the extractor hood whenever cooking. If frying or cooking anything with a particularly strong odour, use the highest setting. There is also a light which can be used when cooking.`},
+        {id:"extractor",title:"Extractor Hood",complete:true,content:`Please **use the extractor hood whenever cooking**. If frying or cooking anything with a particularly strong odour, use the highest setting. There is also a light which can be used when cooking.`},
 
-        {id:"dishwasher",title:"Dishwasher",complete:true,content:`Dishwasher tablets have been provided for your stay.
+        {id:"dishwasher",title:"Dishwasher",complete:true,content:`Some dishwasher tablets have been provided for your stay.  Please do replenish them if you need more.
 
-Please ensure all dirty crockery and cutlery are loaded into the machine and start a cleaning cycle before departure. Operating instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+Please ensure all dirty crockery and cutlery are loaded into the machine and **start a cleaning cycle before departure**. Operating instructions can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
 
-        {id:"washing",title:"Washing Machine",complete:true,content:`Laundry tablets have been provided for your stay. The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
+        {id:"washing",title:"Washing Machine",complete:true,content:`Some laundry tablets have been provided for your stay. Please replenish them if you need more.
+        
+        The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
 
-        {id:"drying",title:"Drying Clothes",complete:true,content:`Laundry hangers have been provided. Please leave them in the Boot Room for future guests at the end of your stay.
+        {id:"drying",title:"Drying Clothes",complete:true,content:`Metal laundry hangers have been provided. Please leave them in the Boot Room for future guests at the end of your stay.
 
 You have several options for drying clothes, all in the Boot Room:
 
-- **Pulley:** gently lower it — do not let it fall suddenly. Raise it gently, holding the rope vertically rather than pulling it at an angle.
+- **Pulley:** gently lower it — do not let it fall suddenly. Raise it gently, holding the rope vertically under the mechanism rather than pulling it at an angle.
+- **Clothes Horse:** located in the tall cupboard, next to the coat area.
 - **Airing cupboard:** in the corner opposite the tumble dryer.
 - **Tumble dryer:** empty the lint filter and water tank after every use. The instruction manual can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
 
@@ -236,7 +239,7 @@ You have several options for drying clothes, all in the Boot Room:
 
 The outdoor cushions are in the storage unit by the garden steps. The padlock code is **1867**.
 
-Please do not leave cushions or covers out overnight or in the rain. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
+Please **do not leave cushions or covers out overnight or in the rain**. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
 
 Our lawn robot, Hank, operates overnight. Please do not touch Hank or block his path. Contact Maison if you find any issues with him.
 
@@ -248,25 +251,30 @@ Please ensure the BBQ and tools are fully cleaned before departure. A supplement
 
         {id:"pool",title:"Pool & Pool House",complete:true,content:`The pool is operational from April to September.
 
-The Pool House has a kitchenette and can be enjoyed year-round. When relaxing by the pool, only use the blue plastic glassware from the Pool House kitchenette. Please leave it clean before departure; it is dishwasher safe.
+The Pool House has a kitchenette and can be enjoyed year-round. When relaxing by the pool, **only use the blue plastic glassware from the Pool House kitchenette**. Please leave the plastic glassware clean before departure; they are dishwasher safe.
 
 Feel free to use the pool towels supplied during the operational months. Leave any used pool towels in the Boot Room before departure.`},
 
-        {id:"field",title:"Field",complete:true,content:`Occasionally local farmers graze sheep in the field at the bottom of the garden. Please feel free to say hello to the animals, but do not feed them.`}
+        {id:"field",title:"Field",complete:true,content:`Occasionally local farmers graze sheep in the field at the bottom of the garden. Please feel free to say hello to the animals, but **do not feed them**.`}
       ]
     },
 
     {
-      id:"checkout", icon:"check", title:"Check Out",
+      id:"checkout", icon:"check", title:"Check Out Checklist",
       items:[
         {id:"checklist",title:"Your Checklist",complete:true,checklist:true,content:`- Ensure all dirty cutlery and crockery are in the dishwasher and start a cycle.
-- Take all rubbish to the correct bins in the car port, including emptying all bathroom bins.
+- Take all rubbish (including from the bathroom bins) to the correct bins in the car port.
+- Fill dishwasher with dirty cutlery & crokery then set the dishwasher on an Eco cleaning cycle.
+- Ensure the BBQ and tools are fully cleaned before departure.
 - Log out of all television accounts, such as Netflix and Disney+.
+- Return both Apple HomePod minis to the snug, if moved.
 - Empty the lint filter and water tank from the tumble dryer, if used.
 - Return all laundry hangers to the Boot Room.
 - Leave wooden hangers in the bedroom wardrobes.
 - Return the hairdryer to the master-bedroom vanity unit, if used.
-- Leave used pool towels in the Boot Room, if used.
+- Return all games table accessories & games to the appropriate storage stools.
+- Return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
+- Leave used pool towels in the Boot Room.
 - Set the house security alarm before departure: **4231 TICK**.
 - Lock the bottom front-door lock.
 - Return the house keys to the key lock box in the wood shed.`}
