@@ -88,10 +88,6 @@ There are three Smoke & Carbon Monoxide alarms: two downstairs and one at the to
 
 To silence a false alarm, press the **Test/Silence** button in the centre of the alarm cover. Please refer to the instruction manual [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
 
-### Carbon Monoxide Poisonous Gas Alarm
-
-This alarm is on the fireplace, on the top right shelf. It provides an early warning of toxic carbon monoxide levels.
-
 **NEVER IGNORE THIS ALARM.** If it sounds:
 
 - Open the doors and windows to ventilate the property.
@@ -210,7 +206,9 @@ Instructions on how to flip the table can be found [here ↗](https://drive.goog
 
 There is also a wide range of other games in the larger storage stools under the games table. **Please keep them in their sets** so future guests can enjoy them too.`},
 
-        {id:"oven",title:"Oven",complete:true,content:`When using the roasting trays, please line the bottom with foil to make washing up easier.`},
+        {id:"oven",title:"Oven",complete:true,content:`When using the roasting trays, please line the bottom with foil to make washing up easier. 
+        
+        Operating instructions for the cooker can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},
 
         {id:"extractor",title:"Extractor Hood",complete:true,content:`Please **use the extractor hood whenever cooking**. If frying or cooking anything with a particularly strong odour, use the highest setting. There is also a light which can be used when cooking.`},
 
