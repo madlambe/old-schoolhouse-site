@@ -159,24 +159,21 @@ Monday to Friday, 8.30am–6.30pm; Saturday, 9am–12pm for urgent cases; closed
 
         {id:"waste",title:"Waste & Recycling",complete:true,content:`We are very environmentally conscious and ask that you please follow these instructions.
 
-The waste bin is in front of the kitchen window and an enamel food-compost bin is on the windowsill.
+The waste bin is in front of the kitchen window, next to the fridge, and a food-compost bin is on the windowsill.
 
 The kitchen waste bin has three sections:
 
-- **Hard plastics & tins** — rinse and dry first.
-- **Paper & cardboard**.
-- **General waste**.
+- **General waste**
+- **Hard plastics & tins** — rinse and dry first
+- **Paper & cardboard**
 
 When the bins are full, place recycling directly into the relevant coloured sacks in the car port, without the plastic refuse bags:
 
-- **Purple recycling sack:** hard plastics & tins.
-- **Red recycling sack:** paper & cardboard.
-
-Keep general waste in sealed plastic refuse bags and place them in the **black bin**.
-
-Rinse and dry glass, then put it directly in the **green recycling box** in the car port.
-
-Seal the food-compost bag and place it in the **blue food-compost bin** in the car port.
+- **Black bin**: general waste, sealed in plastic refuse bags
+- **Purple recycling sack:** hard plastics & tins (no plastic refuse bags)
+- **Red recycling sack:** paper & cardboard (no plastic refuse bags)
+- **Green recycling box**: glass, rinse and dried (no plastic refuse bags)
+- **Grey food-compost bin**: food waste only, sealed in plastic food-compost bags
 
 Please put the relevant sacks and bins at the roadside edge of the driveway on the night before collection.
 
