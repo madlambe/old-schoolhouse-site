@@ -30,7 +30,7 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
 - The Old Schoolhouse is not on the mains and has its own septic tank. It is vital that **ONLY TOILET PAPER** is flushed down the loos — nothing else **AT ALL**. Cotton wool, sanitary products, wet wipes (including flushable ones), dental floss and all other waste must be disposed of appropriately.
 - Our refillable toiletries are part of the home and are topped up for each stay. Thank you for leaving them for future guests.
 - No parties allowed.
-- Maximum occupancy is 12 guests and 2 well-behaved dogs (downstairs only).
+- Maximum occupancy is 12 guests and 2 well-behaved dogs (downstairs only, not on any furniture).
 - Quiet hours are **10pm to 8am**.`},
 
         { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`**Check-In:** 4pm
