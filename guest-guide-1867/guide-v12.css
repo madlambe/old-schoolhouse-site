@@ -418,16 +418,6 @@ footer p {
   margin-bottom: 0;
   font-size: 0.8rem;
   opacity: 0.75;
-}
-
-.category-grid {
-  grid-template-columns: repeat(3, minmax(0,1fr));
-}
-  .hero { padding-top: 36px; }
-  .brand-logo { width: min(34vw, 335px); }
-  .category-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: 170px;
   }
   .category-card span{
     font-size:0.72rem;
@@ -435,14 +425,21 @@ footer p {
     letter-spacing:0.03em;
     text-align:center;
 }
+  @media (min-width: 700px) {
 
-@media (max-width: 390px) {
-  .brand-logo { width: min(70vw, 295px); }
+  .hero {
+    padding-top: 36px;
+  }
+
+  .brand-logo {
+    width: min(34vw, 335px);
+  }
+
   .category-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 130px;
-  gap: 12px;
-}
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    grid-auto-rows: 170px;
+    gap: 16px;
+  }
   .category-card {
     height: 132px;
     gap: 15px;
