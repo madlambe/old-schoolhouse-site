@@ -64,18 +64,18 @@ button, summary, a {
 }
 
 .hero h1 {
-  margin: 0 0 26px;
+  margin: 0 0 14px;
   color: var(--navy);
    font-size: clamp(1.6rem, 4vw, 2.5rem);
   line-height: 1.08;
 }
 
 .hero p {
-  margin: 0;
-  max-width: 600px;
-  clamp(1.8rem, 5vw, 2.6rem);
-    margin-top: 26px;
-  line-height: 1.42;
+    max-width:600px;
+    margin:0 auto;
+    text-align:center;
+    font-size:1rem;
+    line-height:1.45;
 }
 
 .landing-main,
@@ -427,7 +427,10 @@ footer p {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-auto-rows: 170px;
   }
-  .category-card { height: 170px; }
+  .category-card span{
+    font-size:0.82rem;
+    line-height:1.15;
+    letter-spacing:0.03em;
   .greeting-panel summary { min-height: 110px; }
 }
 
