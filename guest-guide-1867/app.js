@@ -58,9 +58,41 @@
    let x=s.replace('[BIN_COLLECTION_DATES]',token).trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
    x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/_([^_]+)_/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,label,url)=>{const external=/^https?:\/\//i.test(url);return `<a href="${url}"${external?' target="_blank" rel="noopener noreferrer"':''}>${label}</a>`;});
    const lines=x.split(/\n/), out=[]; let inList=false;
-   for(const line of lines){
-     if(/^[-] /.test(line)){if(!inList){out.push(`<ul class="${checklist?'checklist':''}">`);inList=true;} out.push(`<li>${line.slice(2)}</li>`)}
-     else {if(inList){out.push('</ul>');inList=false;} if(line.trim()==='') out.push(''); else out.push(`<p>${line.replace(/  $/,'<br>')}</p>`)}
+   for (const line of lines) {
+
+  if (/^[-] /.test(line)) {
+
+    if (!inList) {
+      out.push(`<ul class="${checklist ? 'checklist' : ''}">`);
+      inList = true;
+    }
+
+    out.push(`<li>${line.slice(2)}</li>`);
+
+  } else {
+
+    if (inList) {
+      out.push('</ul>');
+      inList = false;
+    }
+
+    if (/^### /.test(line)) {
+
+      out.push(`<h3>${line.slice(4)}</h3>`);
+
+    } else if (line.trim() === '') {
+
+      out.push('');
+
+    } else {
+
+      out.push(`<p>${line.replace(/  $/, '<br>')}</p>`);
+
+    }
+
+  }
+
+}
    }
    if(inList)out.push('</ul>');
    return out.join('').replace(token,binSchedule()).replace(/\[TO COMPLETE(?::[^\]]+)?\]/g,m=>`<mark class="todo">${m}</mark>`);
