@@ -428,10 +428,10 @@ footer p {
     grid-auto-rows: 170px;
   }
   .category-card span{
-    font-size:0.82rem;
+    font-size:0.72rem;
     line-height:1.15;
     letter-spacing:0.03em;
-  .greeting-panel summary { min-height: 110px; }
+    text-align:center;
 }
 
 @media (max-width: 390px) {
