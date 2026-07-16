@@ -74,7 +74,7 @@ Becky at Finest Retreats
 Our House Manager, Maison, lives nearby and knows the property extremely well. He is happy to assist with any issues that might arise during your stay.  
 [07717 198309](tel:+447717198309)`},
 
-        { id:"safety", title:"Safety / Alarms", complete:true, content:`**Electricity / Security Alarm**
+        { id:"safety", title:"Safety / Alarms", complete:true, content:`###Electricity / Security Alarm
 
 Very short-lived power outages occasionally occur in the area. When this happens, the house security alarm may beep. To stop it, enter **4231 TICK**.
 
@@ -252,13 +252,17 @@ Occasionally you may find Chris’s mother tending to the flowerbeds.`},
 
         {id:"bbq",title:"BBQ",complete:true,content:`The BBQ is on the patio outside the kitchen window. The BBQ tools are in a black bag in the top drawer of the kitchen, to the left of the dishwasher.
 
-Please ensure the BBQ and tools are fully cleaned before departure. A supplementary cleaning fee will apply if this is not done thoroughly.`},
+Please **ensure the BBQ and tools are fully cleaned before departure**. A supplementary cleaning fee will apply if this is not done thoroughly.`},
 
         {id:"pool",title:"Pool & Pool House",complete:true,content:`The pool is operational from April to September.
 
 The Pool House has a kitchenette and can be enjoyed year-round. When relaxing by the pool, **only use the blue plastic glassware from the Pool House kitchenette**. Please leave the plastic glassware clean before departure; they are dishwasher safe.
 
-Feel free to use the pool towels supplied during the operational months. Leave any used pool towels in the Boot Room before departure.`},
+Feel free to use the pool towels supplied during the operational months. Leave any used pool towels in the Boot Room before departure.
+
+Please **return all items to the Pool House each night** (pool towels, chairs, sunbrella & stand, pool floaties etc.)
+
+Ensure that **all lights are switched off** before you head up to the main house.`},
 
         {id:"field",title:"Field",complete:true,content:`Occasionally local farmers graze sheep in the field at the bottom of the garden. Please feel free to say hello to the animals, but **do not feed them**.`}
       ]
