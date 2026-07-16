@@ -32,7 +32,7 @@ footer{background:var(--navy);color:#fff;text-align:center;padding:27px 20px}foo
 .greeting-panel:not([open]):hover{transform:translateY(-1px);box-shadow:0 10px 27px rgba(28,44,68,.09)}
 .greeting-panel:not([open]):active{transform:translateY(2px) scale(.992);box-shadow:var(--shadow-pressed);background:#fbfaf7}
 .greeting-panel[open]{height:auto}
-.greeting-panel summary{list-style:none;cursor:pointer;height:122px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:15px 16px;color:var(--navy);font-family:"trajan-pro-3",serif;font-weight:400;font-size:1.03rem;letter-spacing:.045em;text-align:center}
+.greeting-panel summary{list-style:none;cursor:pointer;height:122px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:15px 16px;color:var(--navy);font-family:"trajan-pro-3",serif;font-weight:700;font-size:1.03rem;letter-spacing:.045em;text-align:center}
 .greeting-panel summary::after{content:"Tap to read";font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
 .greeting-panel[open] summary{height:auto;min-height:64px;border-bottom:1px solid #eee}
 .greeting-panel[open] summary::after{content:"Tap to close"}
