@@ -43,6 +43,8 @@ A full Check-Out Checklist can be found in the **Check Out** section.
 
 These are stored in the key lock box on the left wall in the left wood shed (as you face the house). The code is **2017**. Please ensure the keys are safely locked back in the key lock box when you depart.
 
+NOTE: there is an AirTag on the keys - this is only in case they go missing (lost keys are no fun for anyone!).  We never use it for anything else.  You're more than welcome to pop the keys back in the lockbox when heading out if you prefer.
+
 **Security Alarm**
 
 The security alarm control is inside the hallway, to the left of the front door.
