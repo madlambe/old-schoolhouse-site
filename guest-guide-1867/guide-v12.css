@@ -155,8 +155,8 @@ button, summary, a {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-    grid-auto-rows:150px;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-auto-rows: 150px;
   gap: 16px;
 }
 
@@ -420,7 +420,9 @@ footer p {
   opacity: 0.75;
 }
 
-@media (min-width: 700px) {
+.category-grid {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
   .hero { padding-top: 36px; }
   .brand-logo { width: min(34vw, 335px); }
   .category-grid {
