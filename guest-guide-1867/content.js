@@ -25,9 +25,9 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
       id: "essentials", icon: "spark", title: "The Essentials",
       items: [
         { id:"rules", title:"General House Rules", complete:true, content:`- The Old Schoolhouse is strictly a **NON-SMOKING** property.
-- No shoes are to be worn in the house. Please use the shoe rack and Boot Room to store shoes.
-- Please use the coasters and placemats provided throughout on all surfaces.
-- The Old Schoolhouse is not on the mains and has its own septic tank. It is vital that **ONLY TOILET PAPER** is flushed down the loos — nothing else **AT ALL**. Cotton wool, sanitary products, wet wipes (including flushable ones), dental floss and all other waste must be disposed of appropriately.
+- **No shoes are to be worn in the house**. Please use the shoe rack and Boot Room to store shoes.
+- Please **use the coasters and placemats provided** throughout on all surfaces.
+- The Old Schoolhouse is not on the mains and has its own septic tank. It is vital that **ONLY TOILET PAPER is flushed down the loos** — nothing else **AT ALL**. Cotton wool, sanitary products, wet wipes (including flushable ones), dental floss and all other waste must be disposed of appropriately.
 - Our refillable toiletries are part of the home and are topped up for each stay. Thank you for leaving them for future guests.
 - No parties allowed.
 - Maximum occupancy is 12 guests and 2 well-behaved dogs (**downstairs only, off all furniture**).
