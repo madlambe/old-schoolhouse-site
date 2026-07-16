@@ -154,8 +154,8 @@ Monday to Friday, 8.30am–6.30pm; Saturday, 9am–12pm for urgent cases; closed
 
 - Dogs are to remain **DOWNSTAIRS ONLY**. No dogs are allowed upstairs.
 - Dogs are to keep **OFF ALL FURNITURE**.
-- Please pick up and bag any waste from the garden daily and place it next to the black bin in the car port.
-- Do not leave dogs in the property by themselves. Even dogs used to being left at home can become distressed in new surroundings and may cause damage or excessive barking which disturbs the neighbours.`},
+- Please **pick up and bag any waste from the garden daily** and place it next to the black bin in the car port.
+- **Do not leave dogs in the property by themselves**. Even dogs used to being left at home can become distressed in new surroundings and may cause damage or excessive barking which disturbs the neighbours.`},
 
         {id:"waste",title:"Waste & Recycling",complete:true,content:`We are very environmentally conscious and ask that you please follow these instructions.
 
