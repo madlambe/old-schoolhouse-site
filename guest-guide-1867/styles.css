@@ -6,7 +6,7 @@
 .hero-overlay{position:absolute;inset:0;background:rgba(248,247,243,.86)}
 .hero-inner{position:relative;width:100%;padding:26px 16px 6px}
 .brand-logo{display:block;width:min(55vw,234px);height:auto;max-height:106px;object-fit:contain;margin:0 auto 8px}
-.hero h1,h2{font-family:"trajan-pro-3", serif;font-weight:400;letter-spacing:.055em}
+.hero h1,h2{font-family:"trajan-pro-3", serif;font-weight:700;letter-spacing:.055em}
 .hero h1{font-size:1.34rem;margin:3px 0 3px}.hero p{margin:0;font-size:.84rem;color:var(--ink);line-height:1.35}
 .landing-main,.content-main{width:min(100%,900px);margin:0 auto;padding-left:14px;padding-right:14px}
 .landing-main{padding-bottom:24px}.content-main{padding-bottom:54px}
