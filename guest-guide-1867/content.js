@@ -18,7 +18,7 @@ Without a doubt one of the best features of The Old Schoolhouse is the tranquil 
 Occasionally you may find sheep in the field at the end of the garden. Feel free to pop down and say hello, but please refrain from feeding them.
 
 We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoolhouse. This is our home-away-from-home and we hope you feel very much at home here too. Our only request is that you follow the enclosed House Rules and treat our home as you would your own. Thank you!`,
-    signature: "Madelaine and Chris"
+    signature: "Madelaine & Chris"
   },
   categories: [
     {
@@ -33,9 +33,9 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
 - Maximum occupancy is 12 guests and 2 well-behaved dogs (**downstairs only, off all furniture**).
 - Quiet hours are **10pm to 8am**.`},
 
-        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`**Check-In:** 4pm
+        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`###**Check-In:** 4pm
 
-**Check-Out:** 10am
+###**Check-Out:** 10am
 
 A full Check-Out Checklist can be found in the **Check Out** section.
 
