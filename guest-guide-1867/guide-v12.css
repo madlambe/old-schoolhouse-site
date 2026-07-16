@@ -48,9 +48,9 @@ button, summary, a {
 
 .brand-logo {
   display: block;
-  width: min(28vw, 285px);
+  width: min(28vw, 280px);
   height: auto;
-  margin: 0 auto 14px;
+  margin: 0 auto 26px;
 }
 
 .hero h1,
@@ -64,14 +64,14 @@ button, summary, a {
 }
 
 .hero h1 {
-  margin: 0;
+  margin: 0 0 26px;
   color: var(--navy);
-  font-size: clamp(1.95rem, 8vw, 3.2rem);
+   font-size: clamp(1.6rem, 4vw, 2.5rem);
   line-height: 1.08;
 }
 
 .hero p {
-  margin: 18px auto 0;
+  margin: 0;
   max-width: 600px;
   clamp(1.8rem, 5vw, 2.6rem);
     margin-top: 26px;
@@ -182,8 +182,8 @@ button, summary, a {
 }
 
 .category-card svg {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   fill: none;
   stroke: var(--navy);
@@ -193,8 +193,9 @@ button, summary, a {
 }
 
 .category-card span {
-  font-size: clamp(1.08rem, 4.5vw, 1.18rem);
-  line-height: 1.28;
+  font-size: 0.92rem;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
 }
 
 .category-card:active {
