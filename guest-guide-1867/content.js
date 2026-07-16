@@ -33,9 +33,9 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
 - Maximum occupancy is 12 guests and 2 well-behaved dogs (**downstairs only, off all furniture**).
 - Quiet hours are **10pm to 8am**.`},
 
-        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`###**Check-In:** 4pm
+        { id:"times", title:"Check-In & Check-Out Times", complete:true, content:`###Check-In: 4pm
 
-###**Check-Out:** 10am
+###Check-Out: 10am
 
 A full Check-Out Checklist can be found in the **Check Out** section.
 
