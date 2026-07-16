@@ -6,7 +6,7 @@
 .hero-overlay{position:absolute;inset:0;background:rgba(248,247,243,.86)}
 .hero-inner{position:relative;width:100%;padding:26px 16px 6px}
 .brand-logo{display:block;width:min(55vw,234px);height:auto;max-height:106px;object-fit:contain;margin:0 auto 8px}
-.hero h1,h2{font-family:"trajan-pro-3", serif;font-weight:700;letter-spacing:.06em}
+.hero h1,h2{font-family:"trajan-pro-3", serif;font-weight:400;letter-spacing:.055em}
 .hero h1{font-size:1.34rem;margin:3px 0 3px}.hero p{margin:0;font-size:.84rem;color:var(--ink);line-height:1.35}
 .landing-main,.content-main{width:min(100%,900px);margin:0 auto;padding-left:14px;padding-right:14px}
 .landing-main{padding-bottom:24px}.content-main{padding-bottom:54px}
@@ -14,27 +14,38 @@
 .category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:122px;gap:10px;scroll-margin-top:8px}
 .category-card{height:122px;background:#fff;text-decoration:none;color:var(--ink);border:1px solid rgba(35,68,124,.075);border-radius:11px;box-shadow:var(--shadow);padding:15px 10px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center;transition:transform .14s ease,box-shadow .14s ease,background-color .14s ease}
 .category-card svg{width:33px;height:33px;flex:0 0 auto;fill:none;stroke:var(--navy);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}
-.category-card span{font-family:"trajan-pro-3", serif;font-weight:700;font-size:.99rem;line-height:1.22;letter-spacing:.02em}
+.category-card span{font-family:"trajan-pro-3", serif;font-weight:400;font-size:.99rem;line-height:1.22;letter-spacing:.02em}
 .category-card:hover{transform:translateY(-1px);box-shadow:0 10px 27px rgba(28,44,68,.09)}
 .category-card:active{transform:translateY(2px) scale(.985);box-shadow:var(--shadow-pressed);background:#fbfaf7}
 .category-card:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
 .category-panels{padding-top:32px;display:grid;gap:25px}.category-panel{scroll-margin-top:12px}.category-heading{border-bottom:1px solid var(--stone);padding:0 3px 10px}.category-heading h2{font-size:1.18rem;margin:0}.item-list{display:grid;gap:8px;margin-top:10px}.guide-item{background:#fff;border-radius:11px;box-shadow:var(--shadow);overflow:hidden}.guide-item summary{list-style:none;cursor:pointer;min-height:57px;padding:13px 16px;display:flex;align-items:center;gap:12px;font-weight:500}.guide-item summary::-webkit-details-marker{display:none}.guide-item summary:focus-visible{outline:2px solid var(--navy);outline-offset:-3px}.item-content{border-top:1px solid #eee;padding:8px 18px 20px;font-size:.94rem}.item-content p{margin:10px 0}.item-content ul{padding-left:21px}.item-content li{margin:8px 0}.item-content strong{font-weight:700}.checklist{list-style:none;padding-left:0!important}.checklist li{position:relative;padding-left:29px}.checklist li:before{content:"";position:absolute;left:0;top:.18em;width:17px;height:17px;border:1.5px solid var(--navy);border-radius:3px}
-.panel-back-to-top{display:flex;align-items:center;justify-content:center;width:max-content;min-height:44px;margin:15px auto 0;padding:10px 16px;border:1px solid rgba(35,68,124,.22);border-radius:999px;background:#fff;color:var(--navy);font-family:"trajan-pro-3", serif;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-decoration:none;box-shadow:0 5px 16px rgba(28,44,68,.06)}.panel-back-to-top:active{transform:translateY(1px)}
+.panel-back-to-top{display:flex;align-items:center;justify-content:center;width:max-content;min-height:44px;margin:15px auto 0;padding:10px 16px;border:1px solid rgba(35,68,124,.22);border-radius:999px;background:#fff;color:var(--navy);font-family:"trajan-pro-3", serif;font-weight:400;font-size:.78rem;letter-spacing:.04em;text-decoration:none;box-shadow:0 5px 16px rgba(28,44,68,.06)}.panel-back-to-top:active{transform:translateY(1px)}
 .editor-notice{margin:0 0 15px;padding:12px 14px;border:2px solid #e4ad52;background:var(--amberbg);border-radius:10px}.todo{background:var(--amberbg);color:var(--amber);padding:1px 4px;border-radius:4px;font-weight:700}.owner-preview .guide-item.incomplete{outline:2px dashed #dea13e}
 footer{background:var(--navy);color:#fff;text-align:center;padding:27px 20px}footer a{color:#fff}footer p{font-size:.78rem;opacity:.75}
-.next-collection{margin:14px 0 20px;padding:18px;border-left:4px solid var(--rose);background:#f8f3f4;border-radius:8px}.next-collection .eyebrow{display:block;font-family:"trajan-pro-3", serif;font-weight:700;color:var(--navy);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}.next-collection h3,.collection-schedule h3{font-family:"trajan-pro-3", serif;font-weight:700;color:var(--navy)}.next-collection h3{margin:6px 0 8px;font-size:1.08rem}.next-collection ul,.collection-date ul{margin:8px 0 0;padding-left:20px}.collection-schedule>h3{margin:0 0 10px;font-size:1rem}.collection-date{padding:12px 0;border-top:1px solid #e4e1da}.collection-date strong{color:var(--ink)}.collection-date li,.next-collection li{margin:4px 0}.schedule-warning{margin:14px 0 0;padding:12px 14px;border:2px solid #e4ad52;background:var(--amberbg);border-radius:8px;color:var(--amber)}.schedule-warning code{font-size:.86em}.last-updated{font-size:.76rem;color:#6c6869;margin-top:14px!important}.no-bin-dates{padding:12px;background:#f1efea;border-radius:8px}
-@media(min-width:700px){.hero{min-height:270px}.brand-logo{width:min(42vw,332px);max-height:153px}.category-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:140px}.category-card{height:140px}.category-card span{font-size:1.08rem}.category-card svg{width:38px;height:38px}}
-@media(max-width:360px){.hero-inner{padding-top:20px}.brand-logo{width:min(64vw,242px)}.category-grid{grid-auto-rows:112px;gap:8px}.category-card{height:112px;padding:12px 7px;gap:8px}.category-card span{font-size:.88rem}.category-card svg{width:30px;height:30px}.welcome-copy{padding-bottom:11px}}
+.next-collection{margin:14px 0 20px;padding:18px;border-left:4px solid var(--rose);background:#f8f3f4;border-radius:8px}.next-collection .eyebrow{display:block;font-family:"trajan-pro-3", serif;font-weight:400;color:var(--navy);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}.next-collection h3,.collection-schedule h3{font-family:"trajan-pro-3", serif;font-weight:400;color:var(--navy)}.next-collection h3{margin:6px 0 8px;font-size:1.08rem}.next-collection ul,.collection-date ul{margin:8px 0 0;padding-left:20px}.collection-schedule>h3{margin:0 0 10px;font-size:1rem}.collection-date{padding:12px 0;border-top:1px solid #e4e1da}.collection-date strong{color:var(--ink)}.collection-date li,.next-collection li{margin:4px 0}.schedule-warning{margin:14px 0 0;padding:12px 14px;border:2px solid #e4ad52;background:var(--amberbg);border-radius:8px;color:var(--amber)}.schedule-warning code{font-size:.86em}.last-updated{font-size:.76rem;color:#6c6869;margin-top:14px!important}.no-bin-dates{padding:12px;background:#f1efea;border-radius:8px}
+@media(min-width:700px){.hero{min-height:270px}.brand-logo{width:min(42vw,332px);max-height:153px}.category-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:140px}.category-card{height:140px}.category-card span{font-size:1.08rem}.category-card svg{width:38px;height:38px}.greeting-panel{height:140px}.greeting-panel summary{height:140px;font-size:1.12rem}}
+@media(max-width:360px){.hero-inner{padding-top:20px}.brand-logo{width:min(64vw,242px)}.category-grid{grid-auto-rows:112px;gap:8px}.category-card{height:112px;padding:12px 7px;gap:8px}.category-card span{font-size:.88rem}.category-card svg{width:30px;height:30px}.welcome-copy{padding-bottom:11px}.greeting-panel{height:112px}.greeting-panel summary{height:112px;font-size:.94rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.category-card{transition:none}}
 
-/* Expandable welcome message */
-.greeting-panel{margin:9px 0 14px;background:#fff;border:1px solid rgba(35,68,124,.10);border-radius:11px;box-shadow:var(--shadow);overflow:hidden}
-.greeting-panel summary{list-style:none;cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:center;padding:11px 16px;color:var(--navy);font-family:"trajan-pro-3", serif;font-weight:700;font-size:.94rem;letter-spacing:.04em;text-align:center}
+/* Expandable welcome message — same visual height as the six navigation cards */
+.greeting-panel{height:122px;margin:9px 0 14px;background:#fff;border:1px solid rgba(35,68,124,.12);border-radius:11px;box-shadow:var(--shadow);overflow:hidden;transition:transform .14s ease,box-shadow .14s ease,background-color .14s ease}
+.greeting-panel:not([open]):hover{transform:translateY(-1px);box-shadow:0 10px 27px rgba(28,44,68,.09)}
+.greeting-panel:not([open]):active{transform:translateY(2px) scale(.992);box-shadow:var(--shadow-pressed);background:#fbfaf7}
+.greeting-panel[open]{height:auto}
+.greeting-panel summary{list-style:none;cursor:pointer;height:122px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:15px 16px;color:var(--navy);font-family:"trajan-pro-3",serif;font-weight:400;font-size:1.03rem;letter-spacing:.045em;text-align:center}
+.greeting-panel summary::after{content:"Tap to read";font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.greeting-panel[open] summary{height:auto;min-height:64px;border-bottom:1px solid #eee}
+.greeting-panel[open] summary::after{content:"Tap to close"}
 .greeting-panel summary::-webkit-details-marker{display:none}
 .greeting-panel summary:focus-visible{outline:2px solid var(--navy);outline-offset:-3px}
-.greeting-content{border-top:1px solid #eee;padding:8px 18px 17px;font-size:.88rem;line-height:1.5}
+.greeting-content{padding:9px 18px 18px;font-size:.88rem;line-height:1.5}
 .greeting-content p{margin:10px 0}
 .greeting-content .signature{margin-top:16px!important;text-align:center;color:var(--navy);font-size:.82rem!important}
+
+/* Internal content subheadings, e.g. House Keys and Security Alarm */
+.item-content p:has(> strong:only-child){margin-top:20px;margin-bottom:6px;color:var(--blue);font-size:1rem;line-height:1.3}
+.item-content p:first-child:has(> strong:only-child){margin-top:10px}
+.item-content p:has(> strong:only-child) strong{color:inherit;font-weight:700}
 
 /* Manual and external links: deliberately obvious while staying on-brand */
 .item-content a,.greeting-content a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
