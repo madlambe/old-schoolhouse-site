@@ -74,7 +74,7 @@ Becky at Finest Retreats
 Our House Manager, Maison, lives nearby and knows the property extremely well. He is happy to assist with any issues that might arise during your stay.  
 [07717 198309](tel:+447717198309)`},
 
-        { id:"safety", title:"Safety / Alarms", complete:true, content:`###Electricity / Security Alarm
+        { id:"safety", title:"Safety / Alarms", complete:true, content:`### Electricity / Security Alarm
 
 Very short-lived power outages occasionally occur in the area. When this happens, the house security alarm may beep. To stop it, enter **4231 TICK**.
 
