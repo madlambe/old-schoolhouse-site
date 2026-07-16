@@ -69,7 +69,11 @@ Becky at Finest Retreats
 Our House Manager, Maison, lives nearby and knows the property extremely well. He is happy to assist with any issues that might arise during your stay.  
 [07717 198309](tel:+447717198309)`},
 
-        { id:"safety", title:"Safety", complete:true, content:`**Fire extinguishers**
+        { id:"safety", title:"Safety / Alarms", complete:true, content:`**Electricity / Security Alarm**
+
+Very short-lived power outages occasionally occur in the area. When this happens, the house security alarm may beep. To stop it, enter **4231 TICK**.
+
+**Fire extinguishers**
 
 Fire extinguishers and a fire blanket can be found under the kitchen sink.
 
@@ -79,7 +83,7 @@ There are three Smoke & Carbon Monoxide alarms: two downstairs and one at the to
 
 To silence a false alarm, press the **Test/Silence** button in the centre of the alarm cover. Please refer to the instruction manual [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
 
-**Carbon monoxide poisonous gas alarm**
+**Carbon Monoxide Poisonous Gas Alarm**
 
 This alarm is on the fireplace, on the top right shelf. It provides an early warning of toxic carbon monoxide levels.
 
@@ -97,11 +101,7 @@ Please refer to the user manual [here ↗](https://drive.google.com/drive/folder
 
 **Stop Cock for the Water**
 
-This is in the Boot Room, to the right of the tumble dryer, in the panel in the corner column.
-
-**Electricity / Security Alarm**
-
-Very short-lived power outages occasionally occur in the area. When this happens, the house security alarm may beep. To stop it, enter **4231 TICK**.`},
+This is in the Boot Room, to the right of the tumble dryer, in the panel in the corner column.`},
 
         { id:"emergency", title:"Local Emergency Services", complete:true, content:`**Emergency Ambulance, Fire & Police:** [999](tel:999)
 
