@@ -246,7 +246,7 @@ The outdoor cushions are in the storage unit by the garden steps. The padlock co
 
 Please **do not leave cushions or covers out overnight or in the rain**. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
 
-Operational instructions for the patio sunbrella can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`}.  Please ensure the cover is used each night.  This can be stored in the outdoor storage box when not in use.
+Operational instructions for the patio sunbrella can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},  Please ensure the cover is used each night.  This can be stored in the outdoor storage box when not in use.
 
 Our lawn robot, Hank, operates overnight. Please do not touch Hank or block his path. Contact Maison if you find any issues with him.
 
