@@ -238,19 +238,23 @@ You have several options for drying clothes, all in the Boot Room:
     },
 
     {
-      id:"outdoors", icon:"leaf", title:"Outdoors",
-      items:[
-        {id:"garden",title:"Garden",complete:true,content:`We are fortunate to have a large private garden where you can enjoy the tranquillity of nature from the outdoor furniture. The protective furniture covers can be stored in the outdoor storage unit while in use.
+  id:"garden",
+  title:"Garden",
+  complete:true,
+  content:`We are fortunate to have a large private garden where you can enjoy the tranquillity of nature from the outdoor furniture. The protective furniture covers can be stored in the outdoor storage unit while in use.
 
 The outdoor cushions are in the storage unit by the garden steps. The padlock code is **1867**.
 
 Please **do not leave cushions or covers out overnight or in the rain**. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
 
-Operational instructions for the patio sunbrella can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).`},  Please ensure the cover is used each night.  This can be stored in the outdoor storage box when not in use.
+Operational instructions for the patio sunbrella can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
+
+Please ensure the cover is used each night. This can be stored in the outdoor storage box when not in use.
 
 Our lawn robot, Hank, operates overnight. Please do not touch Hank or block his path. Contact Maison if you find any issues with him.
 
-Occasionally you may find Chris’s mother tending to the flowerbeds.`},
+Occasionally you may find Chris’s mother tending to the flowerbeds.`
+},
 
         {id:"bbq",title:"BBQ",complete:true,content:`The BBQ is on the patio outside the kitchen window. The BBQ tools are in a black bag in the top drawer of the kitchen, to the left of the dishwasher.
 
