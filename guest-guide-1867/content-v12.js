@@ -102,7 +102,7 @@ Please refer to the user manual [here ↗](https://drive.google.com/drive/folder
 
 ### Stop Cock for the Water
 
-This is in the Boot Room, to the right of the tumble dryer, in the panel in the corner column.`},
+This is under the wooden countertop in the Boot Room, to the right of the tumble dryer, behind the panel in the corner column.`},
 
         { id:"emergency", title:"Local Emergency Services", complete:true, content:`**Emergency Ambulance, Fire & Police:** [999](tel:999)
 
