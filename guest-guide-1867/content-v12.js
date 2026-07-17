@@ -82,6 +82,8 @@ Very short-lived power outages occasionally occur in the area. When this happens
 
 Fire extinguishers and a fire blanket can be found under the kitchen sink.
 
+In the event of needing to evacuate, exit the property via the nearest downstairs door (front door, patio doors or sitting room door), closing the doors behind you.
+
 ### Smoke & Carbon Monoxide Alarms
 
 There are three Smoke & Carbon Monoxide alarms: two downstairs and one at the top of the stairs. They are connected to the main electricity supply.
