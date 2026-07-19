@@ -9,9 +9,44 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
+  <!-- Live master with Local Amenities and Things to Do: v17 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=15">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=17">
+  <style>
+    .guide-item summary .item-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-right: 12px;
+      flex: 0 0 28px;
+    }
+    .guide-item summary .item-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: #23447c;
+      stroke-width: 1.55;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .guide-item summary > span:last-child {
+      flex: 1;
+    }
+    .item-content h3 {
+      scroll-margin-top: 12px;
+    }
+    @media (max-width: 699px) {
+      .guide-item summary {
+        padding-left: 15px;
+      }
+      .guide-item summary .item-icon {
+        margin-right: 10px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -435,17 +470,1056 @@ Ensure that **all lights are switched off** before you head up to the main house
     {
       id:"amenities", icon:"pin", title:"Local Amenities",
       items:[
-        {id:"petrol",title:"Petrol",complete:false,content:`[TO COMPLETE]`},
-        {id:"groceries",title:"Groceries",complete:false,content:`[TO COMPLETE]`},
-        {id:"restaurants",title:"Restaurants",complete:false,content:`[TO COMPLETE]`},
-        {id:"taxis",title:"Taxis",complete:false,content:`[TO COMPLETE]`}
+        {id:"convenience",icon:"shop",title:"Convenience Stores",complete:true,content:`### Tesco Express, Raglan
+
+A convenient village store for everyday groceries, drinks, fresh food and household essentials.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Tesco+Express+Raglan+High+Street+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Daily, 6am–11pm
+
+[Tesco store page ↗](https://www.tesco.com/store-locator/raglan/high-street)
+
+### Morrisons Daily, Raglan
+
+Convenience store at Central Garage, useful for groceries, snacks and last-minute essentials.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Morrisons+Daily+Raglan+Central+Garage+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Daily, 7am–11.30pm
+
+[Morrisons store page ↗](https://my.morrisons.com/storefinder/30341/morrisons-daily-raglan/)`},
+
+        {id:"supermarkets",icon:"basket",title:"Supermarkets",complete:true,content:`### Tesco Express, Raglan
+
+The closest supermarket-style option for everyday food, drinks and essentials.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Tesco+Express+Raglan+High+Street+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Daily, 6am–11pm
+
+[Tesco store page ↗](https://www.tesco.com/store-locator/raglan/high-street)
+
+### Waitrose, Monmouth
+
+A larger supermarket with a broad range of fresh food, wine and household essentials.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Waitrose+Monmouth+NP25)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** See store page for current hours
+
+[Waitrose branch finder ↗](https://www.waitrose.com/ecom/shop/branchfinder)
+
+### Aldi, Monmouth
+
+A good-value supermarket for a larger grocery shop.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Aldi+Monmouth+NP25)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** See store page for current hours
+
+[Aldi store finder ↗](https://stores.aldi.co.uk/)
+
+### Morrisons, Abergavenny
+
+A full-size supermarket with groceries, bakery and household supplies.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Morrisons+Abergavenny+NP7)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** See store page for current hours
+
+[Morrisons store finder ↗](https://my.morrisons.com/storefinder/)`},
+
+        {id:"petrol",icon:"fuel",title:"Petrol Stations",complete:true,content:`### Central Garage, Raglan
+
+The nearest fuel station, with a convenience store and ATM.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Central+Garage+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Forecourt generally open daily; check locally for current hours
+
+[Location details ↗](https://www.google.com/maps/search/?api=1&query=Central+Garage+High+Street+Raglan+NP15+2DY)`},
+
+        {id:"pharmacy",icon:"cross",title:"Pharmacy",complete:true,content:`### Raglan Pharmacy
+
+The nearest community pharmacy for prescriptions, medicines and everyday healthcare advice.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Pharmacy+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Monday–Friday, 8.45am–1.15pm and 2pm–6pm; closed weekends
+
+**Telephone:** [01291 693737](tel:+441291693737)
+
+[NHS pharmacy information ↗](https://111.wales.nhs.uk/localservices/viewpharmacy.aspx?id=1132&s=Pharmacy)`},
+
+        {id:"cash",icon:"cash",title:"Cash Machines (ATMs)",complete:true,content:`### Central Garage, Raglan
+
+The nearest cash machine is at Central Garage on Raglan High Street.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Central+Garage+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+### Raglan Post Office
+
+The Post Office offers a range of everyday banking services; availability depends on your bank.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Post+Office+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Monday–Saturday, 9am–5.30pm; closed Sunday
+
+[Post Office branch page ↗](https://www.postoffice.co.uk/branch-finder/0296325/raglan)`},
+
+        {id:"post",icon:"mail",title:"Post Office",complete:true,content:`### Raglan Post Office
+
+Postal services and selected everyday banking services.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Post+Office+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Monday–Saturday, 9am–5.30pm; closed Sunday
+
+[Post Office branch page ↗](https://www.postoffice.co.uk/branch-finder/0296325/raglan)`},
+
+        {id:"ev",icon:"bolt",title:"EV Charging",complete:true,content:`### Castle Road EV Chargers, Raglan
+
+Public Evolt charging points close to Raglan Castle. Charges and availability vary; check the charging app before travelling.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=EV+charging+Castle+Road+Raglan+NP15+2BT)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Available at all times, subject to bay access and charger status
+
+[Live charger information ↗](https://www.zapmap.com/charge-points/usk/2RYCILQ)
+
+### Glendower Street Car Park, Monmouth
+
+Public council-operated charging in central Monmouth.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Glendower+Street+Car+Park+Monmouth+NP25+3DF)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Check live availability before travelling
+
+[Monmouthshire EV information ↗](https://www.monmouthshire.gov.uk/electric-vehicle-charging/)
+
+### Trinity Terrace Car Park, Abergavenny
+
+Public council-operated charging close to Abergavenny town centre.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Trinity+Terrace+Car+Park+Abergavenny+NP7+5BD)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Check live availability before travelling
+
+[Monmouthshire EV information ↗](https://www.monmouthshire.gov.uk/electric-vehicle-charging/)`},
+
+        {id:"taxis",icon:"taxi",title:"Taxis",complete:true,content:`### Black House Travel
+
+Raglan-based private hire for local journeys, longer trips and pre-booked transfers.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Black+House+Travel+Raglan)
+
+**Local service — advance booking recommended**
+
+**Mobile:** [07921 086805](tel:+447921086805)
+
+**Telephone:** [01291 690119](tel:+441291690119)
+
+[Booking information ↗](https://www.blackhousetravel.co.uk/where-we-are)
+
+### Shire Taxi
+
+Abergavenny-based taxi service covering Raglan and the surrounding area.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Shire+Taxi+Abergavenny)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Telephone:** [01873 567567](tel:+441873567567)
+
+[Taxi information ↗](https://www.shire.taxi/monmouthshire/raglan-taxis)
+
+### Prestige Taxis Usk & Raglan
+
+Local private-hire service; pre-booking is recommended, especially in the evening.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Prestige+Taxis+Usk+and+Raglan)
+
+**Local service**
+
+**Telephone:** [07904 106194](tel:+447904106194)`},
+
+        {id:"fine",icon:"plate",title:"Fine Dining",complete:true,content:`### The Walnut Tree
+
+Michelin-starred dining in an informal country setting near Abergavenny. Advance booking is strongly recommended.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Walnut+Tree+Llanddewi+Skirrid+NP7+8AW)
+
+**Approximately 12 miles • approximately 20 minutes**
+
+**Opening hours:** Wednesday–Saturday, lunch and dinner; check current service times
+
+**Telephone:** [01873 852797](tel:+441873852797)
+
+[Restaurant and booking page ↗](https://www.houseofcaradog.com/eat-drink/the-walnut-tree/)
+
+### The Hardwick
+
+Contemporary British cooking from chef Stephen Terry, just outside Abergavenny.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Hardwick+Old+Raglan+Road+Abergavenny+NP7+9AA)
+
+**Approximately 10 miles • approximately 16 minutes**
+
+**Opening hours:** Check the website for current service times
+
+**Telephone:** [01873 854220](tel:+441873854220)
+
+[Restaurant and booking page ↗](https://www.thehardwick.co.uk/)
+
+### The Whitebrook
+
+Michelin-starred tasting menus inspired by the Wye Valley landscape. Advance booking is essential.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Whitebrook+Monmouth+NP25+4TX)
+
+**Approximately 15 miles • approximately 25 minutes**
+
+**Opening hours:** Check the website for current service times
+
+[Restaurant and booking page ↗](https://www.thewhitebrook.co.uk/)`},
+
+        {id:"pubs",icon:"pub",title:"Country Pubs",complete:true,content:`### The Beaufort, Raglan
+
+A traditional coaching inn in the centre of Raglan, serving locally sourced dishes, Sunday lunch, wine and local ales.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Beaufort+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Food served throughout the week; check current times online
+
+**Telephone:** [01291 690412](tel:+441291690412)
+
+[Menus and dining information ↗](https://beaufortraglan.co.uk/eat/)
+
+### The Clytha Arms
+
+A characterful rural pub with a large garden and seasonal food between Raglan and Abergavenny.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Clytha+Arms+Clytha+NP7+9BW)
+
+**Approximately 7 miles • approximately 11 minutes**
+
+**Opening hours:** Check the website for current food service times
+
+[Pub website ↗](https://www.clytha-arms.com/)
+
+### The Bell at Skenfrith
+
+A refined country inn beside the River Monnow, suited to lunch, dinner or a relaxed drink.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Bell+at+Skenfrith+NP7+8UH)
+
+**Approximately 12 miles • approximately 20 minutes**
+
+**Opening hours:** Check the website for current service times
+
+[Pub and restaurant website ↗](https://www.thebellatskenfrith.co.uk/)`},
+
+        {id:"familydining",icon:"family",title:"Family-Friendly Dining",complete:true,content:`### The 19th at Raglan Golf Club
+
+Relaxed dining open to non-members, with breakfasts, lunches and Sunday roasts in a countryside setting.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Golf+Club+Station+Road+Raglan+NP15+2ER)
+
+**Approximately 2 miles • approximately 5 minutes**
+
+**Opening hours:** Bar: daily; kitchen hours vary by day — see website
+
+**Telephone:** [01291 901287](tel:+441291901287)
+
+[Menus and table bookings ↗](https://www.raglangolfclub.co.uk/the_19th_bookings)
+
+### The Beaufort, Raglan
+
+A central village option with a broad menu and a relaxed atmosphere.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Beaufort+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Check the website for current service times
+
+**Telephone:** [01291 690412](tel:+441291690412)
+
+[Menus and dining information ↗](https://beaufortraglan.co.uk/eat/)
+
+### Raglan Farm Park Café
+
+A practical option when visiting the farm park, with extensive indoor and outdoor family facilities nearby.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Farm+Park+Chepstow+Road+NP15+2HX)
+
+**Approximately 3 miles • approximately 6 minutes**
+
+**Opening hours:** Daily, 10am–5pm
+
+**Telephone:** [01291 690319](tel:+441291690319)
+
+[Farm Park website ↗](https://www.raglanfarmpark.com/)`},
+
+        {id:"cafes",icon:"cup",title:"Cafés",complete:true,content:`### The 19th, Raglan Golf Club
+
+Coffee, breakfast and light lunches in an informal setting with countryside views.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Golf+Club+Station+Road+Raglan+NP15+2ER)
+
+**Approximately 2 miles • approximately 5 minutes**
+
+**Opening hours:** Opening and kitchen hours vary by day — see website
+
+[Café and bar information ↗](https://www.raglangolfclub.co.uk/nineteenth_bar)
+
+### The Art Shop & Chapel, Abergavenny
+
+A stylish café and arts space in the centre of Abergavenny.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Art+Shop+and+Chapel+Abergavenny)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Check the website for current opening hours
+
+[Café and gallery website ↗](https://www.artshopandchapel.co.uk/)
+
+### Raglan Farm Park Café
+
+Casual refreshments beside the farm park and farm shop.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Farm+Park+Chepstow+Road+NP15+2HX)
+
+**Approximately 3 miles • approximately 6 minutes**
+
+**Opening hours:** Daily, 10am–5pm
+
+[Farm Park website ↗](https://www.raglanfarmpark.com/)`},
+
+        {id:"takeaways",icon:"takeaway",title:"Takeaways",complete:true,content:`### Raglan Fryer
+
+Local fish and chips in Raglan. Telephone ahead to confirm current opening times and ordering arrangements.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Fryer+Raglan+NP15)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Opening hours vary; check before travelling
+
+### The Beaufort, Raglan
+
+Takeaway may be available on selected days. Call or check the website before ordering.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Beaufort+High+Street+Raglan+NP15+2DY)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Availability varies
+
+**Telephone:** [01291 690412](tel:+441291690412)
+
+[Restaurant website ↗](https://beaufortraglan.co.uk/)
+
+### Delivery Apps
+
+For a wider choice, check Just Eat, Deliveroo and Uber Eats using the house postcode. Rural delivery availability and minimum orders vary.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Monmouthshire)
+
+**Delivery availability varies by restaurant and time**
+
+[Check Just Eat ↗](https://www.just-eat.co.uk/)`},
+
+        {id:"produce",icon:"produce",title:"Farm Shops, Bakeries & Butchers",complete:true,content:`### Raglan Farm Shop
+
+Locally sourced vegetables, preserves, drinks, cheese and meat reared on the farm.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Farm+Shop+Chepstow+Road+NP15+2HX)
+
+**Approximately 3 miles • approximately 6 minutes**
+
+**Opening hours:** Daily, 10am–5pm; closed Christmas Day
+
+**Telephone:** [01291 690319](tel:+441291690319)
+
+[Farm shop information ↗](https://www.visitmonmouthshire.com/shopping/raglan-farm-park-farm-shop-p2556821)
+
+### Square Farm Shop, Mitchel Troy
+
+A family-run organic farm shop selling farm-reared meat, vegetables and Wye Valley produce.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Square+Farm+Shop+Mitchel+Troy+NP25+4JH)
+
+**Approximately 9 miles • approximately 15 minutes**
+
+**Opening hours:** Mon–Fri 9.30am–5pm; Sat 10am–4.30pm; Sun 10am–3pm
+
+**Telephone:** [01600 740710](tel:+441600740710)
+
+[Farm shop website ↗](https://squarefarmshop.co.uk/)
+
+### Angel Bakery, Abergavenny
+
+Artisan bread, pastries and cakes in central Abergavenny.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Angel+Bakery+Abergavenny)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Check the website for current opening hours
+
+[Bakery information ↗](https://www.angelabergavenny.com/eat-drink/angel-bakery/)
+
+### Neil Powell Butchers, Abergavenny
+
+Long-established local butcher known for Welsh meat and a wide range of sausages.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Neil+Powell+Butchers+Abergavenny)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Check current opening hours before travelling
+
+[Butcher website ↗](https://www.neilpowellbutchers.co.uk/)`}
       ]
     },
 
     {
       id:"things", icon:"map", title:"Things to Do",
       items:[
-        {id:"activities",title:"Things to Do",complete:false,content:`[TO COMPLETE]`}
+        {id:"historic",icon:"castle",title:"Castles & Historic Places",complete:true,content:`### Raglan Castle
+
+A magnificent late-medieval fortress-palace with towers, courtyards and broad views over the surrounding countryside.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Castle+Castle+Road+NP15+2BT)
+
+**Approximately 1.5 miles • approximately 4 minutes**
+
+**Opening hours:** Seasonal hours; check the Cadw page before travelling
+
+[Raglan Castle — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/raglan-castle)
+
+### Monmouth Castle
+
+Atmospheric castle remains associated with Henry V, close to Monmouth town centre.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouth+Castle+NP25)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Open year-round during reasonable daylight hours
+
+[Monmouth Castle — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/monmouth-castle)
+
+### Tintern Abbey
+
+One of Wales's great monastic ruins, set beside the River Wye. Conservation work can affect access, so check before travelling.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Tintern+Abbey+NP16+6SE)
+
+**Approximately 17 miles • approximately 28 minutes**
+
+**Opening hours:** Seasonal hours and access arrangements
+
+[Tintern Abbey — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/tintern-abbey)
+
+### Chepstow Castle
+
+A major clifftop fortress above the River Wye with more than 900 years of history.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Chepstow+Castle+NP16+5EY)
+
+**Approximately 20 miles • approximately 30 minutes**
+
+**Opening hours:** Seasonal; generally opens daily from 9.30am
+
+[Chepstow Castle — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/chepstow-castle)
+
+### Big Pit National Coal Museum
+
+A former working colliery offering underground tours led by miners. Entry to the museum is free; timed underground tours may be charged.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Big+Pit+National+Coal+Museum+Blaenavon+NP4+9XP)
+
+**Approximately 18 miles • approximately 30 minutes**
+
+**Opening hours:** Daily, 9.30am–5pm; underground tours usually 10am–3.30pm
+
+[Big Pit visitor information ↗](https://museum.wales/bigpit/)
+
+### Blaenavon Ironworks
+
+The exceptionally well-preserved centrepiece of the Blaenavon Industrial Landscape World Heritage Site.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Blaenavon+Ironworks+NP4+9RN)
+
+**Approximately 18 miles • approximately 30 minutes**
+
+**Opening hours:** Check current opening times before travelling
+
+[Blaenavon Ironworks — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/blaenavon-ironworks)`},
+
+        {id:"walks",icon:"boot",title:"Walks & Hiking",complete:true,content:`### Sugar Loaf
+
+A rewarding mountain walk with broad views over Abergavenny, the Usk Valley and the Black Mountains.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Sugar+Loaf+National+Trust+car+park+Abergavenny)
+
+**Approximately 15 miles • approximately 25 minutes**
+
+**Difficulty:** Moderate
+
+**Walk length:** approximately 3 miles / 5 km
+
+**Approximate duration:** 2–3 hours
+
+**Parking:** National Trust car park below the summit
+
+[Sugar Loaf — National Trust ↗](https://www.nationaltrust.org.uk/visit/wales/sugar-loaf-skirrid-and-usk-valley/visiting-the-sugar-loaf)
+
+### The Skirrid
+
+An energetic woodland and mountainside trail to a summit associated with local myths and a ruined medieval chapel.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Skirrid+National+Trust+car+park+NP7+8AP)
+
+**Approximately 14 miles • approximately 23 minutes**
+
+**Difficulty:** Moderate, with steep climbs
+
+**Walk length:** 4 miles / 6.4 km
+
+**Approximate duration:** 2 hours
+
+**Parking:** National Trust car park on the B4521
+
+[Skirrid trail — National Trust ↗](https://www.nationaltrust.org.uk/visit/wales/sugar-loaf-skirrid-and-usk-valley/the-skirrid-trail-in-the-sugar-loaf-and-usk-valley)
+
+### Symonds Yat Rock
+
+A famous Wye Valley viewpoint with several woodland trails, including short accessible options.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Symonds+Yat+Rock+Forestry+England)
+
+**Approximately 16 miles • approximately 27 minutes**
+
+**Difficulty:** Easy to moderate, depending on route
+
+**Walk length:** routes from approximately 1 mile
+
+**Approximate duration:** 35 minutes onwards
+
+**Parking:** Forestry England car park
+
+[Walking trails — Forestry England ↗](https://www.forestryengland.uk/symonds-yat-rock/walking-trails-symonds-yat-rock)
+
+### The Kymin
+
+Woodland and hilltop walks above Monmouth, with views across the Wye Valley and the Round House viewpoint.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Kymin+National+Trust+Monmouth+NP25)
+
+**Approximately 11 miles • approximately 20 minutes**
+
+**Difficulty:** Easy to moderate
+
+**Approximate duration:** 1–2 hours
+
+**Parking:** National Trust parking near the summit
+
+[The Kymin — National Trust ↗](https://www.nationaltrust.org.uk/visit/wales/the-kymin)
+
+### Clytha Estate
+
+Gentle riverside and parkland walking around an 18th-century estate with views towards Sugar Loaf and Clytha Castle.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Clytha+Estate+National+Trust+NP7)
+
+**Approximately 7 miles • approximately 11 minutes**
+
+**Difficulty:** Easy
+
+**Walk length:** approximately 3.8 miles / 6 km
+
+**Parking:** See route page
+
+[Clytha walk — National Trust ↗](https://www.nationaltrust.org.uk/visit/wales/sugar-loaf-skirrid-and-usk-valley/clytha-short-circular-walk-in-the-usk-valley)`},
+
+        {id:"adventures",icon:"mountain",title:"Outdoor Adventures",complete:true,content:`### River Wye Canoe & Kayak Hire
+
+Canoe and kayak trips on the River Wye, including routes towards Symonds Yat and Monmouth. Advance booking is recommended.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouth+Canoe+and+Activity+Centre)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Trip times and operating days vary with river conditions
+
+[Canoe and kayak hire ↗](https://www.monmouthcanoe.co.uk/canoe-kayak/river-wye-canoe-kayak-hire/)
+
+### Wyedean Canoe & Adventure Centre
+
+Canoeing, paddleboarding, kayaking, rafting, climbing, abseiling and caving at Symonds Yat.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Wyedean+Canoe+and+Activity+Centre+Symonds+Yat+East)
+
+**Approximately 16 miles • approximately 27 minutes**
+
+**Opening hours:** Pre-booking recommended
+
+[Activities and booking ↗](https://www.wyedean.co.uk/)
+
+### Go Ape Forest of Dean
+
+Treetop courses and forest adventure activities for older children and adults.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Go+Ape+Forest+of+Dean+Beechenhurst)
+
+**Approximately 22 miles • approximately 35 minutes**
+
+**Opening hours:** Session times vary; advance booking recommended
+
+[Go Ape Forest of Dean ↗](https://goape.co.uk/locations/forest-of-dean-beechenhurst)
+
+### Pedalabikeaway
+
+Mountain-bike hire and trail access in the Forest of Dean for a range of abilities.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Pedalabikeaway+Cannop+Cycle+Centre)
+
+**Approximately 22 miles • approximately 35 minutes**
+
+**Opening hours:** Check current hire and trail information
+
+[Bike hire and trails ↗](https://pedalabikeaway.co.uk/)`},
+
+        {id:"family",icon:"family",title:"Family Days Out",complete:true,content:`### Raglan Farm Park
+
+A year-round family attraction with animals, indoor play, bouncy castles, trampolines and extensive covered areas.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Farm+Park+Chepstow+Road+NP15+2HX)
+
+**Approximately 3 miles • approximately 6 minutes**
+
+**Opening hours:** Daily, 10am–5pm; closed Christmas Day
+
+**Telephone:** [01291 690319](tel:+441291690319)
+
+[Raglan Farm Park ↗](https://www.raglanfarmpark.com/)
+
+### Puzzlewood
+
+Ancient woodland paths, moss-covered rocks, bridges and tree formations that have inspired film and television productions.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Puzzlewood+Coleford+GL16+8QB)
+
+**Approximately 20 miles • approximately 32 minutes**
+
+**Opening hours:** Opens at 10am on advertised opening days; seasonal closing times
+
+**Telephone:** [01594 833187](tel:+441594833187)
+
+[Opening times and tickets ↗](https://www.puzzlewood.net/index.php/puzzlewood-prices-and-opening/puzzlewood-opening-hours)
+
+### Perrygrove Railway Adventure
+
+A narrow-gauge railway with woodland walks, play areas and treetop adventure facilities.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Perrygrove+Railway+Coleford+GL16+8QB)
+
+**Approximately 20 miles • approximately 32 minutes**
+
+**Opening hours:** Open on selected days year-round and daily in many school holidays
+
+**Telephone:** [01594 834991](tel:+441594834991)
+
+[Tickets and opening times ↗](https://www.perrygrove.co.uk/tickets-pricing/)
+
+### Old Station Tintern
+
+A restored railway station beside the River Wye with riverside walks, picnic space and a children's play area.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Old+Station+Tintern+NP16)
+
+**Approximately 17 miles • approximately 28 minutes**
+
+**Opening hours:** Seasonal opening; check before travelling
+
+[Old Station Tintern ↗](https://www.monlife.co.uk/heritage/old-station-tintern/)
+
+### Wye Valley Butterfly Zoo
+
+A compact tropical butterfly house near Symonds Yat, well suited to a shorter family visit.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Wye+Valley+Butterfly+Zoo+Symonds+Yat+West)
+
+**Approximately 16 miles • approximately 27 minutes**
+
+**Opening hours:** Check seasonal opening hours online
+
+[Butterfly Zoo website ↗](https://butterflyzoo.co.uk/)`},
+
+        {id:"experiences",icon:"plane",title:"Unique Experiences",complete:true,content:`### South Wales Gliding Club, Gwernesney
+
+Experience flights and pilot training from a rural airfield near Usk, with views over Monmouthshire and South Wales.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=South+Wales+Gliding+Club+Gwernesney+NP15+1DB)
+
+**Approximately 8 miles • approximately 14 minutes**
+
+**Opening hours:** Flying is weather-dependent; advance booking is essential
+
+**Telephone:** [01291 690536](tel:+441291690536)
+
+[Experience flights and booking ↗](https://www.uskgc.co.uk/)
+
+### Hot Air Balloon Flights, Llanarth
+
+Weather-dependent balloon flights launching near Raglan, with views over the Vale of Usk and the Black Mountains.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Virgin+Balloon+Flights+Llanarth+Raglan)
+
+**Approximately 7 miles • approximately 12 minutes**
+
+**Opening hours:** Flights take place at suitable dawn or dusk slots; pre-booking required
+
+[Raglan balloon-flight information ↗](https://www.virginballoonflights.co.uk/location/raglan-vale-of-usk)
+
+### Black Mountains Falconry
+
+Pre-booked falconry and archery experiences near Abergavenny.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Black+Mountains+Falconry+Monmouthshire+NP7+8AU)
+
+**Approximately 14 miles • approximately 23 minutes**
+
+**Opening hours:** By prior booking
+
+**Telephone:** [07866 403388](tel:+447866403388)
+
+[Falconry experiences ↗](https://www.blackmountainsfalconry.co.uk/)
+
+### White Castle Vineyard
+
+Guided vineyard tours and tutored Welsh wine tastings, usually by advance booking.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=White+Castle+Vineyard+Llanvetherine)
+
+**Approximately 12 miles • approximately 20 minutes**
+
+**Opening hours:** Tours commonly run on selected Fridays and Saturdays; booking advised
+
+[Vineyard tours and tastings ↗](https://whitecastlevineyard.com/)
+
+### The Dell Vineyard
+
+A family-run vineyard near Raglan offering seasonal open days, tours and tastings.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Dell+Vineyard+Raglan+Monmouthshire)
+
+**Approximately 4 miles • approximately 8 minutes**
+
+**Opening hours:** Seasonal dates; check and book online
+
+[Vineyard visits and tastings ↗](https://thedellvineyard.co.uk/)`},
+
+        {id:"markets",icon:"bag",title:"Markets & Shopping",complete:true,content:`### Abergavenny Market
+
+A historic market hall hosting general, flea, craft and farmers' markets.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Abergavenny+Market+Hall+NP7)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** General market Tue, Fri & Sat; flea market Wed; specialist markets on selected dates
+
+[Market schedule ↗](https://www.visitmonmouthshire.com/shopping/abergavenny-market-hall-p1504211)
+
+### Monmouth Market
+
+Town-centre market at and around the Shire Hall with produce, crafts and general stalls.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouth+Market+Shire+Hall+NP25+3DY)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Friday and Saturday, generally 9am–4pm
+
+[Monmouthshire market information ↗](https://www.monlife.co.uk/heritage/markets/)
+
+### Monmouthshire Livestock Centre, Raglan
+
+A working livestock market offering a glimpse of rural Monmouthshire life. Sale days vary, so check before visiting.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouthshire+Livestock+Centre+Raglan+NP15+2BH)
+
+**Approximately 2 miles • approximately 5 minutes**
+
+**Opening hours:** Sale dates vary; see the current calendar
+
+**Telephone:** [01291 690962](tel:+441291690962)
+
+[Current livestock-market information ↗](https://monmouthshiremarket.co.uk/)
+
+### Usk Farmers' Market
+
+A traditional local producers' market in Usk Memorial Hall.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Usk+Farmers+Market+Memorial+Hall+NP15+1AD)
+
+**Approximately 8 miles • approximately 14 minutes**
+
+**Opening hours:** First and third Saturday of each month, 9.30am–12pm
+
+[Usk Farmers' Market ↗](https://www.uskfarmersmarket.co.uk/)
+
+### Independent Shops in Monmouth
+
+Monmouth's compact centre has independent bookshops, galleries, food shops and boutiques around Monnow Street and Church Street.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monnow+Street+Monmouth)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Individual shop hours vary
+
+[Shopping in Monmouth ↗](https://www.visitmonmouthshire.com/explore/monmouth/shopping)`},
+
+        {id:"rainy",icon:"rain",title:"Rainy Day Ideas",complete:true,content:`### Savoy Theatre, Monmouth
+
+An independent historic theatre and cinema showing films, live performances and family events.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Savoy+Theatre+Monmouth+NP25)
+
+**Approximately 10 miles • approximately 17 minutes**
+
+**Opening hours:** Programme and times vary
+
+[Current programme and tickets ↗](https://monmouth-savoy.co.uk/)
+
+### Borough Theatre, Abergavenny
+
+Live theatre, music, comedy and family performances in Abergavenny town centre.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Borough+Theatre+Abergavenny+NP7)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Programme and times vary
+
+[Current programme and tickets ↗](https://boroughtheatreabergavenny.co.uk/)
+
+### Baker Street Cinema, Abergavenny
+
+Independent cinema showing current releases.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Baker+Street+Cinema+Abergavenny)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** Film times vary
+
+[Film listings ↗](https://www.bakerstreetcinema.com/)
+
+### Raglan Farm Park
+
+A particularly useful wet-weather choice because much of the play space is indoors or under cover.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Raglan+Farm+Park+NP15+2HX)
+
+**Approximately 3 miles • approximately 6 minutes**
+
+**Opening hours:** Daily, 10am–5pm
+
+[Raglan Farm Park ↗](https://www.raglanfarmpark.com/)
+
+### Big Pit National Coal Museum
+
+A substantial indoor museum with the option of an underground tour, making it suitable for unsettled weather.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Big+Pit+National+Coal+Museum+NP4+9XP)
+
+**Approximately 18 miles • approximately 30 minutes**
+
+**Opening hours:** Daily, 9.30am–5pm
+
+[Big Pit visitor information ↗](https://museum.wales/bigpit/)`},
+
+        {id:"nature",icon:"leaf",title:"Gardens & Nature",complete:true,content:`### Dewstow Gardens & Grottoes
+
+Landscaped gardens with ponds, waterfalls, underground grottoes and winding paths.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Dewstow+Gardens+Caldicot+NP26)
+
+**Approximately 22 miles • approximately 32 minutes**
+
+**Opening hours:** Seasonal opening; check before travelling
+
+[Dewstow Gardens ↗](https://www.dewstowgardens.co.uk/)
+
+### Symonds Yat Rock
+
+A dramatic viewpoint over the River Wye, with woodland trails and opportunities to spot peregrine falcons.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Symonds+Yat+Rock+Forestry+England)
+
+**Approximately 16 miles • approximately 27 minutes**
+
+**Opening hours:** Forest access generally available daily; facilities vary seasonally
+
+[Symonds Yat Rock — Forestry England ↗](https://www.forestryengland.uk/symonds-yat-rock)
+
+### The Kymin
+
+National Trust woodland and hilltop views above Monmouth, with picnic opportunities around the Round House.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Kymin+Monmouth)
+
+**Approximately 11 miles • approximately 20 minutes**
+
+**Opening hours:** Outdoor access generally available daily
+
+[The Kymin — National Trust ↗](https://www.nationaltrust.org.uk/visit/wales/the-kymin)
+
+### Cleddon Falls
+
+A wooded Wye Valley waterfall walk that is most impressive after rain; paths can be steep and slippery.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Cleddon+Falls+Llandogo)
+
+**Approximately 17 miles • approximately 28 minutes**
+
+**Opening hours:** Open countryside; visit in daylight and wear suitable footwear
+
+[Wye Valley National Landscape ↗](https://www.wyevalley-nl.org.uk/)`},
+
+        {id:"foodexp",icon:"wine",title:"Food & Drink Experiences",complete:true,content:`### White Castle Vineyard
+
+A guided vineyard tour followed by a tutored tasting of award-winning Welsh wines.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=White+Castle+Vineyard+Llanvetherine)
+
+**Approximately 12 miles • approximately 20 minutes**
+
+**Opening hours:** Selected tour dates; advance booking recommended
+
+[Tours and tastings ↗](https://whitecastlevineyard.com/)
+
+### The Dell Vineyard
+
+Seasonal open days and relaxed guided tastings at a family vineyard close to Raglan.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=The+Dell+Vineyard+Raglan)
+
+**Approximately 4 miles • approximately 8 minutes**
+
+**Opening hours:** Seasonal dates; advance booking recommended
+
+[Visits and tastings ↗](https://thedellvineyard.co.uk/)
+
+### Sugar Loaf Vineyard
+
+Welsh vineyard tours and tastings below Sugar Loaf mountain.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Sugar+Loaf+Vineyard+Abergavenny)
+
+**Approximately 14 miles • approximately 23 minutes**
+
+**Opening hours:** Tours and tastings by advertised dates or booking
+
+[Vineyard website ↗](https://www.sugarloafvineyard.co.uk/)
+
+### Abergavenny Market
+
+A useful place to browse Welsh produce, independent food traders and specialist market events.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Abergavenny+Market+Hall)
+
+**Approximately 13 miles • approximately 21 minutes**
+
+**Opening hours:** General market Tue, Fri & Sat; additional specialist markets
+
+[Market schedule ↗](https://www.visitmonmouthshire.com/shopping/abergavenny-market-hall-p1504211)`},
+
+        {id:"drives",icon:"road",title:"Scenic Drives",complete:true,content:`### Wye Valley Scenic Drive
+
+A flexible route through Monmouth, Symonds Yat, Tintern and Chepstow, combining river views, woodland and historic stops.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouth+to+Symonds+Yat+to+Tintern+to+Chepstow)
+
+**Approximately 55 miles circular • allow approximately 3–5 hours with stops**
+
+**Suggested stops:** Symonds Yat Rock, Tintern Abbey and Chepstow Castle
+
+[Wye Valley National Landscape ↗](https://www.wyevalley-nl.org.uk/)
+
+### Black Mountains Circular
+
+A mountain-and-valley drive through Abergavenny, Crickhowell and the eastern Bannau Brycheiniog.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Abergavenny+Crickhowell+Black+Mountains+scenic+drive)
+
+**Approximately 55 miles circular • allow approximately 3–4 hours with stops**
+
+**Suggested stops:** Abergavenny, Crickhowell and mountain viewpoints
+
+[Bannau Brycheiniog visitor information ↗](https://www.breconbeacons.org/)
+
+### Forest of Dean Explorer
+
+A circular drive linking Monmouth with ancient woodland, viewpoints and family attractions around Coleford and Cannop.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Monmouth+Coleford+Cannop+Symonds+Yat+scenic+drive)
+
+**Approximately 45 miles circular • allow approximately 3–5 hours with stops**
+
+**Suggested stops:** Puzzlewood, Cannop Ponds and Symonds Yat Rock
+
+[Forest of Dean — Forestry England ↗](https://www.forestryengland.uk/forest-dean)
+
+### Three Castles & Golden Valley
+
+A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, with rural lanes and broad border-country views.
+
+[Open in Google Maps ↗](https://www.google.com/maps/search/?api=1&query=Skenfrith+Castle+Grosmont+Castle+White+Castle+route)
+
+**Approximately 45 miles circular • allow approximately 3–4 hours with stops**
+
+**Suggested stops:** Skenfrith Castle, Grosmont Castle and White Castle
+
+[White Castle — Cadw ↗](https://cadw.gov.wales/visit/places-to-visit/white-castle)`}
       ]
     }
   ]
@@ -512,7 +1586,30 @@ Ensure that **all lights are switched off** before you head up to the main house
 
         map:
           '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/>' +
-          '<path d="M9 3v15M15 6v15"/>'
+          '<path d="M9 3v15M15 6v15"/>',
+
+        shop: '<path d="M4 9h16l-1-5H5L4 9Z"/><path d="M6 9v11h12V9"/><path d="M9 20v-6h6v6"/>',
+        basket: '<path d="M4 10h16l-2 10H6L4 10Z"/><path d="m8 10 4-6 4 6"/>',
+        fuel: '<path d="M5 21V4h9v17"/><path d="M7 8h5"/><path d="M14 7h3l2 3v8a2 2 0 0 1-4 0v-5"/>',
+        cross: '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z"/>',
+        cash: '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9h.01M18 15h.01"/>',
+        mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+        bolt: '<path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/>',
+        taxi: '<path d="m5 16 1-6h12l1 6"/><path d="M7 10l2-4h6l2 4"/><path d="M4 16h16v4H4z"/><circle cx="7" cy="20" r="1"/><circle cx="17" cy="20" r="1"/>',
+        plate: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M3 4v7M5 4v7M4 11v9M20 4v16"/>',
+        pub: '<path d="M5 3h10l-1 8a5 5 0 0 1-8 0L5 3Z"/><path d="M10 14v6M7 20h6"/><path d="M15 6h3a2 2 0 0 1 0 4h-3"/>',
+        family: '<circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><circle cx="12" cy="13" r="2"/><path d="M3 20c.5-4 2-6 5-6M21 20c-.5-4-2-6-5-6M8 20c.5-3 1.5-5 4-5s3.5 2 4 5"/>',
+        cup: '<path d="M4 7h12v7a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V7Z"/><path d="M16 9h2a3 3 0 0 1 0 6h-2M7 3v2M11 3v2"/>',
+        takeaway: '<path d="M7 4h10l-1 17H8L7 4Z"/><path d="M6 8h12M9 12h6"/>',
+        produce: '<path d="M12 21V10"/><path d="M12 13c-4 0-7-2-7-6 4 0 7 2 7 6ZM12 16c4 0 7-2 7-6-4 0-7 2-7 6Z"/>',
+        castle: '<path d="M4 21V8h4V4h3v4h2V4h3v4h4v13"/><path d="M3 21h18M9 21v-6h6v6"/>',
+        boot: '<path d="M6 3v9l-3 3v4h18v-5h-7l-3-3V3H6Z"/><path d="M6 8h5"/>',
+        mountain: '<path d="m3 20 6-11 4 6 2-3 6 8H3Z"/><path d="m8 11 2 2 1-2"/>',
+        plane: '<path d="m2 16 20-9-7 13-3-6-10 2Z"/><path d="m12 14 4-4"/>',
+        bag: '<path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+        rain: '<path d="M6 16h11a4 4 0 0 0 .5-8 6 6 0 0 0-11-1A4.5 4.5 0 0 0 6 16Z"/><path d="m8 19-1 2M12 19l-1 2M16 19l-1 2"/>',
+        wine: '<path d="M7 3h10l-1 7a4 4 0 0 1-8 0L7 3Z"/><path d="M12 14v7M9 21h6"/>',
+        road: '<path d="M9 22c0-7 6-7 6-13 0-3-1-5-3-7"/><path d="M15 22c0-6-6-7-6-13 0-3 1-5 3-7"/><path d="M12 5v2M12 10v2M12 15v2"/>'
       };
 
       function icon(name) {
@@ -849,6 +1946,7 @@ Ensure that **all lights are switched off** before you head up to the main house
 
           details.innerHTML = `
             <summary>
+              ${item.icon ? `<span class="item-icon">${icon(item.icon)}</span>` : ""}
               <span>${escapeHTML(item.title)}</span>
             </summary>
 
