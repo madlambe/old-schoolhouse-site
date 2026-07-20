@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with Local Amenities and Things to Do: v18 -->
+  <!-- Live master with Local Amenities, Things to Do and Bin Dates: v19 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=18">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=19">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -47,6 +47,53 @@
       }
     }
   </style>
+
+  <style>
+    .put-out-date {
+      margin: 8px 0 14px !important;
+      color: #231f20;
+    }
+
+    .put-out-date strong {
+      color: #4d89a9;
+    }
+
+    .bin-type-list {
+      list-style: none;
+      margin: 12px 0 0 !important;
+      padding: 0 !important;
+    }
+
+    .bin-type-list li {
+      margin: 12px 0 !important;
+      padding-left: 0;
+    }
+
+    .bin-type-list li strong {
+      display: block;
+      color: #231f20;
+    }
+
+    .bin-type-list li span {
+      display: block;
+      margin-top: 2px;
+    }
+
+    .collection-schedule > h3 {
+      margin-top: 28px;
+    }
+
+    .collection-schedule .collection-date {
+      padding: 18px 0;
+      border-top: 1px solid #e4e1da;
+      background: transparent;
+    }
+
+    .collection-schedule .collection-date h3 {
+      margin: 0 0 6px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -100,7 +147,7 @@
   <script>
 window.GUEST_UPDATES_V12 = {
   bins: {
-    lastUpdated: "12 July 2026",
+    lastUpdated: "20 July 2026",
     warningWhenFewerThan: 4,
     collections: [
       {
@@ -309,7 +356,11 @@ Monday to Friday, 8.30am–6.30pm; Saturday, 9am–12pm for urgent cases; closed
 - Please **pick up and bag any waste from the garden daily** and place it next to the black bin in the car port.
 - **Do not leave dogs in the property by themselves**. Even dogs used to being left at home can become distressed in new surroundings and may cause damage or excessive barking which disturbs the neighbours.`},
 
-        {id:"waste",title:"Waste & Recycling",complete:true,content:`We are very environmentally conscious and ask that you please follow these instructions.
+        {id:"waste",title:"Waste & Recycling",complete:true,content:`**Please put all bins and recycling by the roadside, under the house sign, the evening before collection. Collection times can occasionally be earlier than usual.**
+
+[BIN_COLLECTION_DATES]
+
+We are very environmentally conscious and ask that you please follow these instructions.
 
 ### Kitchen Bins
 
@@ -323,17 +374,13 @@ The kitchen waste bin has three sections:
 
 ### Waste Removal
 
-When the bins are full, place waste & recycling directly into the relevant coloured sacks in the car port:
+When the bins are full, place waste and recycling directly into the relevant coloured sacks or bins in the car port:
 
-- **Black bin**: general waste, sealed in plastic refuse bags
+- **Black bin:** general waste, sealed in plastic refuse bags
 - **Purple recycling sack:** hard plastics & tins (no plastic refuse bags)
 - **Red recycling sack:** paper & cardboard (no plastic refuse bags)
-- **Green recycling box**: glass, rinse and dried (no plastic refuse bags)
-- **Blue food-compost bin**: food waste only, sealed in plastic food-compost bags
-
-Please put the relevant sacks and bins at the roadside edge of the driveway on the night before collection.
-
-[BIN_COLLECTION_DATES]`},
+- **Green recycling box:** glass, rinsed and dried (no plastic refuse bags)
+- **Blue food-compost bin:** food waste only, sealed in plastic food-compost bags`},
 
         {id:"television",title:"Television & Sound",complete:true,content:`The television is in the snug.
 
@@ -1685,6 +1732,26 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         return `${number}th`;
       }
 
+      function putOutDate(iso) {
+        const date = new Date(`${iso}T12:00:00`);
+
+        if (Number.isNaN(date.getTime())) {
+          return iso;
+        }
+
+        date.setDate(date.getDate() - 1);
+
+        const weekday = date.toLocaleDateString("en-GB", {
+          weekday: "long"
+        });
+
+        const month = date.toLocaleDateString("en-GB", {
+          month: "long"
+        });
+
+        return `${weekday} ${ordinal(date.getDate())} ${month}`;
+      }
+
       function displayDate(iso) {
         const date = new Date(`${iso}T12:00:00`);
 
@@ -1739,50 +1806,74 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
           );
         }
 
+        function collectionList(row) {
+          return `
+            <ul class="bin-type-list">
+              ${row.collections
+                .map((item) => {
+                  const value = escapeHTML(item);
+
+                  const separator =
+                    value.includes(" — ")
+                      ? " — "
+                      : value.includes(" - ")
+                        ? " - "
+                        : null;
+
+                  if (!separator) {
+                    return `<li><strong>${value}</strong></li>`;
+                  }
+
+                  const parts = value.split(separator);
+                  const title = parts.shift();
+                  const description = parts.join(separator);
+
+                  return `
+                    <li>
+                      <strong>${title}</strong>
+                      <span>${description}</span>
+                    </li>
+                  `;
+                })
+                .join("")}
+            </ul>
+          `;
+        }
+
+        function collectionBlock(row, isNext = false) {
+          return `
+            <section class="${
+              isNext ? "next-collection" : "collection-date"
+            }">
+              ${isNext
+                ? '<span class="eyebrow">Next Collection</span>'
+                : ""}
+              <h3>${displayDate(row.date)}</h3>
+              <p class="put-out-date">
+                <strong>Put out:</strong>
+                ${putOutDate(row.date)} (evening)
+              </p>
+              ${collectionList(row)}
+            </section>
+          `;
+        }
+
         let html = "";
 
         if (upcoming.length) {
-          const next = upcoming[0];
+          html += collectionBlock(upcoming[0], true);
 
-          html += `
-            <section class="next-collection">
-              <span class="eyebrow">Next collection</span>
-              <h3>${displayDate(next.date)}</h3>
-              <ul>
-                ${next.collections
-                  .map(
-                    (item) =>
-                      `<li>${escapeHTML(item)}</li>`
-                  )
+          if (upcoming.length > 1) {
+            html += `
+              <section class="collection-schedule">
+                <h3>Future Collection Dates</h3>
+                ${upcoming
+                  .slice(1)
+                  .map((row) => collectionBlock(row, false))
                   .join("")}
-              </ul>
-            </section>
-          `;
-
-          html += `
-            <section class="collection-schedule">
-              <h3>Upcoming collection dates</h3>
-
-              ${upcoming
-                .map(
-                  (row) => `
-                    <div class="collection-date">
-                      <strong>${displayDate(row.date)}</strong>
-
-                      <ul>
-                        ${row.collections
-                          .map(
-                            (item) =>
-                              `<li>${escapeHTML(item)}</li>`
-                          )
-                          .join("")}
-                      </ul>
-                    </div>
-                  `
-                )
-                .join("")}
-            </section>
-          `;
+              </section>
+            `;
+          }
         }
 
         if (owner) {
@@ -1795,10 +1886,10 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
                 <strong>Schedule running low</strong><br>
                 Only ${upcoming.length} future collection
                 ${upcoming.length === 1
-                  ? "date remains"
-                  : "dates remain"}.
-                Add more dates in
-                <code>updates-v12.js</code>.
+                  ? " date remains"
+                  : " dates remain"}.
+                Add more dates to the embedded
+                <code>GUEST_UPDATES_V12</code> schedule.
               </aside>
             `;
           }
@@ -1809,8 +1900,8 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
                 <strong>
                   ${invalid.length} incomplete collection
                   ${invalid.length === 1
-                    ? "entry"
-                    : "entries"}
+                    ? " entry"
+                    : " entries"}
                 </strong>
               </aside>
             `;
@@ -1820,7 +1911,8 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         if (bins.lastUpdated) {
           html += `
             <p class="last-updated">
-              Last updated: ${escapeHTML(bins.lastUpdated)}
+              Collection schedule last updated:
+              ${escapeHTML(bins.lastUpdated)}
             </p>
           `;
         }
