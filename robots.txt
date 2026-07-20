@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /guest-guide-1867/
+
+Sitemap: https://www.the-old-schoolhouse.com/sitemap.xml
