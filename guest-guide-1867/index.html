@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with Local Amenities, Things to Do and Bin Dates: v22 -->
+  <!-- Live master with Local Amenities, Things to Do and Bin Dates: v23 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=22">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=23">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -1809,34 +1809,71 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         }
 
         function collectionList(row) {
+          const wasteTypes = [
+            {
+              match: /general waste|household rubbish|black bin/i,
+              title: "🖤 Black bin",
+              description:
+                "General waste, sealed in plastic refuse bags."
+            },
+            {
+              match: /green box|glass/i,
+              title: "🟩 Green recycling box",
+              description:
+                "Glass only. Please rinse and dry. No plastic refuse bags."
+            },
+            {
+              match: /purple sack|hard plastic|hard plastics|tins/i,
+              title: "🟪 Purple recycling sack",
+              description:
+                "Hard plastics & tins only. No plastic refuse bags."
+            },
+            {
+              match: /red sack|paper|cardboard/i,
+              title: "🟥 Red recycling sack",
+              description:
+                "Paper & cardboard only. No plastic refuse bags."
+            },
+            {
+              match: /food waste|blue bin|food-compost/i,
+              title: "🟦 Blue food-compost bin",
+              description:
+                "Food waste only, sealed in plastic food-compost bags."
+            }
+          ];
+
+          const displayed = [];
+
+          for (const item of row.collections) {
+            const value = String(item || "");
+            const type = wasteTypes.find(
+              (entry) => entry.match.test(value)
+            );
+
+            if (!type) continue;
+
+            if (
+              displayed.some(
+                (entry) => entry.title === type.title
+              )
+            ) {
+              continue;
+            }
+
+            displayed.push(type);
+          }
+
           return `
             <ul class="bin-type-list">
-              ${row.collections
-                .map((item) => {
-                  const value = escapeHTML(item);
-
-                  const separator =
-                    value.includes(" — ")
-                      ? " — "
-                      : value.includes(" - ")
-                        ? " - "
-                        : null;
-
-                  if (!separator) {
-                    return `<li><strong>${value}</strong></li>`;
-                  }
-
-                  const parts = value.split(separator);
-                  const title = parts.shift();
-                  const description = parts.join(separator);
-
-                  return `
+              ${displayed
+                .map(
+                  (type) => `
                     <li>
-                      <strong>${title}</strong>
-                      <span>${description}</span>
+                      <strong>${escapeHTML(type.title)}</strong>
+                      <span>${escapeHTML(type.description)}</span>
                     </li>
-                  `;
-                })
+                  `
+                )
                 .join("")}
             </ul>
           `;
