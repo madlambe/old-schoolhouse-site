@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with automatic Monmouthshire bin dates: v24 -->
+  <!-- Live master with background automatic bin dates: v25 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=24">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=25">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -91,6 +91,25 @@
 
     .collection-schedule .collection-date h3 {
       margin: 0 0 6px;
+    }
+
+    .bin-update-status {
+      margin: 20px 0 0 !important;
+    }
+
+    .bin-updated-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border: 1px solid rgba(77, 137, 169, 0.24);
+      border-radius: 999px;
+      background: rgba(77, 137, 169, 0.09);
+      color: #4d89a9;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.02em;
     }
   </style>
 
@@ -1657,22 +1676,29 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
                   result.lastUpdated ||
                   new Date().toLocaleDateString("en-GB"),
                 collections: result.collections,
-                source: "Monmouthshire County Council"
+                source:
+                  result.source ||
+                  "Monmouthshire County Council"
               }
             };
+
+            return true;
           }
+
+          return false;
         } catch (error) {
           console.warn(
             "Using saved bin dates because the automatic council " +
             "feed was unavailable.",
             error
           );
+
+          return false;
         } finally {
           window.clearTimeout(timeout);
         }
       }
 
-      await loadAutomaticBinDates();
 
       if (!guide || !guide.site || !Array.isArray(guide.categories)) {
         document.body.insertAdjacentHTML(
@@ -2002,14 +2028,12 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
           }
         }
 
-        if (bins.lastUpdated) {
+        if (bins.source) {
           html += `
-            <p class="last-updated">
-              Collection schedule last updated:
-              ${escapeHTML(bins.lastUpdated)}
-              ${bins.source
-                ? ` · ${escapeHTML(bins.source)}`
-                : ""}
+            <p class="bin-update-status">
+              <span class="bin-updated-badge">
+                Updated today
+              </span>
             </p>
           `;
         }
@@ -2176,6 +2200,8 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
               item.complete ? "" : " incomplete"
             }`;
 
+          details.dataset.itemId = item.id;
+
           details.innerHTML = `
             <summary>
               ${item.icon ? `<span class="item-icon">${icon(item.icon)}</span>` : ""}
@@ -2195,6 +2221,34 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
 
         panels.appendChild(panel);
       }
+
+
+      function refreshWasteCollectionDisplay() {
+        const wasteItem = guide.categories
+          .flatMap((category) => category.items)
+          .find((item) => item.id === "waste");
+
+        const wasteContent = document.querySelector(
+          '[data-item-id="waste"] .item-content'
+        );
+
+        if (!wasteItem || !wasteContent) {
+          return;
+        }
+
+        wasteContent.innerHTML = markdown(
+          wasteItem.content,
+          wasteItem.checklist
+        );
+      }
+
+      // Rendered content and all six cards are already visible at this
+      // point. Live council dates now load quietly in the background.
+      loadAutomaticBinDates().then((updated) => {
+        if (updated) {
+          refreshWasteCollectionDisplay();
+        }
+      });
 
       document.addEventListener(
         "click",
