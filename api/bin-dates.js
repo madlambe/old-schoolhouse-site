@@ -73,18 +73,21 @@ const WASTE_TYPES = [
     label:
       "🟥 Red recycling sack — Paper & cardboard only. No plastic refuse bags."
   },
-  {
-    key: "blue",
-    patterns: [
-      /food waste/i,
-      /food compost/i,
-      /food-compost/i,
-      /blue food-compost bin/i,
-      /blue bin/i
-    ],
-    label:
-      "🟦 Blue food-compost bin — Food waste only, sealed in plastic food-compost bags."
-  }
+ {
+  key: "food",
+  patterns: [
+    /blue food bin/i,
+    /food waste/i,
+    /food bin/i,
+    /food caddy/i,
+    /kitchen caddy/i,
+    /kitchen waste/i,
+    /organic waste/i
+  ],
+  label: "🟦 Blue food-compost bin",
+  description:
+    "Food waste only, sealed in plastic food-compost bags."
+},
 ];
 
 function decodeEntities(value) {
