@@ -328,6 +328,11 @@ async function fetchCouncilPage() {
 }
 
 function jsonResponse(data, status = 200) {
+  const cacheControl =
+    status === 200
+      ? "public, s-maxage=86400, stale-while-revalidate=604800"
+      : "public, s-maxage=300, stale-while-revalidate=3600";
+
   return new Response(
     JSON.stringify(data),
     {
@@ -335,8 +340,9 @@ function jsonResponse(data, status = 200) {
       headers: {
         "Content-Type":
           "application/json; charset=utf-8",
-        "Cache-Control":
-          "s-maxage=21600, stale-while-revalidate=86400",
+        "Cache-Control": cacheControl,
+        "CDN-Cache-Control": cacheControl,
+        "Vercel-CDN-Cache-Control": cacheControl,
         "X-Robots-Tag":
           "noindex, nofollow, noarchive, nosnippet"
       }
