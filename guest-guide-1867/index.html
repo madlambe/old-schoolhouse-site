@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with background automatic bin dates: v25 -->
+  <!-- Live master with automatic House Rules bin reminder: v26 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=25">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=26">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -236,7 +236,7 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
 - Please **use the coasters and placemats provided** throughout on all surfaces.
 - The Old Schoolhouse is not on the mains and has its own septic tank. It is vital that **ONLY TOILET PAPER is flushed down the loos** — nothing else **AT ALL**. Cotton wool, sanitary products, wet wipes (including flushable ones), dental floss and all other waste must be disposed of appropriately.  Waste bins are provided in all bathrooms for your convenience.
 - Our refillable toiletries are part of the home and are topped up for each stay. Thank you for leaving them for future guests.
-- Your support in **leaving the waste out the evening before collection days** is enormously appreciated.  Details and collection dates are in the 'Waste & Recycling' section in House Information.
+- [NEXT_COLLECTION_RULE]
 - **No wet bodies/swimmers in the main house or on the furniture** after swimming.
 - Outdoor cushions should be returned to the outdoor storage unit overnight and in wet weather.
 - We kindly ask that furniture is not moved.
@@ -480,13 +480,11 @@ You have several options for drying clothes, all in the Boot Room:
         
 ### Outdoor Furniture
 
-The outdoor cushions are in the storage unit by the garden steps. The padlock code is **1867**.
-
 The protective furniture covers are to be stored in the outdoor storage unit while in use, otherwise they can blow away in the wind.
 
-Please **do not leave cushions or covers out overnight or in the rain**. 
+The outdoor cushions are in the storage unit by the garden steps. The padlock code is **1867**.
 
-**Before departure, return and lock the cushions in the outdoor storage box and replace the covers securely with the clips on the outdoor furniture**, so they won't blow away in the wind.
+Please **do not leave cushions or covers out overnight or in the rain**. Before departure, return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
 
 For safety, **use the two sandbags provided on the patio sunbrella base to stablise it** when in use.  Operational instructions for opening, closing and tilting the patio sunbrella can be found [here ↗](https://drive.google.com/drive/folders/1RpXoHW09iJIMxeEn35AWSqkKzl1ZJrAM?usp=sharing).
 
@@ -542,7 +540,7 @@ Ensure that **all lights are switched off** before you head up to the main house
 - Leave wooden hangers in the bedroom wardrobes.
 - Return the hairdryer to the master-bedroom vanity unit, if used.
 - Return all games table accessories & games to the appropriate storage stools.
-- Return and lock the cushions in the outdoor storage box and replace the covers securly with their clips on the outdoor furniture.
+- Return and lock the cushions in the outdoor storage box and replace the covers on the outdoor furniture.
 - Leave used pool towels in the Boot Room.
 - Set the house security alarm before departure: **4231 TICK**.
 - Lock the bottom front-door lock.
@@ -2043,13 +2041,63 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         return html;
       }
 
+      function nextCollectionRuleMarkdown() {
+        const bins = updates.bins || {};
+        const rows = Array.isArray(bins.collections)
+          ? bins.collections
+          : [];
+
+        const next = rows
+          .filter(validCollection)
+          .sort((a, b) => a.date.localeCompare(b.date))
+          .find((row) => row.date >= localISODate());
+
+        if (!next) {
+          return (
+            "Your support in **putting the bins out the evening before " +
+            "collection** is enormously appreciated. Please check the " +
+            "**Waste & Recycling** section under **House Information** " +
+            "for the next collection details."
+          );
+        }
+
+        const collectionDate = displayDate(next.date);
+
+        const putOut = new Date(`${next.date}T12:00:00`);
+        putOut.setDate(putOut.getDate() - 1);
+
+        const putOutWeekday = putOut.toLocaleDateString(
+          "en-GB",
+          { weekday: "long" }
+        );
+
+        return (
+          "Your support in **putting the bins out the evening before " +
+          "collection** is enormously appreciated. The next collection " +
+          `is **${collectionDate}**. Please check the **Waste & Recycling** ` +
+          "section under **House Information** to see which bins need to " +
+          `be put out on **${putOutWeekday} evening**.`
+        );
+      }
+
       function markdown(source, checklist = false) {
         const token = "BINCOLLECTIONDATESPLACEHOLDER";
+        const nextCollectionToken =
+          "NEXTCOLLECTIONRULEPLACEHOLDER";
 
         let text = escapeHTML(
           String(source || "")
             .replace("[BIN_COLLECTION_DATES]", token)
+            .replace(
+              "[NEXT_COLLECTION_RULE]",
+              nextCollectionToken
+            )
             .trim()
+        );
+
+        text = text.replace(
+          nextCollectionToken,
+          nextCollectionRuleMarkdown()
         );
 
         text = text
@@ -2225,30 +2273,38 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
       }
 
 
-      function refreshWasteCollectionDisplay() {
-        const wasteItem = guide.categories
-          .flatMap((category) => category.items)
-          .find((item) => item.id === "waste");
+      function refreshBinDateDisplays() {
+        const items = guide.categories
+          .flatMap((category) => category.items);
 
-        const wasteContent = document.querySelector(
-          '[data-item-id="waste"] .item-content'
-        );
+        const refreshItem = (itemId) => {
+          const item = items.find(
+            (entry) => entry.id === itemId
+          );
 
-        if (!wasteItem || !wasteContent) {
-          return;
-        }
+          const content = document.querySelector(
+            `[data-item-id="${itemId}"] .item-content`
+          );
 
-        wasteContent.innerHTML = markdown(
-          wasteItem.content,
-          wasteItem.checklist
-        );
+          if (!item || !content) {
+            return;
+          }
+
+          content.innerHTML = markdown(
+            item.content,
+            item.checklist
+          );
+        };
+
+        refreshItem("waste");
+        refreshItem("rules");
       }
 
       // Rendered content and all six cards are already visible at this
       // point. Live council dates now load quietly in the background.
       loadAutomaticBinDates().then((updated) => {
         if (updated) {
-          refreshWasteCollectionDisplay();
+          refreshBinDateDisplays();
         }
       });
 
