@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with automatic House Rules bin reminder: v26 -->
+  <!-- Live master with seasonal pool notice: v27 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=26">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=27">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -110,6 +110,19 @@
       font-weight: 600;
       line-height: 1;
       letter-spacing: 0.02em;
+    }
+
+    .category-notice {
+      margin: 0 0 18px;
+      padding: 16px 18px;
+      border-left: 3px solid #4d89a9;
+      background: #f8f7f3;
+      color: #231f20;
+    }
+
+    .category-notice p {
+      margin: 0;
+      line-height: 1.6;
     }
   </style>
 
@@ -229,7 +242,14 @@ We sincerely hope you have a truly memorable and enjoyable stay at The Old Schoo
   },
   categories: [
     {
-      id: "essentials", icon: "spark", title: "The Essentials",
+      id: "essentials",
+      icon: "spark",
+      title: "The Essentials",
+      seasonalNotice: {
+        startMonth: 4,
+        endMonth: 9,
+        content: `In preparation for your stay, the pool has been fully cleaned and treated today. As such, please **DO NOT use the pool on your first evening** whilst the chemicals settle. It is safest to use the pool from your first morning. Thank you for your understanding!`
+      },
       items: [
         { id:"rules", title:"General House Rules", complete:true, content:`- The Old Schoolhouse is strictly a **NON-SMOKING** property.  Please **vape outside only**.
 - **No shoes are to be worn in the house**. Please use the shoe rack and Boot Room to store shoes.
@@ -2200,6 +2220,38 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
           escapeHTML(guide.site.signature || "")
         }</p>`;
 
+      function currentPropertyMonth() {
+        const parts = new Intl.DateTimeFormat(
+          "en-GB",
+          {
+            month: "numeric",
+            timeZone: "Europe/London"
+          }
+        ).formatToParts(new Date());
+
+        const monthPart = parts.find(
+          (part) => part.type === "month"
+        );
+
+        return Number(monthPart ? monthPart.value : 0);
+      }
+
+      function showSeasonalNotice(notice) {
+        if (!notice) return false;
+
+        const month = currentPropertyMonth();
+        const start = Number(notice.startMonth);
+        const end = Number(notice.endMonth);
+
+        if (!month || !start || !end) return false;
+
+        if (start <= end) {
+          return month >= start && month <= end;
+        }
+
+        return month >= start || month <= end;
+      }
+
       for (const category of guide.categories) {
         const visibleItems =
           category.items.filter(
@@ -2245,6 +2297,20 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
 
         const list =
           panel.querySelector(".item-list");
+
+        if (
+          showSeasonalNotice(category.seasonalNotice)
+        ) {
+          const notice =
+            document.createElement("div");
+
+          notice.className = "category-notice";
+          notice.innerHTML = markdown(
+            category.seasonalNotice.content || ""
+          );
+
+          list.appendChild(notice);
+        }
 
         for (const item of visibleItems) {
           const details =
