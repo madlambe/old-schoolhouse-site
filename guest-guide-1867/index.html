@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#f8f7f3">
 
   <title>The Old Schoolhouse Guest Guide</title>
-  <!-- Live master with clearer roadside rubbish reminder: v28-corrected -->
+  <!-- Live master with robust automatic House Rules collection dates: v29 -->
 
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
-  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=27">
+  <link rel="stylesheet" href="/guest-guide-1867/guide-v12.css?v=29">
   <style>
     .guide-item summary .item-icon {
       display: inline-flex;
@@ -1688,24 +1688,32 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
 
           const result = await response.json();
 
+          const liveBins =
+            result && result.bins && Array.isArray(result.bins.collections)
+              ? result.bins
+              : result;
+
           if (
-            result &&
-            Array.isArray(result.collections) &&
-            result.collections.length
+            liveBins &&
+            Array.isArray(liveBins.collections) &&
+            liveBins.collections.length
           ) {
             updates = {
               ...updates,
               bins: {
                 ...(updates.bins || {}),
+                ...liveBins,
                 lastUpdated:
-                  result.lastUpdated ||
+                  liveBins.lastUpdated ||
                   new Date().toLocaleDateString("en-GB"),
-                collections: result.collections,
+                collections: liveBins.collections,
                 source:
-                  result.source ||
+                  liveBins.source ||
                   "Monmouthshire County Council"
               }
             };
+
+            window.GUEST_UPDATES_V12 = updates;
 
             return true;
           }
