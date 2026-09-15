@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -22,77 +24,84 @@
     }
 
     .page {
-      max-width: 760px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 42px 22px 70px;
     }
 
     .logo {
       display: block;
-      width: 190px;
+      width: 230px;
       max-width: 55%;
       height: auto;
       margin: 0 auto 34px;
     }
 
     .card {
-      background: #fff;
-      padding: 42px 44px;
+      background: #ffffff;
+      padding: 44px 46px;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.07);
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       font-family: "trajan-pro-3", "Times New Roman", serif;
       color: #23447c;
       letter-spacing: 1px;
-      text-align: center;
     }
 
     h1 {
-      font-size: 27px;
-      margin: 0 0 20px;
+      text-align: center;
+      font-size: 29px;
+      font-weight: 700;
+      margin: 0 0 18px;
     }
 
     h2 {
-      font-size: 19px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 700;
       margin: 38px 0 20px;
     }
 
     .intro {
       text-align: center;
       margin: 0 auto 28px;
-      max-width: 590px;
+      max-width: 650px;
     }
 
     .reservation-summary {
+      width: 100%;
       background: #f4f6f7;
       border-radius: 6px;
       padding: 20px 22px;
-      margin: 28px 0 34px;
+      margin: 28px auto 34px;
       text-align: center;
-    }
-
-    .reservation-summary .welcome {
-      font-family: "trajan-pro-3", "Times New Roman", serif;
-      color: #23447c;
-      letter-spacing: .6px;
-      font-size: 18px;
-      margin-bottom: 9px;
+      font-weight: 600;
     }
 
     .reservation-summary p {
-      margin: 3px 0;
-      font-size: 14px;
+      margin: 4px 0;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .guest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
     }
 
     .field {
       margin-bottom: 24px;
     }
 
-    label, legend {
+    label,
+    legend {
       display: block;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 9px;
       font-size: 16px;
     }
@@ -105,7 +114,8 @@
       margin-top: 2px;
     }
 
-    select, textarea {
+    select,
+    textarea {
       width: 100%;
       border: 1px solid #c6c6b9;
       border-radius: 5px;
@@ -121,16 +131,27 @@
       resize: vertical;
     }
 
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
     fieldset {
       border: 0;
       padding: 0;
-      margin: 0 0 27px;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .room-grid fieldset {
+      margin-bottom: 8px;
     }
 
     .choices {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 8px;
     }
 
     .choice {
@@ -146,13 +167,14 @@
     .choice label {
       display: block;
       margin: 0;
-      padding: 13px 15px;
+      padding: 13px 10px;
       border: 1px solid #c6c6b9;
       border-radius: 5px;
       text-align: center;
       cursor: pointer;
       font-weight: 400;
-      transition: .15s ease;
+      transition: 0.15s ease;
+      white-space: nowrap;
     }
 
     .choice input:checked + label {
@@ -166,25 +188,32 @@
       outline-offset: 2px;
     }
 
+    .cot-options {
+      max-width: 320px;
+    }
+
     .button {
       display: block;
       width: 100%;
       border: 0;
       border-radius: 5px;
       background: #23447c;
-      color: #fff;
+      color: #ffffff;
       font-family: "trajan-pro-3", "Times New Roman", serif;
+      font-weight: 700;
       letter-spacing: 1px;
-      font-size: 16px;
-      padding: 16px 20px;
+      font-size: 17px;
+      padding: 17px 20px;
       margin-top: 34px;
       cursor: pointer;
     }
 
-    .button:hover { opacity: .92; }
+    .button:hover {
+      opacity: 0.92;
+    }
 
     .button:disabled {
-      opacity: .55;
+      opacity: 0.55;
       cursor: wait;
     }
 
@@ -195,7 +224,9 @@
       margin: 18px 0 0;
     }
 
-    .required { color: #b56474; }
+    .required {
+      color: #b56474;
+    }
 
     .form-message {
       display: none;
@@ -217,9 +248,14 @@
       padding: 18px 0 8px;
     }
 
-    .success h2 {
+    .success h1 {
       margin-top: 0;
-      font-size: 22px;
+    }
+
+    .success h2 {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 10px;
     }
 
     .success p {
@@ -227,7 +263,7 @@
       margin: 12px auto;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 760px) {
       .page {
         padding: 28px 14px 50px;
       }
@@ -236,10 +272,32 @@
         padding: 30px 20px;
       }
 
-      h1 { font-size: 22px; }
-      h2 { font-size: 17px; }
+      h1 {
+        font-size: 22px;
+      }
 
-      .choices { gap: 8px; }
+      h2 {
+        font-size: 18px;
+        margin-top: 32px;
+      }
+
+      .guest-grid,
+      .room-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .room-grid fieldset {
+        margin-bottom: 24px;
+      }
+
+      .choices {
+        gap: 8px;
+      }
+
+      .cot-options {
+        max-width: none;
+      }
     }
   </style>
 </head>
@@ -263,10 +321,7 @@
       </p>
 
       <div class="reservation-summary">
-        <div class="welcome" id="guestWelcome">
-          Your Stay at The Old Schoolhouse
-        </div>
-
+        <p id="guestLine">Your Stay at The Old Schoolhouse</p>
         <p id="arrivalLine"></p>
         <p id="referenceLine"></p>
       </div>
@@ -279,148 +334,156 @@
 
         <h2>Your Guests</h2>
 
-        <div class="field">
-          <label for="adults">
-            Adults <span class="required">*</span>
-            <span class="age-note">18 years and over</span>
-          </label>
+        <div class="guest-grid">
 
-          <select id="adults" name="adults" required>
-            <option value="">Please select</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-        </div>
+          <div class="field">
+            <label for="adults">
+              Adults <span class="required">*</span>
+              <span class="age-note">18 years and over</span>
+            </label>
 
-        <div class="field">
-          <label for="children">
-            Children <span class="required">*</span>
-            <span class="age-note">2–17 years</span>
-          </label>
+            <select id="adults" name="adults" required>
+              <option value="">Please select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
 
-          <select id="children" name="children" required>
-            <option value="">Please select</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-        </div>
+          <div class="field">
+            <label for="children">
+              Children <span class="required">*</span>
+              <span class="age-note">2–17 years</span>
+            </label>
 
-        <div class="field">
-          <label for="infants">
-            Infants <span class="required">*</span>
-            <span class="age-note">Under 2 years</span>
-          </label>
+            <select id="children" name="children" required>
+              <option value="">Please select</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
 
-          <select id="infants" name="infants" required>
-            <option value="">Please select</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
+          <div class="field">
+            <label for="infants">
+              Infants <span class="required">*</span>
+              <span class="age-note">Under 2 years</span>
+            </label>
+
+            <select id="infants" name="infants" required>
+              <option value="">Please select</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
         </div>
 
         <h2>Bedroom Arrangements</h2>
 
-        <fieldset>
-          <legend>
-            Pink Room <span class="required">*</span>
-          </legend>
+        <div class="room-grid">
 
-          <div class="choices">
-            <div class="choice">
-              <input
-                type="radio"
-                id="pink-superking"
-                name="pink_room"
-                value="Super King"
-                required
-              >
-              <label for="pink-superking">Super King</label>
+          <fieldset>
+            <legend>
+              Pink Room <span class="required">*</span>
+            </legend>
+
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="pink-superking"
+                  name="pink_room"
+                  value="Super King"
+                  required
+                >
+                <label for="pink-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="pink-twin"
+                  name="pink_room"
+                  value="Twin"
+                >
+                <label for="pink-twin">Twin</label>
+              </div>
             </div>
+          </fieldset>
 
-            <div class="choice">
-              <input
-                type="radio"
-                id="pink-twin"
-                name="pink_room"
-                value="Twin"
-              >
-              <label for="pink-twin">Twin</label>
+          <fieldset>
+            <legend>
+              Duck Egg Room <span class="required">*</span>
+            </legend>
+
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="duck-superking"
+                  name="duck_egg_room"
+                  value="Super King"
+                  required
+                >
+                <label for="duck-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="duck-twin"
+                  name="duck_egg_room"
+                  value="Twin"
+                >
+                <label for="duck-twin">Twin</label>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <fieldset>
-          <legend>
-            Duck Egg Room <span class="required">*</span>
-          </legend>
+          <fieldset>
+            <legend>
+              Navy Room <span class="required">*</span>
+            </legend>
 
-          <div class="choices">
-            <div class="choice">
-              <input
-                type="radio"
-                id="duck-superking"
-                name="duck_egg_room"
-                value="Super King"
-                required
-              >
-              <label for="duck-superking">Super King</label>
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="navy-superking"
+                  name="navy_room"
+                  value="Super King"
+                  required
+                >
+                <label for="navy-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="navy-twin"
+                  name="navy_room"
+                  value="Twin"
+                >
+                <label for="navy-twin">Twin</label>
+              </div>
             </div>
+          </fieldset>
 
-            <div class="choice">
-              <input
-                type="radio"
-                id="duck-twin"
-                name="duck_egg_room"
-                value="Twin"
-              >
-              <label for="duck-twin">Twin</label>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>
-            Navy Room <span class="required">*</span>
-          </legend>
-
-          <div class="choices">
-            <div class="choice">
-              <input
-                type="radio"
-                id="navy-superking"
-                name="navy_room"
-                value="Super King"
-                required
-              >
-              <label for="navy-superking">Super King</label>
-            </div>
-
-            <div class="choice">
-              <input
-                type="radio"
-                id="navy-twin"
-                name="navy_room"
-                value="Twin"
-              >
-              <label for="navy-twin">Twin</label>
-            </div>
-          </div>
-        </fieldset>
+        </div>
 
         <h2>Travel Cot</h2>
 
@@ -430,7 +493,8 @@
             <span class="required">*</span>
           </legend>
 
-          <div class="choices">
+          <div class="choices cot-options">
+
             <div class="choice">
               <input
                 type="radio"
@@ -451,6 +515,7 @@
               >
               <label for="cot-no">No</label>
             </div>
+
           </div>
         </fieldset>
 
@@ -524,8 +589,8 @@
   document.getElementById("checkinDate").value = checkin;
 
   if (guest) {
-    document.getElementById("guestWelcome").textContent =
-      "Dear " + guest + ",";
+    document.getElementById("guestLine").textContent =
+      "Name: " + guest;
   }
 
   if (checkin) {
@@ -572,7 +637,10 @@
       message.textContent =
         "The maximum number of adults and children is 8. Please check your guest numbers.";
       message.className = "form-message error";
-      message.scrollIntoView({ behavior: "smooth", block: "center" });
+      message.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
       return;
     }
 
@@ -583,12 +651,15 @@
       return;
     }
 
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(
+      new FormData(form).entries()
+    );
 
     button.disabled = true;
     button.textContent = "Sending...";
 
     try {
+
       const response = await fetch("/api/preparation-form", {
         method: "POST",
         headers: {
@@ -610,8 +681,10 @@
       });
 
     } catch (error) {
+
       message.textContent =
         "We’re sorry, your preferences could not be sent. Please try again, or contact us if the problem continues.";
+
       message.className = "form-message error";
 
       button.disabled = false;
