@@ -7,13 +7,10 @@
 
   <title>Preparation for Your Stay | The Old Schoolhouse</title>
 
-  <!-- Adobe Typekit / Trajan Pro -->
   <link rel="stylesheet" href="https://use.typekit.net/kww4lsi.css">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -35,6 +32,596 @@
       width: 190px;
       max-width: 55%;
       height: auto;
+      margin: 0 auto 34px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 42px 44px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+
+    h1, h2 {
+      font-family: "trajan-pro-3", "Times New Roman", serif;
+      color: #23447c;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 27px;
+      margin: 0 0 20px;
+    }
+
+    h2 {
+      font-size: 19px;
+      margin: 38px 0 20px;
+    }
+
+    .intro {
+      text-align: center;
+      margin: 0 auto 28px;
+      max-width: 590px;
+    }
+
+    .reservation-summary {
+      background: #f4f6f7;
+      border-radius: 6px;
+      padding: 20px 22px;
+      margin: 28px 0 34px;
+      text-align: center;
+    }
+
+    .reservation-summary .welcome {
+      font-family: "trajan-pro-3", "Times New Roman", serif;
+      color: #23447c;
+      letter-spacing: .6px;
+      font-size: 18px;
+      margin-bottom: 9px;
+    }
+
+    .reservation-summary p {
+      margin: 3px 0;
+      font-size: 14px;
+    }
+
+    .field {
+      margin-bottom: 24px;
+    }
+
+    label, legend {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 9px;
+      font-size: 16px;
+    }
+
+    .age-note {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    select, textarea {
+      width: 100%;
+      border: 1px solid #c6c6b9;
+      border-radius: 5px;
+      padding: 13px 14px;
+      background: #fff;
+      color: #231f20;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0 0 27px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .choice {
+      position: relative;
+    }
+
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice label {
+      display: block;
+      margin: 0;
+      padding: 13px 15px;
+      border: 1px solid #c6c6b9;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 400;
+      transition: .15s ease;
+    }
+
+    .choice input:checked + label {
+      background: #23447c;
+      border-color: #23447c;
+      color: #fff;
+    }
+
+    .choice input:focus + label {
+      outline: 2px solid #4d89a9;
+      outline-offset: 2px;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      background: #23447c;
+      color: #fff;
+      font-family: "trajan-pro-3", "Times New Roman", serif;
+      letter-spacing: 1px;
+      font-size: 16px;
+      padding: 16px 20px;
+      margin-top: 34px;
+      cursor: pointer;
+    }
+
+    .button:hover { opacity: .92; }
+
+    .button:disabled {
+      opacity: .55;
+      cursor: wait;
+    }
+
+    .privacy {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin: 18px 0 0;
+    }
+
+    .required { color: #b56474; }
+
+    .form-message {
+      display: none;
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #fbf2f3;
+      color: #7b3340;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 18px 0 8px;
+    }
+
+    .success h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .success p {
+      max-width: 520px;
+      margin: 12px auto;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 28px 14px 50px;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 { font-size: 22px; }
+      h2 { font-size: 17px; }
+
+      .choices { gap: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <img src="/logo.png" alt="The Old Schoolhouse" class="logo">
+
+  <section class="card">
+
+    <div id="formContent">
+
+      <h1>Preparation for Your Stay</h1>
+
+      <p class="intro">
+        We’re looking forward to welcoming you to The Old Schoolhouse.
+        Please take a moment to confirm the details below so that we can
+        prepare everything just as you would like it for your arrival.
+      </p>
+
+      <div class="reservation-summary">
+        <div class="welcome" id="guestWelcome">
+          Your Stay at The Old Schoolhouse
+        </div>
+
+        <p id="arrivalLine"></p>
+        <p id="referenceLine"></p>
+      </div>
+
+      <form id="preparationForm">
+
+        <input type="hidden" id="confirmationCode" name="confirmation_code">
+        <input type="hidden" id="guestName" name="guest_name">
+        <input type="hidden" id="checkinDate" name="checkin">
+
+        <h2>Your Guests</h2>
+
+        <div class="field">
+          <label for="adults">
+            Adults <span class="required">*</span>
+            <span class="age-note">18 years and over</span>
+          </label>
+
+          <select id="adults" name="adults" required>
+            <option value="">Please select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="children">
+            Children <span class="required">*</span>
+            <span class="age-note">2–17 years</span>
+          </label>
+
+          <select id="children" name="children" required>
+            <option value="">Please select</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="infants">
+            Infants <span class="required">*</span>
+            <span class="age-note">Under 2 years</span>
+          </label>
+
+          <select id="infants" name="infants" required>
+            <option value="">Please select</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <h2>Bedroom Arrangements</h2>
+
+        <fieldset>
+          <legend>
+            Pink Room <span class="required">*</span>
+          </legend>
+
+          <div class="choices">
+            <div class="choice">
+              <input
+                type="radio"
+                id="pink-superking"
+                name="pink_room"
+                value="Super King"
+                required
+              >
+              <label for="pink-superking">Super King</label>
+            </div>
+
+            <div class="choice">
+              <input
+                type="radio"
+                id="pink-twin"
+                name="pink_room"
+                value="Twin"
+              >
+              <label for="pink-twin">Twin</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            Duck Egg Room <span class="required">*</span>
+          </legend>
+
+          <div class="choices">
+            <div class="choice">
+              <input
+                type="radio"
+                id="duck-superking"
+                name="duck_egg_room"
+                value="Super King"
+                required
+              >
+              <label for="duck-superking">Super King</label>
+            </div>
+
+            <div class="choice">
+              <input
+                type="radio"
+                id="duck-twin"
+                name="duck_egg_room"
+                value="Twin"
+              >
+              <label for="duck-twin">Twin</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            Navy Room <span class="required">*</span>
+          </legend>
+
+          <div class="choices">
+            <div class="choice">
+              <input
+                type="radio"
+                id="navy-superking"
+                name="navy_room"
+                value="Super King"
+                required
+              >
+              <label for="navy-superking">Super King</label>
+            </div>
+
+            <div class="choice">
+              <input
+                type="radio"
+                id="navy-twin"
+                name="navy_room"
+                value="Twin"
+              >
+              <label for="navy-twin">Twin</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <h2>Travel Cot</h2>
+
+        <fieldset>
+          <legend>
+            Would you like us to prepare a travel cot?
+            <span class="required">*</span>
+          </legend>
+
+          <div class="choices">
+            <div class="choice">
+              <input
+                type="radio"
+                id="cot-yes"
+                name="travel_cot"
+                value="Yes"
+                required
+              >
+              <label for="cot-yes">Yes</label>
+            </div>
+
+            <div class="choice">
+              <input
+                type="radio"
+                id="cot-no"
+                name="travel_cot"
+                value="No"
+              >
+              <label for="cot-no">No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <h2>Anything Else?</h2>
+
+        <div class="field">
+          <label for="requests">
+            Is there anything else we can prepare for your stay?
+          </label>
+
+          <textarea
+            id="requests"
+            name="requests"
+            maxlength="1000"
+            placeholder="Please let us know of any other requirements or requests."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="button" id="submitButton">
+          Submit Your Preferences
+        </button>
+
+        <div id="formMessage" class="form-message"></div>
+
+        <p class="privacy">
+          These details are used solely to help us prepare The Old Schoolhouse
+          for your stay.
+        </p>
+
+      </form>
+
+    </div>
+
+    <div class="success" id="successMessage">
+
+      <h1>Thank You</h1>
+
+      <h2>Everything is in hand.</h2>
+
+      <p>
+        Thank you for confirming your preferences. We’ll make sure
+        The Old Schoolhouse is prepared for your arrival.
+      </p>
+
+      <p>
+        We’re very much looking forward to welcoming you.
+      </p>
+
+      <p>
+        Warmest wishes,<br>
+        <strong>Madelaine &amp; Chris</strong>
+      </p>
+
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const confirmationCode = params.get("ref") || "";
+  const guest = params.get("guest") || "";
+  const checkin = params.get("checkin") || "";
+  const adults = params.get("adults");
+  const children = params.get("children");
+  const infants = params.get("infants");
+
+  document.getElementById("confirmationCode").value = confirmationCode;
+  document.getElementById("guestName").value = guest;
+  document.getElementById("checkinDate").value = checkin;
+
+  if (guest) {
+    document.getElementById("guestWelcome").textContent =
+      "Dear " + guest + ",";
+  }
+
+  if (checkin) {
+    document.getElementById("arrivalLine").textContent =
+      "Arrival: " + checkin;
+  }
+
+  if (confirmationCode) {
+    document.getElementById("referenceLine").textContent =
+      "Booking reference: " + confirmationCode;
+  }
+
+  function setSelectValue(id, value) {
+    if (value === null) return;
+
+    const select = document.getElementById(id);
+
+    const optionExists =
+      Array.from(select.options).some(option => option.value === value);
+
+    if (optionExists) {
+      select.value = value;
+    }
+  }
+
+  setSelectValue("adults", adults);
+  setSelectValue("children", children);
+  setSelectValue("infants", infants);
+
+  const form = document.getElementById("preparationForm");
+  const button = document.getElementById("submitButton");
+  const message = document.getElementById("formMessage");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    message.className = "form-message";
+    message.textContent = "";
+
+    const adultCount = Number(document.getElementById("adults").value);
+    const childCount = Number(document.getElementById("children").value);
+
+    if (adultCount + childCount > 8) {
+      message.textContent =
+        "The maximum number of adults and children is 8. Please check your guest numbers.";
+      message.className = "form-message error";
+      message.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    if (!confirmationCode) {
+      message.textContent =
+        "We cannot identify this reservation. Please return to the link in your booking message and try again.";
+      message.className = "form-message error";
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    try {
+      const response = await fetch("/api/preparation-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      document.getElementById("formContent").style.display = "none";
+      document.getElementById("successMessage").style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    } catch (error) {
+      message.textContent =
+        "We’re sorry, your preferences could not be sent. Please try again, or contact us if the problem continues.";
+      message.className = "form-message error";
+
+      button.disabled = false;
+      button.textContent = "Submit Your Preferences";
+    }
+  });
+</script>
+
+</body>
+</html>      height: auto;
       margin: 0 auto 34px;
     }
 
