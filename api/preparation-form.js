@@ -15,6 +15,8 @@ export default async function handler(req, res) {
       duck_egg_room,
       navy_room,
       travel_cot,
+      cot_pillow,
+      cot_duvet,
       requests
     } = req.body || {};
 
@@ -142,8 +144,10 @@ export default async function handler(req, res) {
           Travel Cot
         </h2>
 
-        <p>
-          <strong>${clean(travel_cot)}</strong>
+         <p>
+          <strong>Travel Cot:</strong> ${clean(travel_cot)}${travel_cot === "Yes" ? `<br>
+          <strong>Cot Pillow:</strong> ${cot_pillow === "Yes" ? "Yes" : "No"}<br>
+          <strong>Cot Duvet:</strong> ${cot_duvet === "Yes" ? "Yes" : "No"}` : ""}
         </p>
 
         <h2 style="
