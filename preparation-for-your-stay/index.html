@@ -752,6 +752,13 @@
       new FormData(form).entries()
     );
 
+    // Keep the API unchanged: include cot extras in the existing travel_cot field.
+    if (data.travel_cot === "Yes") {
+      const pillow = cotPillow.checked ? "Yes" : "No";
+      const duvet = cotDuvet.checked ? "Yes" : "No";
+      data.travel_cot = `Yes<br><strong>Cot pillow:</strong> ${pillow}<br><strong>Cot duvet:</strong> ${duvet}`;
+    }
+
     button.disabled = true;
     button.textContent = "Sending...";
 
