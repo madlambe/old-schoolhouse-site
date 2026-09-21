@@ -196,6 +196,58 @@
       max-width: 320px;
     }
 
+    .cot-extras {
+      display: none;
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: #f7f7f4;
+      border-radius: 6px;
+      max-width: 520px;
+    }
+
+    .cot-extras.visible {
+      display: block;
+    }
+
+    .cot-extras-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin: 0 0 12px;
+    }
+
+    .cot-extra-choice {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 9px 0;
+    }
+
+    .cot-extra-choice input {
+      width: 17px;
+      height: 17px;
+      margin: 0;
+      accent-color: #23447c;
+    }
+
+    .cot-extra-choice label {
+      display: inline;
+      margin: 0;
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .cot-safety-note {
+      margin: 15px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    .cot-safety-note a {
+      color: #4d89a9;
+      text-decoration: underline;
+    }
+
     .button {
       display: block;
       width: 100%;
@@ -521,6 +573,27 @@
             </div>
 
           </div>
+
+          <div id="cotExtras" class="cot-extras">
+            <p class="cot-extras-title">
+              Would you also like either of the following provided?
+            </p>
+
+            <div class="cot-extra-choice">
+              <input type="checkbox" id="cot-pillow" name="cot_pillow" value="Yes">
+              <label for="cot-pillow">Cot Pillow</label>
+            </div>
+
+            <div class="cot-extra-choice">
+              <input type="checkbox" id="cot-duvet" name="cot_duvet" value="Yes">
+              <label for="cot-duvet">Cot Duvet</label>
+            </div>
+
+            <p class="cot-safety-note">
+              <strong>Important:</strong> NHS safer sleep guidance advises that pillows and duvets should not be used for babies under 12 months. Please only request these items for children aged 12 months or over.
+              <a href="https://www.nhs.uk/best-start-in-life/baby/baby-basics/newborn-and-baby-sleeping-advice-for-parents/safe-sleep-advice-for-babies/" target="_blank" rel="noopener noreferrer">Read the NHS safer sleep guidance</a>.
+            </p>
+          </div>
         </fieldset>
 
         <h2>Anything Else?</h2>
@@ -627,6 +700,26 @@
   const form = document.getElementById("preparationForm");
   const button = document.getElementById("submitButton");
   const message = document.getElementById("formMessage");
+
+  const cotYes = document.getElementById("cot-yes");
+  const cotNo = document.getElementById("cot-no");
+  const cotExtras = document.getElementById("cotExtras");
+  const cotPillow = document.getElementById("cot-pillow");
+  const cotDuvet = document.getElementById("cot-duvet");
+
+  function updateCotExtras() {
+    if (cotYes.checked) {
+      cotExtras.classList.add("visible");
+    } else {
+      cotExtras.classList.remove("visible");
+      cotPillow.checked = false;
+      cotDuvet.checked = false;
+    }
+  }
+
+  cotYes.addEventListener("change", updateCotExtras);
+  cotNo.addEventListener("change", updateCotExtras);
+  updateCotExtras();
 
   form.addEventListener("submit", async function(event) {
     event.preventDefault();
