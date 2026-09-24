@@ -115,10 +115,10 @@ export default async function handler(req, res) {
           listingId: TOSH_LISTING_ID,
           guestsCount,
           numberOfGuests: {
-            adults: adultCount,
-            children: childCount,
-            infants: infantCount,
-            pets: petCount,
+            numberOfAdults: adultCount,
+            numberOfChildren: childCount,
+            numberOfInfants: infantCount,
+            numberOfPets: petCount,
           },
         }),
       }
