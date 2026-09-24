@@ -35,45 +35,25 @@ async function getGuestyToken() {
 
   return cachedToken;
 }
-
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const token = await getGuestyToken();
-
-    const response = await fetch(
-      "https://booking-api.guesty.com/v1/search",
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(response.status).json({
-        success: false,
-        error: data,
-      });
-    }
+    await getGuestyToken();
 
     return res.status(200).json({
       success: true,
-      message: "Guesty BEAPI connection is working",
-      data,
+      message: "Guesty BEAPI authentication is working"
     });
+
   } catch (error) {
-    console.error("Guesty BEAPI test error:", error);
+    console.error("Guesty authentication test error:", error);
 
     return res.status(500).json({
       success: false,
-      error: error.message,
+      error: error.message
     });
   }
 }
