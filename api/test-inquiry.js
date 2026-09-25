@@ -7,7 +7,7 @@ async function getGuestyToken() {
   }
 
   const response = await fetch(
-    "https://booking.guesty.com/api/auth/oauth2/token",
+    "https://booking.guesty.com/oauth2/token",
     {
       method: "POST",
       headers: {
