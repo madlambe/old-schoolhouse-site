@@ -541,91 +541,103 @@
 
         </div>
 
-        <h2>Additional Bed Setup</h2>
+<h2>Additional Bed Setup</h2>
 
-   <fieldset>
-  <legend>
-    Pink Room Futon <span class="required">*</span>
-  </legend>
+<div class="additional-bed-grid">
 
-  <p>Would you like us to prepare the futon in the Pink Room?</p>
+  <fieldset>
+    <legend>
+      Pink Room Futon <span class="required">*</span>
+    </legend>
 
-  <div class="choices">
-    <div class="choice">
-      <input
-        type="radio"
-        id="pink-futon-yes"
-        name="pink_room_futon"
-        value="Yes"
-        required
-      >
-      <label for="pink-futon-yes">Yes</label>
+    <div class="choices compact-options">
+      <div class="choice">
+        <input
+          type="radio"
+          id="pink-futon-yes"
+          name="pink_room_futon"
+          value="Yes"
+          required
+        >
+        <label for="pink-futon-yes">Yes</label>
+      </div>
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="pink-futon-no"
+          name="pink_room_futon"
+          value="No"
+        >
+        <label for="pink-futon-no">No</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>
+      Travel Cot <span class="required">*</span>
+    </legend>
+
+    <div class="choices compact-options">
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="cot-yes"
+          name="travel_cot"
+          value="Yes"
+          required
+        >
+        <label for="cot-yes">Yes</label>
+      </div>
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="cot-no"
+          name="travel_cot"
+          value="No"
+        >
+        <label for="cot-no">No</label>
+      </div>
+
     </div>
 
-    <div class="choice">
-      <input
-        type="radio"
-        id="pink-futon-no"
-        name="pink_room_futon"
-        value="No"
-      >
-      <label for="pink-futon-no">No</label>
+    <div id="cotExtras" class="cot-extras">
+      <p class="cot-extras-title">
+        Would you also like either of the following provided?
+      </p>
+
+      <div class="cot-extra-choice">
+        <input
+          type="checkbox"
+          id="cot-pillow"
+          name="cot_pillow"
+          value="Yes"
+        >
+        <label for="cot-pillow">Cot Pillow</label>
+      </div>
+
+      <div class="cot-extra-choice">
+        <input
+          type="checkbox"
+          id="cot-duvet"
+          name="cot_duvet"
+          value="Yes"
+        >
+        <label for="cot-duvet">Cot Duvet</label>
+      </div>
+
+      <p class="cot-safety-note">
+        <strong>Important:</strong> NHS safer sleep guidance advises that pillows and duvets should not be used for babies under 12 months. Please only request these items for children aged 12 months or over.
+        <a href="https://www.nhs.uk/best-start-in-life/baby/baby-basics/newborn-and-baby-sleeping-advice-for-parents/safe-sleep-advice-for-babies/" target="_blank" rel="noopener noreferrer">Read the NHS safer sleep guidance</a>.
+      </p>
     </div>
-  </div>
-</fieldset>
-        
-        <fieldset>
-          <legend>
-            Would you like us to prepare a travel cot?
-            <span class="required">*</span>
-          </legend>
 
-          <div class="choices cot-options">
+  </fieldset>
 
-            <div class="choice">
-              <input
-                type="radio"
-                id="cot-yes"
-                name="travel_cot"
-                value="Yes"
-                required
-              >
-              <label for="cot-yes">Yes</label>
-            </div>
-
-            <div class="choice">
-              <input
-                type="radio"
-                id="cot-no"
-                name="travel_cot"
-                value="No"
-              >
-              <label for="cot-no">No</label>
-            </div>
-
-          </div>
-
-          <div id="cotExtras" class="cot-extras">
-            <p class="cot-extras-title">
-              Would you also like either of the following provided?
-            </p>
-
-            <div class="cot-extra-choice">
-              <input type="checkbox" id="cot-pillow" name="cot_pillow" value="Yes">
-              <label for="cot-pillow">Cot Pillow</label>
-            </div>
-
-            <div class="cot-extra-choice">
-              <input type="checkbox" id="cot-duvet" name="cot_duvet" value="Yes">
-              <label for="cot-duvet">Cot Duvet</label>
-            </div>
-
-            <p class="cot-safety-note">
-              <strong>Important:</strong> NHS safer sleep guidance advises that pillows and duvets should not be used for babies under 12 months. Please only request these items for children aged 12 months or over.
-              <a href="https://www.nhs.uk/best-start-in-life/baby/baby-basics/newborn-and-baby-sleeping-advice-for-parents/safe-sleep-advice-for-babies/" target="_blank" rel="noopener noreferrer">Read the NHS safer sleep guidance</a>.
-            </p>
-          </div>
-        </fieldset>
+</div>
 
         <h2>Anything Else?</h2>
 
