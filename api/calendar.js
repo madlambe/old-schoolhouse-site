@@ -574,15 +574,13 @@ module.exports = async function handler(req, res) {
 
   catch (error) {
 
-    console.error(
-      "Calendar error:",
-      error
-    );
+  console.error(
+    "Calendar error:",
+    error
+  );
 
-    return res.status(500).json({
-      success: false,
-      error:
-        "Calendar availability could not be loaded"
-    });
-  }
-};
+  return res.status(500).json({
+    success: false,
+    error: error.message
+  });
+}
