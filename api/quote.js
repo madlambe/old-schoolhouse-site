@@ -197,7 +197,7 @@ function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "");
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({
       success: false,
