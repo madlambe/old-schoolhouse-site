@@ -1,19 +1,64 @@
 const LISTING_ID = "6a9971cb2e53cb00111b27da";
 
-let tokenCache = {
-  token: null,
-  expiresAt: 0
-};
+const TOKEN_KEY = "guesty:open-api:access-token";
+
+/* -------------------------------------------------------
+   UPSTASH
+------------------------------------------------------- */
+
+async function redisCommand(command) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+
+  if (!url || !token) {
+    throw new Error("Upstash environment variables are missing");
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(command)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || data.error) {
+    throw new Error(
+      `Upstash request failed: ${data.error || response.status}`
+    );
+  }
+
+  return data.result;
+}
+
+
+/* -------------------------------------------------------
+   GUESTY OPEN API TOKEN
+------------------------------------------------------- */
 
 async function getOpenApiToken() {
-  const now = Date.now();
 
-  if (
-    tokenCache.token &&
-    tokenCache.expiresAt > now + 5 * 60 * 1000
-  ) {
-    return tokenCache.token;
+  /*
+   * First try the persistent token stored in Upstash.
+   */
+
+  const cachedToken = await redisCommand([
+    "GET",
+    TOKEN_KEY
+  ]);
+
+  if (cachedToken) {
+    return cachedToken;
   }
+
+
+  /*
+   * Only request a new Guesty token if Redis
+   * genuinely does not contain one.
+   */
 
   const body = new URLSearchParams({
     grant_type: "client_credentials",
@@ -38,26 +83,51 @@ async function getOpenApiToken() {
 
   if (!response.ok || !data.access_token) {
     throw new Error(
-      `Guesty authentication failed: ${response.status} ${JSON.stringify(data)}`
+      `Guesty authentication failed: ${response.status}`
     );
   }
 
-  tokenCache.token = data.access_token;
-  tokenCache.expiresAt =
-    now + (data.expires_in || 86400) * 1000;
 
-  return tokenCache.token;
+  /*
+   * Guesty Open API tokens normally last 24 hours.
+   * Store slightly less than the actual expiry so
+   * we never try to use an expired token.
+   */
+
+  const expiresIn =
+    Math.max(
+      60,
+      (data.expires_in || 86400) - 600
+    );
+
+  await redisCommand([
+    "SET",
+    TOKEN_KEY,
+    data.access_token,
+    "EX",
+    expiresIn
+  ]);
+
+  return data.access_token;
 }
+
+
+/* -------------------------------------------------------
+   HELPERS
+------------------------------------------------------- */
 
 function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "");
 }
 
+
 function getDate(day) {
   return day.date || day.dateLocalized || null;
 }
 
+
 function getReservationInfo(day) {
+
   const reservation = day.reservation;
 
   if (!reservation) {
@@ -84,80 +154,140 @@ function getReservationInfo(day) {
   };
 }
 
-function getManualBlockIds(day) {
+
+/*
+ * Guesty can represent blocks in several ways.
+ * We retain ONLY the block TYPES.
+ *
+ * We deliberately do not return:
+ * guest names
+ * emails
+ * phone numbers
+ * reservation IDs
+ * notes
+ * prices
+ * confirmation codes
+ * creator details
+ */
+
+function getBlockTypes(day) {
+
+  const types = new Set();
+
+  const blocks = day.blocks || {};
+
+
+  /*
+   * Boolean block flags returned by Guesty.
+   */
+
+  [
+    "m",
+    "b",
+    "r",
+    "an",
+    "abl",
+    "a",
+    "o"
+  ].forEach(type => {
+
+    if (blocks[type] === true) {
+      types.add(type);
+    }
+
+  });
+
+
+  /*
+   * Also inspect blockRefs, where available.
+   */
+
   const refs =
-    day.blocks &&
-    Array.isArray(day.blocks.blockRefs)
-      ? day.blocks.blockRefs
+    Array.isArray(blocks.blockRefs)
+      ? blocks.blockRefs
       : [];
 
-  return refs
-    .filter(ref => {
-      const type = ref.type || ref.blockType;
-      return type === "m";
-    })
-    .map(ref =>
-      String(
-        ref._id ||
-        ref.id ||
-        ref.blockId ||
-        ref.note ||
-        ref.reason ||
-        ""
-      )
-    )
-    .filter(Boolean);
+  refs.forEach(ref => {
+
+    const type =
+      ref.type ||
+      ref.blockType;
+
+    if (type) {
+      types.add(String(type));
+    }
+
+  });
+
+  return Array.from(types);
 }
 
+
+/* -------------------------------------------------------
+   SANITISE GUESTY CALENDAR
+------------------------------------------------------- */
+
 function sanitiseCalendar(data) {
-  const rawDays =
+
+  /*
+   * Guesty responses can wrap days differently.
+   * Support the shapes we've encountered without
+   * exposing the original response publicly.
+   */
+
+  let rawDays = [];
+
+  if (
     data &&
     data.data &&
     Array.isArray(data.data.days)
-      ? data.data.days
-      : [];
+  ) {
 
-  const reservations = new Map();
-  const manualBlocks = new Map();
+    rawDays = data.data.days;
+
+  } else if (
+    data &&
+    Array.isArray(data.data)
+  ) {
+
+    rawDays = data.data;
+
+  } else if (
+    data &&
+    Array.isArray(data.days)
+  ) {
+
+    rawDays = data.days;
+  }
+
 
   /*
-   * First pass:
-   * collect only the date boundaries we need.
+   * Build reservation boundaries.
    */
-  rawDays.forEach(day => {
-    const date = getDate(day);
 
-    if (!date) {
-      return;
-    }
+  const reservations = new Map();
+
+  rawDays.forEach(day => {
 
     const reservation =
       getReservationInfo(day);
 
-    if (reservation) {
-      const key =
-        reservation.checkIn +
-        "|" +
-        reservation.checkOut;
-
-      reservations.set(key, reservation);
+    if (!reservation) {
+      return;
     }
 
-    const manualIds =
-      getManualBlockIds(day);
+    const key =
+      reservation.checkIn +
+      "|" +
+      reservation.checkOut;
 
-    manualIds.forEach(id => {
-      if (!manualBlocks.has(id)) {
-        manualBlocks.set(id, []);
-      }
-
-      manualBlocks.get(id).push(date);
-    });
+    reservations.set(
+      key,
+      reservation
+    );
   });
 
-  /*
-   * Reservation boundaries.
-   */
+
   const reservationArrivals =
     new Set();
 
@@ -165,6 +295,7 @@ function sanitiseCalendar(data) {
     new Set();
 
   reservations.forEach(reservation => {
+
     reservationArrivals.add(
       reservation.checkIn
     );
@@ -174,101 +305,102 @@ function sanitiseCalendar(data) {
     );
   });
 
-  /*
-   * Manual block boundaries.
-   *
-   * First day = start of block
-   * Day after last blocked night = end of block
-   */
-  const manualBlockStarts =
-    new Set();
-
-  const manualBlockEnds =
-    new Set();
-
-  manualBlocks.forEach(dates => {
-    const sorted =
-      [...new Set(dates)].sort();
-
-    if (!sorted.length) {
-      return;
-    }
-
-    manualBlockStarts.add(
-      sorted[0]
-    );
-
-    const last =
-      new Date(sorted[sorted.length - 1] + "T12:00:00");
-
-    last.setDate(
-      last.getDate() + 1
-    );
-
-    const endDate =
-      [
-        last.getFullYear(),
-        String(last.getMonth() + 1).padStart(2, "0"),
-        String(last.getDate()).padStart(2, "0")
-      ].join("-");
-
-    manualBlockEnds.add(endDate);
-  });
 
   /*
-   * Produce a deliberately small public response.
+   * Return ONLY the fields the Webflow calendar
+   * actually needs.
    */
+
   const days =
-    rawDays.map(day => {
-      const date =
-        getDate(day);
+    rawDays
+      .map(day => {
 
-      if (!date) {
-        return null;
-      }
+        const date =
+          getDate(day);
 
-      const status =
-        day.status || "available";
+        if (!date) {
+          return null;
+        }
 
-      const isBooked =
-        status === "booked";
+        const status =
+          String(
+            day.status || "available"
+          ).toLowerCase();
 
-      const isUnavailable =
-        status === "unavailable";
+        const blockTypes =
+          getBlockTypes(day);
 
-      const hasManualBlock =
-        getManualBlockIds(day).length > 0;
+        const booked =
+          status === "booked";
 
-      const reservationArrival =
-        reservationArrivals.has(date);
+        const reserved =
+          status === "reserved";
 
-      const reservationDeparture =
-        reservationDepartures.has(date);
+        const unavailable =
+          status === "unavailable";
 
-      const manualStart =
-        manualBlockStarts.has(date);
+        const reservationArrival =
+          reservationArrivals.has(date);
 
-      const manualEnd =
-        manualBlockEnds.has(date);
+        const reservationDeparture =
+          reservationDepartures.has(date);
 
-      return {
-        date,
-        status,
-        booked: isBooked,
-        unavailable: isUnavailable,
-        manualBlock: hasManualBlock,
-        reservationArrival,
-        reservationDeparture,
-        manualStart,
-        manualEnd
-      };
-    })
-    .filter(Boolean);
+
+        /*
+         * HARD BLOCK
+         *
+         * If Guesty says unavailable, that always
+         * takes precedence over half-day styling.
+         *
+         * This fixes 10 November.
+         */
+
+        const hardBlocked =
+          unavailable;
+
+
+        /*
+         * OVERLAPPING BLOCK
+         *
+         * More than one Guesty block type on a date
+         * means the date should not be represented
+         * as a simple reservation changeover.
+         *
+         * This is what we need for dates such as
+         * 3 November where another Guesty block
+         * overlaps the reservation arrival.
+         */
+
+        const overlappingBlock =
+          blockTypes.length > 1;
+
+
+        return {
+          date,
+          status,
+          booked,
+          reserved,
+          unavailable,
+          hardBlocked,
+          overlappingBlock,
+          reservationArrival,
+          reservationDeparture,
+          blockTypes
+        };
+
+      })
+      .filter(Boolean);
+
 
   return {
     days
   };
 }
+
+
+/* -------------------------------------------------------
+   VERCEL HANDLER
+------------------------------------------------------- */
 
 module.exports = async function handler(req, res) {
 
@@ -282,6 +414,7 @@ module.exports = async function handler(req, res) {
     req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
+
     res.setHeader(
       "Access-Control-Allow-Origin",
       origin
@@ -303,32 +436,44 @@ module.exports = async function handler(req, res) {
     "Content-Type"
   );
 
+
+  /*
+   * Five-minute calendar cache.
+   */
+
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=300, stale-while-revalidate=60"
   );
 
+
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
+
   if (req.method !== "GET") {
+
     return res.status(405).json({
       success: false,
       error: "Method not allowed"
     });
   }
 
+
   try {
+
     const {
       startDate,
       endDate
     } = req.query;
 
+
     if (
       !validDate(startDate) ||
       !validDate(endDate)
     ) {
+
       return res.status(400).json({
         success: false,
         error:
@@ -336,7 +481,9 @@ module.exports = async function handler(req, res) {
       });
     }
 
+
     if (endDate < startDate) {
+
       return res.status(400).json({
         success: false,
         error:
@@ -344,28 +491,66 @@ module.exports = async function handler(req, res) {
       });
     }
 
+
     const token =
       await getOpenApiToken();
+
 
     const url =
       `https://open-api.guesty.com/v1/availability-pricing/api/calendar/listings/${LISTING_ID}` +
       `?startDate=${encodeURIComponent(startDate)}` +
       `&endDate=${encodeURIComponent(endDate)}`;
 
+
     const response =
-      await fetch(url, {
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-          Accept:
-            "application/json"
+      await fetch(
+        url,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+            Accept:
+              "application/json"
+          }
         }
-      });
+      );
+
 
     const data =
       await response.json();
 
+
+    /*
+     * If the stored token has unexpectedly become
+     * invalid, remove it so the NEXT request can
+     * obtain a fresh token.
+     */
+
+    if (
+      response.status === 401 ||
+      response.status === 403
+    ) {
+
+      await redisCommand([
+        "DEL",
+        TOKEN_KEY
+      ]);
+
+      return res.status(503).json({
+        success: false,
+        error:
+          "Guesty authentication is being refreshed. Please try again."
+      });
+    }
+
+
     if (!response.ok) {
+
+      console.error(
+        "Guesty calendar request failed:",
+        response.status
+      );
+
       return res
         .status(response.status)
         .json({
@@ -375,15 +560,19 @@ module.exports = async function handler(req, res) {
         });
     }
 
+
     const calendar =
       sanitiseCalendar(data);
+
 
     return res.status(200).json({
       success: true,
       calendar
     });
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.error(
       "Calendar error:",
