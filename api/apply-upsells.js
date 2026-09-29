@@ -59,6 +59,28 @@ function poolEligible(checkIn, checkOut) {
 }
 
 export default async function handler(req, res) {
+  
+  // Allow requests from the Webflow staging site and live website.
+  const allowedOrigins = [
+    "https://the-old-schoolhouse.webflow.io",
+    "https://www.the-old-schoolhouse.com",
+    "https://the-old-schoolhouse.com",
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
+
+  // Safari sends this request before the actual POST.
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
