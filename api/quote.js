@@ -1,45 +1,7 @@
-let cachedToken = null;
-let tokenExpiresAt = 0;
+const { getBookingToken } = require('../lib/booking-auth.cjs');
 
 // The Old Schoolhouse Guesty listing ID
 const TOSH_LISTING_ID = "6a9971cb2e53cb00111b27da";
-
-async function getGuestyToken() {
-  if (cachedToken && Date.now() < tokenExpiresAt - 5 * 60 * 1000) {
-    return cachedToken;
-  }
-
-  const params = new URLSearchParams({
-    grant_type: "client_credentials",
-    scope: "booking_engine:api",
-    client_id: process.env.GUESTY_BE_CLIENT_ID,
-    client_secret: process.env.GUESTY_BE_CLIENT_SECRET,
-  });
-
-  const response = await fetch("https://booking.guesty.com/oauth2/token", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: params,
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-
-    throw new Error(
-      `Guesty authentication failed: ${response.status} ${errorText}`
-    );
-  }
-
-  const data = await response.json();
-
-  cachedToken = data.access_token;
-  tokenExpiresAt = Date.now() + data.expires_in * 1000;
-
-  return cachedToken;
-}
 
 function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "");
@@ -120,7 +82,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const token = await getGuestyToken();
+    const token = await getBookingToken();
 
     const response = await fetch(
       "https://booking.guesty.com/api/reservations/quotes",
@@ -159,10 +121,14 @@ module.exports = async function handler(req, res) {
     if (!response.ok) {
       console.error("Guesty quote error:", response.status, data);
 
+      const details = data?.error?.data?.moreDetails?.notApplicableRatePlans || [];
+      const flags = details.flatMap(plan => Object.entries(plan.notApplicable || {})
+        .filter(([, active]) => active === true).map(([name]) => name));
       return res.status(response.status).json({
         success: false,
         status: response.status,
-        error: data,
+        restriction: data?.error?.code === 'LISTING_IS_NOT_AVAILABLE' ? {flags} : null,
+        errorCode: data?.error?.code || 'QUOTE_UNAVAILABLE'
       });
     }
 
@@ -184,7 +150,7 @@ module.exports = async function handler(req, res) {
 
     return res.status(500).json({
       success: false,
-      error: error.message,
+      errorCode: "BOOKING_SERVICE_UNAVAILABLE",
     });
   }
 };
