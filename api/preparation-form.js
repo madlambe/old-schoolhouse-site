@@ -11,9 +11,11 @@ export default async function handler(req, res) {
       adults,
       children,
       infants,
+      dogs,
       pink_room,
       duck_egg_room,
       navy_room,
+      pink_room_futon,
       travel_cot,
       cot_pillow,
       cot_duvet,
@@ -26,9 +28,11 @@ export default async function handler(req, res) {
       !adults ||
       children === undefined ||
       infants === undefined ||
+      dogs === undefined ||
       !pink_room ||
       !duck_egg_room ||
       !navy_room ||
+      !pink_room_futon ||
       !travel_cot
     ) {
       return res.status(400).json({
@@ -39,6 +43,7 @@ export default async function handler(req, res) {
     const adultCount = Number(adults);
     const childCount = Number(children);
     const infantCount = Number(infants);
+    const dogCount = Number(dogs);
 
     if (
       adultCount < 1 ||
@@ -47,6 +52,9 @@ export default async function handler(req, res) {
       childCount > 7 ||
       infantCount < 0 ||
       infantCount > 4 ||
+      !Number.isInteger(dogCount) ||
+      dogCount < 0 ||
+      dogCount > 2 ||
       adultCount + childCount > 8
     ) {
       return res.status(400).json({
@@ -121,7 +129,8 @@ export default async function handler(req, res) {
         <p>
           <strong>Adults:</strong> ${adultCount}<br>
           <strong>Children (2–17):</strong> ${childCount}<br>
-          <strong>Infants (under 2):</strong> ${infantCount}
+          <strong>Infants (under 2):</strong> ${infantCount}<br>
+          <strong>Dogs:</strong> ${dogCount}
         </p>
 
         <h2 style="
@@ -134,7 +143,8 @@ export default async function handler(req, res) {
         <p>
           <strong>Pink Room:</strong> ${clean(pink_room)}<br>
           <strong>Duck Egg Room:</strong> ${clean(duck_egg_room)}<br>
-          <strong>Navy Room:</strong> ${clean(navy_room)}
+          <strong>Navy Room:</strong> ${clean(navy_room)}<br>
+          <strong>Pink Room Futon:</strong> ${clean(pink_room_futon)}
         </p>
 
         <h2 style="
