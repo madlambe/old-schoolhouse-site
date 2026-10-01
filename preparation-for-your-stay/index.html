@@ -94,6 +94,849 @@
 
     .guest-grid {
       display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .field {
+      margin-bottom: 24px;
+    }
+
+    label,
+    legend {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+      font-size: 16px;
+    }
+
+    .age-note {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #c6c6b9;
+      border-radius: 5px;
+      padding: 13px 14px;
+      background: #fff;
+      color: #231f20;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .room-grid fieldset {
+      margin-bottom: 8px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .choice {
+      position: relative;
+    }
+
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice label {
+      display: block;
+      margin: 0;
+      padding: 13px 10px;
+      border: 1px solid #c6c6b9;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 400;
+      transition: 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .choice input:checked + label {
+      background: #23447c;
+      border-color: #23447c;
+      color: #fff;
+    }
+
+    .choice input:focus + label {
+      outline: 2px solid #4d89a9;
+      outline-offset: 2px;
+    }
+
+    .cot-options {
+      max-width: 320px;
+    }
+
+    .cot-extras {
+      display: none;
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: #f7f7f4;
+      border-radius: 6px;
+      max-width: 520px;
+    }
+
+    .cot-extras.visible {
+      display: block;
+    }
+
+    .cot-extras-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin: 0 0 12px;
+    }
+
+    .cot-extra-choice {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 9px 0;
+    }
+
+    .cot-extra-choice input {
+      width: 17px;
+      height: 17px;
+      margin: 0;
+      accent-color: #23447c;
+    }
+
+    .cot-extra-choice label {
+      display: inline;
+      margin: 0;
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .cot-safety-note {
+      margin: 15px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    .cot-safety-note a {
+      color: #4d89a9;
+      text-decoration: underline;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      background: #23447c;
+      color: #ffffff;
+      font-family: "trajan-pro-3", "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 17px;
+      padding: 17px 20px;
+      margin-top: 34px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      opacity: 0.92;
+    }
+
+    .button:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
+    .privacy {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin: 18px 0 0;
+    }
+
+    .required {
+      color: #b56474;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #fbf2f3;
+      color: #7b3340;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 18px 0 8px;
+    }
+
+    .success h1 {
+      margin-top: 0;
+    }
+
+    .success h2 {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .success p {
+      max-width: 520px;
+      margin: 12px auto;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 28px 14px 50px;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-top: 32px;
+      }
+
+      .guest-grid,
+      .room-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .room-grid fieldset {
+        margin-bottom: 24px;
+      }
+
+      .choices {
+        gap: 8px;
+      }
+
+      .cot-options {
+        max-width: none;
+      }
+    }
+ /* your existing CSS above */
+
+.additional-bed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 300px));
+  gap: 48px;
+  align-items: start;
+}
+
+.compact-options {
+  display: flex;
+  gap: 12px;
+}
+
+.compact-options .choice {
+  flex: 1;
+}
+
+@media (max-width: 700px) {
+  .additional-bed-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <img src="/logo.png" alt="The Old Schoolhouse" class="logo">
+
+  <section class="card">
+
+    <div id="formContent">
+
+      <h1>Preparation for Your Stay</h1>
+
+      <p class="intro">
+        We’re looking forward to welcoming you to The Old Schoolhouse.
+        Please take a moment to confirm the details below so that we can
+        prepare everything just as you would like it for your arrival.
+      </p>
+
+      <div class="reservation-summary">
+        <p id="guestLine">Your Stay at The Old Schoolhouse</p>
+        <p id="arrivalLine"></p>
+        <p id="referenceLine"></p>
+      </div>
+
+      <form id="preparationForm">
+
+        <input type="hidden" id="confirmationCode" name="confirmation_code">
+        <input type="hidden" id="guestName" name="guest_name">
+        <input type="hidden" id="checkinDate" name="checkin">
+
+        <h2>Your Guests</h2>
+
+        <div class="guest-grid">
+
+          <div class="field">
+            <label for="adults">
+              Adults <span class="required">*</span>
+              <span class="age-note">18 years and over</span>
+            </label>
+
+            <select id="adults" name="adults" required>
+              <option value="">Please select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="children">
+              Children <span class="required">*</span>
+              <span class="age-note">2–17 years</span>
+            </label>
+
+            <select id="children" name="children" required>
+              <option value="">Please select</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="infants">
+              Infants <span class="required">*</span>
+              <span class="age-note">Under 2 years</span>
+            </label>
+
+            <select id="infants" name="infants" required>
+              <option value="">Please select</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dogs">
+              Dogs <span class="required">*</span>
+              <span class="age-note">Maximum 2</span>
+            </label>
+            <select id="dogs" name="dogs" required>
+              <option value="">Please select</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+
+        </div>
+
+        <h2>Bedroom Arrangements</h2>
+
+        <div class="room-grid">
+
+          <fieldset>
+            <legend>
+              Pink Room <span class="required">*</span>
+            </legend>
+
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="pink-superking"
+                  name="pink_room"
+                  value="Super King"
+                  required
+                >
+                <label for="pink-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="pink-twin"
+                  name="pink_room"
+                  value="Twin"
+                >
+                <label for="pink-twin">Twin</label>
+              </div>
+            </div>
+          </fieldset>
+          
+          <fieldset>
+            <legend>
+              Duck Egg Room <span class="required">*</span>
+            </legend>
+
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="duck-superking"
+                  name="duck_egg_room"
+                  value="Super King"
+                  required
+                >
+                <label for="duck-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="duck-twin"
+                  name="duck_egg_room"
+                  value="Twin"
+                >
+                <label for="duck-twin">Twin</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>
+              Navy Room <span class="required">*</span>
+            </legend>
+
+            <div class="choices">
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="navy-superking"
+                  name="navy_room"
+                  value="Super King"
+                  required
+                >
+                <label for="navy-superking">Super King</label>
+              </div>
+
+              <div class="choice">
+                <input
+                  type="radio"
+                  id="navy-twin"
+                  name="navy_room"
+                  value="Twin"
+                >
+                <label for="navy-twin">Twin</label>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+
+<h2>Additional Bed Setup</h2>
+
+<div class="additional-bed-grid">
+
+  <fieldset>
+    <legend>
+      Pink Room Futon <span class="required">*</span>
+    </legend>
+
+    <div class="choices compact-options">
+      <div class="choice">
+        <input
+          type="radio"
+          id="pink-futon-yes"
+          name="pink_room_futon"
+          value="Yes"
+          required
+        >
+        <label for="pink-futon-yes">Yes</label>
+      </div>
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="pink-futon-no"
+          name="pink_room_futon"
+          value="No"
+        >
+        <label for="pink-futon-no">No</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>
+      Travel Cot <span class="required">*</span>
+    </legend>
+
+    <div class="choices compact-options">
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="cot-yes"
+          name="travel_cot"
+          value="Yes"
+          required
+        >
+        <label for="cot-yes">Yes</label>
+      </div>
+
+      <div class="choice">
+        <input
+          type="radio"
+          id="cot-no"
+          name="travel_cot"
+          value="No"
+        >
+        <label for="cot-no">No</label>
+      </div>
+
+    </div>
+
+    <div id="cotExtras" class="cot-extras">
+      <p class="cot-extras-title">
+        Would you also like either of the following provided?
+      </p>
+
+      <div class="cot-extra-choice">
+        <input
+          type="checkbox"
+          id="cot-pillow"
+          name="cot_pillow"
+          value="Yes"
+        >
+        <label for="cot-pillow">Cot Pillow</label>
+      </div>
+
+      <div class="cot-extra-choice">
+        <input
+          type="checkbox"
+          id="cot-duvet"
+          name="cot_duvet"
+          value="Yes"
+        >
+        <label for="cot-duvet">Cot Duvet</label>
+      </div>
+
+      <p class="cot-safety-note">
+        <strong>Important:</strong> NHS safer sleep guidance advises that pillows and duvets should not be used for babies under 12 months. Please only request these items for children aged 12 months or over.
+        <a href="https://www.nhs.uk/best-start-in-life/baby/baby-basics/newborn-and-baby-sleeping-advice-for-parents/safe-sleep-advice-for-babies/" target="_blank" rel="noopener noreferrer">Read the NHS safer sleep guidance</a>.
+      </p>
+    </div>
+
+  </fieldset>
+
+</div>
+
+        <h2>Anything Else?</h2>
+
+        <div class="field">
+          <label for="requests">
+            Is there anything else we can prepare for your stay?
+          </label>
+
+          <textarea
+            id="requests"
+            name="requests"
+            maxlength="1000"
+            placeholder="Please let us know of any other requirements or requests."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="button" id="submitButton">
+          Submit Your Preferences
+        </button>
+
+        <div id="formMessage" class="form-message"></div>
+
+        <p class="privacy">
+          These details are used solely to help us prepare The Old Schoolhouse
+          for your stay.
+        </p>
+
+      </form>
+
+    </div>
+
+    <div class="success" id="successMessage">
+
+      <h1>Thank You</h1>
+
+      <h2>Everything is in hand.</h2>
+
+      <p>
+        Thank you for confirming your preferences. We’ll make sure
+        The Old Schoolhouse is prepared for your arrival.
+      </p>
+
+      <p>
+        We’re very much looking forward to welcoming you.
+      </p>
+
+      <p>
+        Warmest wishes,<br>
+        <strong>Madelaine &amp; Chris</strong>
+      </p>
+
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const confirmationCode = params.get("ref") || "";
+  const guest = params.get("guest") || "";
+  const checkin = params.get("checkin") || "";
+  const adults = params.get("adults");
+  const children = params.get("children");
+  const infants = params.get("infants");
+  const dogs = params.get("dogs");
+
+  document.getElementById("confirmationCode").value = confirmationCode;
+  document.getElementById("guestName").value = guest;
+  document.getElementById("checkinDate").value = checkin;
+
+  if (guest) {
+    document.getElementById("guestLine").textContent =
+      "Name: " + guest;
+  }
+
+  if (checkin) {
+    document.getElementById("arrivalLine").textContent =
+      "Arrival: " + checkin;
+  }
+
+  if (confirmationCode) {
+    document.getElementById("referenceLine").textContent =
+      "Booking reference: " + confirmationCode;
+  }
+
+  function setSelectValue(id, value) {
+    if (value === null) return;
+
+    const select = document.getElementById(id);
+
+    const optionExists =
+      Array.from(select.options).some(option => option.value === value);
+
+    if (optionExists) {
+      select.value = value;
+    }
+  }
+
+  setSelectValue("adults", adults);
+  setSelectValue("children", children);
+  setSelectValue("infants", infants);
+  setSelectValue("dogs", dogs);
+
+  const form = document.getElementById("preparationForm");
+  const button = document.getElementById("submitButton");
+  const message = document.getElementById("formMessage");
+
+  const cotYes = document.getElementById("cot-yes");
+  const cotNo = document.getElementById("cot-no");
+  const cotExtras = document.getElementById("cotExtras");
+  const cotPillow = document.getElementById("cot-pillow");
+  const cotDuvet = document.getElementById("cot-duvet");
+
+  function updateCotExtras() {
+    if (cotYes.checked) {
+      cotExtras.classList.add("visible");
+    } else {
+      cotExtras.classList.remove("visible");
+      cotPillow.checked = false;
+      cotDuvet.checked = false;
+    }
+  }
+
+  cotYes.addEventListener("change", updateCotExtras);
+  cotNo.addEventListener("change", updateCotExtras);
+  updateCotExtras();
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    message.className = "form-message";
+    message.textContent = "";
+
+    const adultCount = Number(document.getElementById("adults").value);
+    const childCount = Number(document.getElementById("children").value);
+
+    if (adultCount + childCount > 8) {
+      message.textContent =
+        "The maximum number of adults and children is 8. Please check your guest numbers.";
+      message.className = "form-message error";
+      message.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+      return;
+    }
+
+    if (!confirmationCode) {
+      message.textContent =
+        "We cannot identify this reservation. Please return to the link in your booking message and try again.";
+      message.className = "form-message error";
+      return;
+    }
+
+    const data = Object.fromEntries(
+      new FormData(form).entries()
+    );
+
+    // Keep the API unchanged: include cot extras in the existing travel_cot field.
+
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    try {
+
+      const response = await fetch("/api/preparation-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      document.getElementById("formContent").style.display = "none";
+      document.getElementById("successMessage").style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    } catch (error) {
+
+      message.textContent =
+        "We’re sorry, your preferences could not be sent. Please try again, or contact us if the problem continues.";
+
+      message.className = "form-message error";
+
+      button.disabled = false;
+      button.textContent = "Submit Your Preferences";
+    }
+  });
+</script>
+
+</body>
+</html>
+      display: block;
+      width: 230px;
+      max-width: 55%;
+      height: auto;
+      margin: 0 auto 34px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 44px 46px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+
+    h1,
+    h2 {
+      font-family: "trajan-pro-3", "Times New Roman", serif;
+      color: #23447c;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 29px;
+      font-weight: 700;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      text-align: left;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 38px 0 20px;
+    }
+
+    .intro {
+      text-align: center;
+      margin: 0 auto 28px;
+      max-width: 650px;
+    }
+
+    .reservation-summary {
+      width: 100%;
+      background: #f4f6f7;
+      border-radius: 6px;
+      padding: 20px 22px;
+      margin: 28px auto 34px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .reservation-summary p {
+      margin: 4px 0;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .guest-grid {
+      display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 28px;
     }
