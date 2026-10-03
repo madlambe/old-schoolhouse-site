@@ -9,10 +9,12 @@ function setCors(res) {
     "Access-Control-Allow-Origin",
     "https://the-old-schoolhouse.webflow.io"
   );
+
   res.setHeader(
     "Access-Control-Allow-Methods",
     "POST, OPTIONS"
   );
+
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Content-Type"
@@ -253,13 +255,15 @@ export default async function handler(req, res) {
       });
     }
 
+    /*
+     * Add each selected Guesty upsell once.
+     *
+     * The number of dogs is already contained in the quote's
+     * numberOfGuests.numberOfPets value.
+     */
     const additionalFeeIds = [];
 
-    for (
-      let i = 0;
-      i < dogCount;
-      i++
-    ) {
+    if (dogCount > 0) {
       additionalFeeIds.push(
         DOG_FEE_ID
       );
