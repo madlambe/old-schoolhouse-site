@@ -4,6 +4,21 @@ const { getBookingToken } = bookingAuth;
 const DOG_FEE_ID = "6a9a72c18edf716db60d74bb";
 const POOL_FEE_ID = "6a9a761e8edf716db60d8cfc";
 
+function setCors(res) {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://the-old-schoolhouse.webflow.io"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
+}
+
 function poolEligible(checkIn, checkOut) {
   return /^\d{4}-\d{2}-\d{2}$/.test(checkIn || "") &&
     /^\d{4}-\d{2}-\d{2}$/.test(checkOut || "") &&
@@ -15,15 +30,13 @@ function poolEligible(checkIn, checkOut) {
     checkIn < checkOut;
 }
 
-function log(stage, data = {}) {
-  console.log(
-    "[TOSH UPSELL DEBUG]",
-    stage,
-    JSON.stringify(data)
-  );
-}
-
 export default async function handler(req, res) {
+
+  setCors(res);
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
 
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -45,14 +58,6 @@ export default async function handler(req, res) {
 
     const dogCount = Number(dogs);
 
-    log("REQUEST RECEIVED", {
-      hasQuoteId: Boolean(quoteId),
-      dogs: dogCount,
-      poolHeating,
-      checkIn,
-      checkOut
-    });
-
     if (
       !quoteId ||
       !Number.isInteger(dogCount) ||
@@ -60,129 +65,56 @@ export default async function handler(req, res) {
       dogCount > 2 ||
       typeof poolHeating !== "boolean"
     ) {
-
-      log("INVALID REQUEST", {
-        hasQuoteId: Boolean(quoteId),
-        dogs: dogCount,
-        poolHeatingType: typeof poolHeating
-      });
-
       return res.status(400).json({
         success: false,
-        stage: "validation",
         error: "Invalid extras selection"
       });
     }
-
 
     if (
       poolHeating &&
       !poolEligible(checkIn, checkOut)
     ) {
-
-      log("POOL DATE VALIDATION FAILED", {
-        checkIn,
-        checkOut
-      });
-
       return res.status(400).json({
         success: false,
-        stage: "pool-validation",
         error: "Pool heating unavailable for these dates"
       });
     }
-
 
     if (
       dogCount === 0 &&
       !poolHeating
     ) {
-
       return res.status(400).json({
         success: false,
-        stage: "validation",
         error: "No extras selected"
       });
     }
 
-
-    /*
-     * GET GUESTY TOKEN
-     */
-
-    log("GETTING GUESTY TOKEN");
-
     const token = await getBookingToken();
-
-    log("GUESTY TOKEN OK");
-
-
-    /*
-     * GET ORIGINAL QUOTE
-     */
 
     const quoteUrl =
       `https://booking.guesty.com/api/reservations/quotes/${encodeURIComponent(quoteId)}`;
 
-    log("GETTING ORIGINAL QUOTE");
-
-    const originalResponse =
-      await fetch(
-        quoteUrl,
-        {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`
-          }
+    const originalResponse = await fetch(
+      quoteUrl,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`
         }
-      );
+      }
+    );
 
-    const originalText =
-      await originalResponse.text();
-
-    let original;
-
-    try {
-      original =
-        originalText
-          ? JSON.parse(originalText)
-          : {};
-    }
-    catch {
-      original = {
-        rawResponse: originalText.slice(0, 500)
-      };
-    }
-
-    log("ORIGINAL QUOTE RESPONSE", {
-      status: originalResponse.status,
-      ok: originalResponse.ok,
-      topLevelKeys:
-        original &&
-        typeof original === "object"
-          ? Object.keys(original)
-          : []
-    });
-
+    const original = await originalResponse.json();
 
     if (!originalResponse.ok) {
-
-      log("GET QUOTE FAILED", {
-        status: originalResponse.status,
-        response: original
-      });
-
       return res.status(originalResponse.status).json({
         success: false,
         stage: "get-quote",
         error: original
       });
     }
-
-
-    /*
-     * VALIDATE QUOTE DATES
-     */
 
     const actualIn =
       original.checkInDateLocalized ||
@@ -192,31 +124,17 @@ export default async function handler(req, res) {
       original.checkOutDateLocalized ||
       original.checkOut;
 
-    log("QUOTE DATES", {
-      requestedCheckIn: checkIn,
-      requestedCheckOut: checkOut,
-      guestyCheckIn: actualIn,
-      guestyCheckOut: actualOut
-    });
-
-
     if (
       !actualIn ||
       !actualOut ||
       actualIn.slice(0, 10) !== checkIn ||
       actualOut.slice(0, 10) !== checkOut
     ) {
-
-      log("QUOTE DATE MISMATCH");
-
       return res.status(400).json({
         success: false,
-        stage: "quote-dates",
-        error:
-          "Quote dates do not match selected dates"
+        error: "Quote dates do not match selected dates"
       });
     }
-
 
     if (
       poolHeating &&
@@ -225,129 +143,53 @@ export default async function handler(req, res) {
         actualOut.slice(0, 10)
       )
     ) {
-
-      log("POOL SEASON CHECK FAILED");
-
       return res.status(400).json({
         success: false,
-        stage: "pool-season",
         error: "Pool heating outside season"
       });
     }
 
-
-    /*
-     * CHECK PET COUNT
-     */
-
     const actualPets =
       original.numberOfGuests?.numberOfPets;
-
-    log("PET COUNT", {
-      selectedDogs: dogCount,
-      guestyPets: actualPets
-    });
-
 
     if (
       actualPets !== undefined &&
       Number(actualPets) !== dogCount
     ) {
-
-      log("PET COUNT MISMATCH", {
-        selectedDogs: dogCount,
-        guestyPets: actualPets
-      });
-
       return res.status(400).json({
         success: false,
-        stage: "pet-count",
-        error:
-          "Quote dog count does not match selection"
+        error: "Quote dog count does not match selection"
       });
     }
 
-
-    /*
-     * FIND RATE PLAN / INQUIRY / LISTING
-     */
-
-    const ratePlans =
-      original.rates?.ratePlans;
-
-    log("RATE PLAN ARRAY", {
-      isArray: Array.isArray(ratePlans),
-      count:
-        Array.isArray(ratePlans)
-          ? ratePlans.length
-          : 0
-    });
-
-
     const ratePlanEntry =
-      Array.isArray(ratePlans)
-        ? (
-            ratePlans.find(
-              entry => !entry.notApplicable
-            ) ||
-            ratePlans[0]
-          )
-        : null;
-
+      original.rates?.ratePlans?.find(
+        entry => !entry.notApplicable
+      ) ||
+      original.rates?.ratePlans?.[0];
 
     const ratePlan =
       ratePlanEntry?.ratePlan || {};
 
-
     const ratePlanId =
       ratePlan._id ||
-      ratePlan.id ||
-      null;
-
+      ratePlan.id;
 
     const inquiryId =
       ratePlan.inquiryId ||
       ratePlanEntry?.inquiryId ||
-      original.inquiryId ||
-      null;
-
+      original.inquiryId;
 
     const listingId =
       original.listingId ||
       original.unitTypeId ||
-      original.unitId ||
-      null;
-
-
-    log("QUOTE CONTEXT", {
-      ratePlanId,
-      inquiryId,
-      listingId,
-      ratePlanEntryKeys:
-        ratePlanEntry &&
-        typeof ratePlanEntry === "object"
-          ? Object.keys(ratePlanEntry)
-          : [],
-      ratePlanKeys:
-        ratePlan &&
-        typeof ratePlan === "object"
-          ? Object.keys(ratePlan)
-          : []
-    });
-
+      original.unitId;
 
     if (
       !ratePlanId ||
       !inquiryId ||
       !listingId
     ) {
-
-      log("QUOTE CONTEXT FAILED", {
-        hasRatePlanId: Boolean(ratePlanId),
-        hasInquiryId: Boolean(inquiryId),
-        hasListingId: Boolean(listingId)
-      });
-
       return res.status(502).json({
         success: false,
         stage: "quote-context",
@@ -356,128 +198,41 @@ export default async function handler(req, res) {
       });
     }
 
-
-    /*
-     * GET AVAILABLE UPSELLS
-     */
-
-    const availableUrl =
+    const availableResponse = await fetch(
       `https://booking.guesty.com/api/reservations/upsell/` +
       `${encodeURIComponent(inquiryId)}/` +
-      `${encodeURIComponent(listingId)}/fee`;
-
-
-    log("GETTING AVAILABLE UPSELLS", {
-      inquiryId,
-      listingId
-    });
-
-
-    const availableResponse =
-      await fetch(
-        availableUrl,
-        {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`
-          }
+      `${encodeURIComponent(listingId)}/fee`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`
         }
-      );
+      }
+    );
 
-
-    const availableText =
-      await availableResponse.text();
-
-    let availableUpsells;
-
-    try {
-      availableUpsells =
-        availableText
-          ? JSON.parse(availableText)
-          : [];
-    }
-    catch {
-      availableUpsells = {
-        rawResponse:
-          availableText.slice(0, 500)
-      };
-    }
-
-
-    log("AVAILABLE UPSELL RESPONSE", {
-      status: availableResponse.status,
-      ok: availableResponse.ok,
-      isArray:
-        Array.isArray(availableUpsells),
-      count:
-        Array.isArray(availableUpsells)
-          ? availableUpsells.length
-          : null,
-      feeIds:
-        Array.isArray(availableUpsells)
-          ? availableUpsells
-              .map(fee => fee?._id)
-              .filter(Boolean)
-          : []
-    });
-
+    const availableUpsells =
+      await availableResponse.json();
 
     if (!availableResponse.ok) {
-
-      log("GET UPSELLS FAILED", {
-        status: availableResponse.status,
-        response: availableUpsells
+      return res.status(availableResponse.status).json({
+        success: false,
+        stage: "get-upsells",
+        error: availableUpsells
       });
-
-      return res
-        .status(availableResponse.status)
-        .json({
-          success: false,
-          stage: "get-upsells",
-          error: availableUpsells
-        });
     }
 
-
-    /*
-     * CHECK OUR FEE IDs ARE AVAILABLE
-     */
-
-    const availableIds =
-      new Set(
-        Array.isArray(availableUpsells)
-          ? availableUpsells
-              .map(fee => fee && fee._id)
-              .filter(Boolean)
-          : []
-      );
-
-
-    log("CHECKING FEE IDS", {
-      dogFeeWanted:
-        dogCount > 0
-          ? DOG_FEE_ID
-          : null,
-      poolFeeWanted:
-        poolHeating
-          ? POOL_FEE_ID
-          : null,
-      availableFeeIds:
-        Array.from(availableIds)
-    });
-
+    const availableIds = new Set(
+      Array.isArray(availableUpsells)
+        ? availableUpsells
+            .map(fee => fee && fee._id)
+            .filter(Boolean)
+        : []
+    );
 
     if (
       dogCount > 0 &&
       !availableIds.has(DOG_FEE_ID)
     ) {
-
-      log("DOG FEE NOT AVAILABLE", {
-        dogFeeId: DOG_FEE_ID,
-        availableFeeIds:
-          Array.from(availableIds)
-      });
-
       return res.status(400).json({
         success: false,
         stage: "validate-upsells",
@@ -486,18 +241,10 @@ export default async function handler(req, res) {
       });
     }
 
-
     if (
       poolHeating &&
       !availableIds.has(POOL_FEE_ID)
     ) {
-
-      log("POOL FEE NOT AVAILABLE", {
-        poolFeeId: POOL_FEE_ID,
-        availableFeeIds:
-          Array.from(availableIds)
-      });
-
       return res.status(400).json({
         success: false,
         stage: "validate-upsells",
@@ -506,13 +253,7 @@ export default async function handler(req, res) {
       });
     }
 
-
-    /*
-     * BUILD UPSELL REQUEST
-     */
-
     const additionalFeeIds = [];
-
 
     for (
       let i = 0;
@@ -524,184 +265,77 @@ export default async function handler(req, res) {
       );
     }
 
-
     if (poolHeating) {
       additionalFeeIds.push(
         POOL_FEE_ID
       );
     }
 
+    const applyResponse = await fetch(
+      `https://booking.guesty.com/api/reservations/upsell/${encodeURIComponent(quoteId)}`,
+      {
+        method: "POST",
 
-    const applyPayload = {
-      additionalFeeIds,
-      ratePlanIds: [
-        ratePlanId
-      ]
-    };
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
 
+        body: JSON.stringify({
+          additionalFeeIds,
+          ratePlanIds: [ratePlanId]
+        })
+      }
+    );
 
-    log("APPLYING UPSELLS", {
-      additionalFeeIds,
-      ratePlanIds:
-        applyPayload.ratePlanIds
-    });
-
-
-    /*
-     * APPLY UPSELLS
-     */
-
-    const applyResponse =
-      await fetch(
-        `https://booking.guesty.com/api/reservations/upsell/${encodeURIComponent(quoteId)}`,
-        {
-          method: "POST",
-
-          headers: {
-            accept: "application/json",
-            "content-type":
-              "application/json",
-            Authorization:
-              `Bearer ${token}`
-          },
-
-          body:
-            JSON.stringify(
-              applyPayload
-            )
-        }
-      );
-
-
-    const appliedText =
-      await applyResponse.text();
-
-    let applied;
-
-    try {
-      applied =
-        appliedText
-          ? JSON.parse(appliedText)
-          : {};
-    }
-    catch {
-      applied = {
-        rawResponse:
-          appliedText.slice(0, 500)
-      };
-    }
-
-
-    log("APPLY UPSELL RESPONSE", {
-      status:
-        applyResponse.status,
-      ok:
-        applyResponse.ok,
-      response:
-        applied
-    });
-
+    const applied =
+      await applyResponse.json();
 
     if (!applyResponse.ok) {
-
-      return res
-        .status(applyResponse.status)
-        .json({
-          success: false,
-          stage: "apply-upsells",
-          error: applied
-        });
+      return res.status(applyResponse.status).json({
+        success: false,
+        stage: "apply-upsells",
+        error: applied
+      });
     }
 
-
-    /*
-     * GET UPDATED QUOTE
-     */
-
-    log("GETTING UPDATED QUOTE");
-
-
-    const updatedResponse =
-      await fetch(
-        quoteUrl,
-        {
-          headers: {
-            accept:
-              "application/json",
-            Authorization:
-              `Bearer ${token}`
-          }
+    const updatedResponse = await fetch(
+      quoteUrl,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`
         }
-      );
+      }
+    );
 
-
-    const updatedText =
-      await updatedResponse.text();
-
-    let updatedQuote;
-
-    try {
-      updatedQuote =
-        updatedText
-          ? JSON.parse(updatedText)
-          : {};
-    }
-    catch {
-      updatedQuote = {
-        rawResponse:
-          updatedText.slice(0, 500)
-      };
-    }
-
-
-    log("UPDATED QUOTE RESPONSE", {
-      status:
-        updatedResponse.status,
-      ok:
-        updatedResponse.ok,
-      hasRates:
-        Boolean(updatedQuote?.rates)
-    });
-
+    const updatedQuote =
+      await updatedResponse.json();
 
     if (!updatedResponse.ok) {
-
-      return res
-        .status(updatedResponse.status)
-        .json({
-          success: false,
-          stage: "updated-quote",
-          error: updatedQuote
-        });
+      return res.status(updatedResponse.status).json({
+        success: false,
+        stage: "updated-quote",
+        error: updatedQuote
+      });
     }
-
-
-    log("SUCCESS");
-
 
     return res.status(200).json({
       success: true,
       updatedQuote
     });
 
-
-  }
-  catch (error) {
+  } catch (error) {
 
     console.error(
-      "[TOSH UPSELL DEBUG] UNHANDLED ERROR",
-      {
-        name: error?.name,
-        message: error?.message,
-        stack: error?.stack
-      }
+      "TOSH apply-upsells error:",
+      error
     );
 
     return res.status(500).json({
       success: false,
-      stage: "unhandled-error",
-      errorCode:
-        "BOOKING_SERVICE_UNAVAILABLE"
+      errorCode: "BOOKING_SERVICE_UNAVAILABLE"
     });
   }
 }
