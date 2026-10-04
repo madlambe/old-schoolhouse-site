@@ -286,6 +286,24 @@ function sanitiseCalendar(data) {
       const overlappingBlock =
         blockTypes.length > 1;
 
+      /*
+       * Booking restrictions supplied directly by Guesty.
+       *
+       * minNights = minimum stay when arriving on this date.
+       * cta = closed to arrival.
+       * ctd = closed to departure.
+       */
+      const minNights =
+        Number.isFinite(Number(day.minNights))
+          ? Number(day.minNights)
+          : null;
+
+      const closedToArrival =
+        day.cta === true;
+
+      const closedToDeparture =
+        day.ctd === true;
+
       return {
         date,
         status,
@@ -297,39 +315,9 @@ function sanitiseCalendar(data) {
         reservationArrival,
         reservationDeparture,
         blockTypes,
-
-        /*
-         * TEMPORARY RULE DEBUGGING.
-         *
-         * This lets us identify exactly how Guesty
-         * exposes minimum-stay and arrival/departure
-         * restrictions in the calendar response.
-         *
-         * Remove this once the field names have
-         * been confirmed.
-         */
-        ruleDebug: {
-          minNights:
-            day.minNights ??
-            day.min_nights ??
-            day.minimumNights ??
-            day.minimumStay ??
-            null,
-
-          closedToArrival:
-            day.closedToArrival ??
-            day.closed_to_arrival ??
-            day.cta ??
-            null,
-
-          closedToDeparture:
-            day.closedToDeparture ??
-            day.closed_to_departure ??
-            day.ctd ??
-            null,
-
-          keys: Object.keys(day),
-        },
+        minNights,
+        closedToArrival,
+        closedToDeparture,
       };
     })
     .filter(Boolean);
@@ -464,11 +452,6 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     console.error("Calendar error:", error);
 
-    /*
-     * TEMPORARY debugging response.
-     * This lets us identify the exact problem.
-     * It does NOT expose the Guesty or Upstash secrets.
-     */
     return res.status(500).json({
       success: false,
       error:
