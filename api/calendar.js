@@ -297,6 +297,39 @@ function sanitiseCalendar(data) {
         reservationArrival,
         reservationDeparture,
         blockTypes,
+
+        /*
+         * TEMPORARY RULE DEBUGGING.
+         *
+         * This lets us identify exactly how Guesty
+         * exposes minimum-stay and arrival/departure
+         * restrictions in the calendar response.
+         *
+         * Remove this once the field names have
+         * been confirmed.
+         */
+        ruleDebug: {
+          minNights:
+            day.minNights ??
+            day.min_nights ??
+            day.minimumNights ??
+            day.minimumStay ??
+            null,
+
+          closedToArrival:
+            day.closedToArrival ??
+            day.closed_to_arrival ??
+            day.cta ??
+            null,
+
+          closedToDeparture:
+            day.closedToDeparture ??
+            day.closed_to_departure ??
+            day.ctd ??
+            null,
+
+          keys: Object.keys(day),
+        },
       };
     })
     .filter(Boolean);
