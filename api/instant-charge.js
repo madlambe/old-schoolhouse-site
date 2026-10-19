@@ -1,310 +1,139 @@
 
+'use strict';
 const { getBookingToken } = require('../lib/booking-auth.cjs');
+const crypto = require('node:crypto');
 
-const ALLOWED_ORIGINS = [
+const ORIGINS = new Set([
   'https://the-old-schoolhouse.webflow.io',
   'https://www.the-old-schoolhouse.com',
-  'https://the-old-schoolhouse.com',
-];
+  'https://the-old-schoolhouse.com'
+]);
+const KEY_PREFIX = 'tosh:instant-charge:v1:';
+const LOCK_SECONDS = 60 * 60 * 48;
 
-function setCors(req, res) {
+function cors(req, res) {
   const origin = req.headers.origin;
-  if (ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+  if (ORIGINS.has(origin)) res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Vary', 'Origin');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
-
-function cleanString(value, maxLength = 500) {
-  return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
+function str(value, limit = 200) {
+  return typeof value === 'string' ? value.trim().slice(0, limit) : '';
 }
-
-function validEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || '');
-}
-
-function upper(value) {
-  return typeof value === 'string' ? value.trim().toUpperCase() : '';
-}
-
-function pickString(...values) {
-  for (const value of values) {
-    if (typeof value === 'string' && value.trim()) return value.trim();
-  }
-  return null;
-}
-
-function guestyRequestId(response) {
-  return response.headers.get('x-request-id') ||
-    response.headers.get('x-guesty-request-id') || null;
-}
-
-function verifiedResult(data) {
-  const reservation = data?.reservation || {};
-  const payment = data?.payment || {};
-
-  const reservationId = pickString(
-    reservation._id, reservation.id, data?.reservationId, data?._id
-  );
-  const confirmationCode = pickString(
-    reservation.confirmationCode, data?.confirmationCode
-  );
-
-  // Require explicit payment and reservation confirmation.
-  // An HTTP 200 response alone is not sufficient.
-  const reservationStatus = upper(
-    reservation.status || data?.reservationStatus
-  );
-  const paymentStatus = upper(
-    payment.status || data?.paymentStatus
-  );
-
-  const reservationConfirmed = [
-    'CONFIRMED',
-    'RESERVED'
-  ].includes(reservationStatus);
-
-  const paymentSucceeded = [
-    'SUCCEEDED',
-    'SUCCESS',
-    'PAID',
-    'CAPTURED',
-    'COMPLETED'
-  ].includes(paymentStatus);
-
-  const needsAuthentication = [
-    'PENDING_AUTH',
-    'REQUIRES_ACTION',
-    'REQUIRES_AUTHENTICATION'
-  ].includes(upper(data?.status)) || [
-    'PENDING_AUTH',
-    'REQUIRES_ACTION',
-    'REQUIRES_AUTHENTICATION'
-  ].includes(paymentStatus);
-
+function safeStatus(value) { return str(value, 60).toUpperCase(); }
+function paymentOutcome(data) {
+  const r = data && data.reservation || {};
+  const p = data && data.payment || {};
+  const reservationId = str(r._id || r.id, 100);
+  const confirmationCode = str(r.confirmationCode, 100);
+  const reservationStatus = safeStatus(r.status);
+  const paymentStatus = safeStatus(p.status);
+  // Guesty's documentation provides these objects, but exact live status
+  // combinations still require validation before the live switch is enabled.
+  const confirmed = reservationStatus === 'CONFIRMED';
+  const paid = ['SUCCEEDED', 'SUCCESS', 'PAID', 'CAPTURED', 'COMPLETED'].includes(paymentStatus);
   return {
-    reservationId,
-    confirmationCode,
-    reservationStatus: reservationStatus || null,
-    paymentStatus: paymentStatus || null,
-    needsAuthentication,
-    verified: Boolean(
-      reservationId &&
-      confirmationCode &&
-      reservationConfirmed &&
-      paymentSucceeded
-    ),
+    verified: !!(reservationId && confirmationCode && confirmed && paid),
+    reservationId, confirmationCode, reservationStatus, paymentStatus,
+    requiresAuthentication: ['PENDING_AUTH', 'REQUIRES_ACTION', 'REQUIRES_AUTHENTICATION'].includes(paymentStatus)
   };
 }
+async function redis(command) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) throw new Error('Redis configuration unavailable');
+  const response = await fetch(url.replace(/\/$/, ''), {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(command),
+    signal: AbortSignal.timeout(8000)
+  });
+  if (!response.ok) throw new Error('Redis HTTP error');
+  const data = await response.json();
+  if (data.error) throw new Error('Redis command failed');
+  return data.result;
+}
+function keyFor(quoteId) {
+  return KEY_PREFIX + crypto.createHash('sha256').update(quoteId).digest('hex');
+}
+function referenceId() { return crypto.randomBytes(12).toString('hex'); }
 
 module.exports = async function handler(req, res) {
-  setCors(req, res);
+  cors(req, res);
+  res.setHeader('Cache-Control', 'no-store');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+  if (req.method !== 'POST') return res.status(405).json({success:false,errorCode:'METHOD_NOT_ALLOWED'});
 
-  if (req.method === 'OPTIONS') {
-    return res.status(204).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({
-      success: false,
-      errorCode: 'METHOD_NOT_ALLOWED'
-    });
-  }
-
-  // LIVE PAYMENT SAFETY SWITCH
-  //
-  // Live payments remain disabled unless the Vercel
-  // environment variable ENABLE_LIVE_INSTANT_CHARGE
-  // is explicitly set to the string 'true'.
-  //
-  // Do not enable until integration testing is complete.
-
+  // MUST remain absent/false until real checkout is fully verified.
   if (process.env.ENABLE_LIVE_INSTANT_CHARGE !== 'true') {
-    return res.status(503).json({
-      success: false,
-      errorCode: 'LIVE_CHECKOUT_DISABLED',
-      message: 'Live payments are not enabled.',
-    });
+    return res.status(503).json({success:false,errorCode:'LIVE_CHECKOUT_DISABLED',message:'Live payments are not enabled.'});
+  }
+  if (!ORIGINS.has(req.headers.origin)) {
+    return res.status(403).json({success:false,errorCode:'ORIGIN_NOT_ALLOWED'});
+  }
+  const {quoteId,ratePlanId,confirmationToken,guest} = req.body || {};
+  const q = str(quoteId,100), plan = str(ratePlanId,100), ct = str(confirmationToken,250);
+  const firstName = str(guest?.firstName,100), lastName = str(guest?.lastName,100);
+  const email = str(guest?.email,254), phone = str(guest?.phone,50);
+  if (!q || !plan || !/^ctoken_[A-Za-z0-9_]+$/.test(ct) || !firstName || !lastName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({success:false,errorCode:'INVALID_BOOKING_REQUEST'});
   }
 
-  const origin = req.headers.origin;
-
-  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-    return res.status(403).json({
-      success: false,
-      errorCode: 'ORIGIN_NOT_ALLOWED'
-    });
+  // Atomic SET NX prevents two parallel requests using the same quote.
+  // Never release a lock automatically on Guesty failure or timeout:
+  // payment may have been processed even when our response is unclear.
+  const key = keyFor(q), attemptId = referenceId();
+  try {
+    const acquired = await redis(['SET', key, JSON.stringify({state:'processing',attemptId,at:new Date().toISOString()}), 'NX', 'EX', LOCK_SECONDS]);
+    if (acquired !== 'OK') {
+      return res.status(409).json({success:false,errorCode:'BOOKING_ATTEMPT_ALREADY_EXISTS',doNotRetry:true,message:'This booking has already been submitted. Please contact us before trying again.'});
+    }
+  } catch (err) {
+    console.error('Payment blocked: Redis unavailable', {attemptId,reason:err.message});
+    return res.status(503).json({success:false,errorCode:'PAYMENT_PROTECTION_UNAVAILABLE',doNotRetry:true});
   }
 
-  const {
-    quoteId,
-    ratePlanId,
-    confirmationToken,
-    guest
-  } = req.body || {};
-
-  const safeQuoteId = cleanString(quoteId, 100);
-  const safeRatePlanId = cleanString(ratePlanId, 100);
-  const safeConfirmationToken = cleanString(
-    confirmationToken, 200
-  );
-
-  const firstName = cleanString(guest?.firstName, 100);
-  const lastName = cleanString(guest?.lastName, 100);
-  const email = cleanString(guest?.email, 254);
-  const phone = cleanString(guest?.phone, 50);
-
-  if (!safeQuoteId) {
-    return res.status(400).json({
-      success: false,
-      errorCode: 'MISSING_QUOTE_ID'
-    });
-  }
-
-  if (!safeRatePlanId) {
-    return res.status(400).json({
-      success: false,
-      errorCode: 'MISSING_RATE_PLAN_ID'
-    });
-  }
-
-  if (!safeConfirmationToken.startsWith('ctoken_')) {
-    return res.status(400).json({
-      success: false,
-      errorCode: 'INVALID_CONFIRMATION_TOKEN'
-    });
-  }
-
-  if (!firstName || !lastName || !validEmail(email)) {
-    return res.status(400).json({
-      success: false,
-      errorCode: 'INVALID_GUEST_DETAILS'
-    });
-  }
+  const record = async (state, details = {}) => {
+    try {
+      await redis(['SET', key, JSON.stringify({state,attemptId,at:new Date().toISOString(),...details}), 'EX', LOCK_SECONDS]);
+    } catch (err) {
+      console.error('Payment record update failed', {attemptId,reason:err.message});
+    }
+  };
 
   try {
     const token = await getBookingToken();
-
-    const guestyResponse = await fetch(
-      `https://booking.guesty.com/api/reservations/quotes/${encodeURIComponent(
-        safeQuoteId
-      )}/instant-charge`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json; charset=utf-8',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ratePlanId: safeRatePlanId,
-          confirmationToken: safeConfirmationToken,
-
-          // Request retention of the payment method
-          // for future balance collection.
-          reuse: true,
-
-          guest: {
-            firstName,
-            lastName,
-            email,
-            ...(phone ? { phone } : {}),
-          },
-        }),
-      }
-    );
-
-    const requestId = guestyRequestId(guestyResponse);
-    const raw = await guestyResponse.text();
-
-    let data;
-
-    try {
-      data = raw ? JSON.parse(raw) : {};
-    } catch {
-      data = {};
-    }
-
-    const result = verifiedResult(data);
-
-    if (!guestyResponse.ok) {
-      console.error('Guesty instant-charge rejected', {
-        httpStatus: guestyResponse.status,
-        requestId,
-        guestyCode: data?.error?.code || data?.code || null,
-      });
-
-      return res.status(502).json({
-        success: false,
-        errorCode: 'PAYMENT_OR_RESERVATION_FAILED',
-        requiresVerification: result.needsAuthentication,
-        requestId,
-      });
-    }
-
-    if (result.needsAuthentication) {
-      return res.status(200).json({
-        success: false,
-        errorCode: 'ADDITIONAL_AUTHENTICATION_REQUIRED',
-        requiresVerification: true,
-        requestId,
-      });
-    }
-
-    if (!result.verified) {
-      // Guesty might already have charged the card
-      // or created a reservation.
-      //
-      // Do not tell the guest to retry until the
-      // transaction has been reconciled.
-
-      console.error(
-        'Guesty instant-charge response needs reconciliation',
-        {
-          requestId,
-          hasReservationId: Boolean(result.reservationId),
-          hasConfirmationCode: Boolean(result.confirmationCode),
-          reservationStatus: result.reservationStatus,
-          paymentStatus: result.paymentStatus,
-          responseKeys: Object.keys(data || {}),
-        }
-      );
-
-      return res.status(200).json({
-        success: false,
-        errorCode: 'BOOKING_STATUS_UNVERIFIED',
-        requiresVerification: true,
-        doNotRetry: true,
-        requestId,
-      });
-    }
-
-    // Only return success when both payment and
-    // reservation have been explicitly verified.
-
-    return res.status(200).json({
-      success: true,
-      paymentVerified: true,
-      reservationVerified: true,
-      requiresVerification: false,
-      reservationId: result.reservationId,
-      confirmationCode: result.confirmationCode,
-      requestId,
+    const response = await fetch(`https://booking.guesty.com/api/reservations/quotes/${encodeURIComponent(q)}/instant-charge`, {
+      method:'POST',
+      headers:{'Accept':'application/json','Content-Type':'application/json',Authorization:`Bearer ${token}`},
+      body:JSON.stringify({ratePlanId:plan,confirmationToken:ct,reuse:true,guest:{firstName,lastName,email,...(phone?{phone}:{})}}),
+      signal:AbortSignal.timeout(45000)
     });
-
-  } catch (error) {
-    console.error('Instant-charge request failed', {
-      name: error?.name || 'Error',
-      message: error?.message || 'Unknown error',
-    });
-
-    return res.status(503).json({
-      success: false,
-      errorCode: 'BOOKING_STATUS_UNKNOWN',
-      requiresVerification: true,
-      doNotRetry: true,
-    });
+    const requestId = response.headers.get('x-request-id') || response.headers.get('x-guesty-request-id') || null;
+    const raw = await response.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch (_) { /* unknown response */ }
+    const outcome = paymentOutcome(data);
+    const metadata = {requestId,httpStatus:response.status,reservationId:outcome.reservationId || null,
+      confirmationCode:outcome.confirmationCode || null,reservationStatus:outcome.reservationStatus,
+      paymentStatus:outcome.paymentStatus};
+    if (!response.ok) {
+      await record('needs_reconciliation',metadata);
+      console.error('Guesty payment response requires review',{attemptId,...metadata});
+      return res.status(502).json({success:false,errorCode:'BOOKING_STATUS_UNKNOWN',doNotRetry:true,requiresVerification:true,attemptId});
+    }
+    if (!outcome.verified) {
+      await record('needs_reconciliation',metadata);
+      console.error('Guesty payment status requires review',{attemptId,...metadata});
+      return res.status(202).json({success:false,errorCode:outcome.requiresAuthentication?'ADDITIONAL_AUTHENTICATION_REQUIRED':'BOOKING_STATUS_UNVERIFIED',doNotRetry:true,requiresVerification:true,attemptId});
+    }
+    await record('verified',metadata);
+    return res.status(200).json({success:true,paymentVerified:true,reservationVerified:true,
+      reservationId:outcome.reservationId,confirmationCode:outcome.confirmationCode,attemptId});
+  } catch (err) {
+    await record('needs_reconciliation',{errorType:err.name || 'Error'});
+    console.error('Guesty payment outcome unknown',{attemptId,reason:err.message});
+    return res.status(503).json({success:false,errorCode:'BOOKING_STATUS_UNKNOWN',doNotRetry:true,requiresVerification:true,attemptId});
   }
 };
