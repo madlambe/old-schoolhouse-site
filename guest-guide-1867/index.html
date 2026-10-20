@@ -51,6 +51,10 @@
         margin-right: 10px;
       }
     }
+    .fire-floorplan { margin: 24px 0 28px; }
+    .fire-floorplan img { display: block; width: 100%; height: auto; border: 1px solid #e4e1da; border-radius: 6px; }
+    .fire-floorplan a { display: block; }
+    .fire-floorplan-caption { margin: 8px 0 0 !important; color: #4d89a9; font-size: 0.9em; text-align: center; }
   </style>
 
   <style>
@@ -332,6 +336,8 @@ A **fire extinguisher and a fire blanket** can be found **under the kitchen sink
 In the event of needing to evacuate, **exit the property via the nearest downstairs door** (front door, patio doors or sitting room door), **closing all doors behind you**.
 
 In the event of fire, guests should **evacuate immediately, assemble in the car park adjacent to the church, then call 999 and notify us as soon as it is safe to do so**.  Guests should not attempt to tackle a fire beyond what is safe.
+
+[FIRE_SAFETY_FLOORPLAN]
 
 ### Smoke & Carbon Monoxide Alarms
 
@@ -2250,6 +2256,23 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         let inList = false;
 
         for (const line of lines) {
+          if (line.trim() === "[FIRE_SAFETY_FLOORPLAN]") {
+            if (inList) {
+              output.push("</ul>");
+              inList = false;
+            }
+            output.push(
+              '<div class="fire-floorplan">' +
+              '<h3>Fire Safety Floorplan</h3>' +
+              '<a href="/guest-guide-1867/assets/fire-safety-floorplan.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Fire Safety Floorplan">' +
+              '<img src="/guest-guide-1867/assets/fire-safety-floorplan.jpg" alt="The Old Schoolhouse upstairs and downstairs fire safety floorplans, with colour-coded key for smoke alarms, heat alarm, fire extinguisher and blanket, and emergency torches" loading="lazy">' +
+              '</a>' +
+              '<p class="fire-floorplan-caption">Tap the floorplan to enlarge.</p>' +
+              '</div>'
+            );
+            continue;
+          }
+
           if (line.trim() === token) {
             if (inList) {
               output.push("</ul>");
