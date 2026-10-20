@@ -2212,6 +2212,7 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         let text = escapeHTML(
           String(source || "")
             .replace("[BIN_COLLECTION_DATES]", token)
+          .replace("[FIRE_SAFETY_FLOORPLAN]", "FIRE_SAFETY_FLOORPLAN")
             .replace(
               "[NEXT_COLLECTION_RULE]",
               nextCollectionToken
@@ -2256,7 +2257,7 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
         let inList = false;
 
         for (const line of lines) {
-          if (line.trim() === "[FIRE_SAFETY_FLOORPLAN]") {
+          if (line.trim() === "FIRE_SAFETY_FLOORPLAN") {
             if (inList) {
               output.push("</ul>");
               inList = false;
