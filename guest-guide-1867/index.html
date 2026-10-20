@@ -2272,14 +2272,7 @@ A quieter Monmouthshire circuit through Skenfrith, Grosmont and White Castle, wi
             );
             continue;
           }
-if (line.trim() === "[FIRE_SAFETY_FLOORPLAN]") {
-  output.push(
-    '<a href="/guest-guide-1867/assets/fire-safety-floorplan.jpg" target="_blank" rel="noopener noreferrer">' +
-    '<img src="/guest-guide-1867/assets/fire-safety-floorplan.jpg" alt="The Old Schoolhouse Fire Safety Floorplan" style="display:block;width:100%;height:auto;margin:20px 0;border-radius:6px;cursor:zoom-in;">' +
-    '</a>'
-  );
-  continue;
-}
+
           if (line.trim() === token) {
             if (inList) {
               output.push("</ul>");
