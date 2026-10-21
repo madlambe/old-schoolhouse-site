@@ -29,13 +29,15 @@ function paymentOutcome(data) {
   const confirmationCode = str(r.confirmationCode, 100);
   const reservationStatus = safeStatus(r.status);
   const paymentStatus = safeStatus(p.status);
+  const checkInDate = str(r.checkInDateLocalized || r.stay?.[0]?.checkInDateLocalized, 10);
+  const checkOutDate = str(r.checkOutDateLocalized || r.stay?.[0]?.checkOutDateLocalized, 10);
   // Guesty's documentation provides these objects, but exact live status
   // combinations still require validation before the live switch is enabled.
   const confirmed = reservationStatus === 'CONFIRMED';
   const paid = ['SUCCEEDED', 'SUCCESS', 'PAID', 'CAPTURED', 'COMPLETED'].includes(paymentStatus);
   return {
     verified: !!(reservationId && confirmationCode && confirmed && paid),
-    reservationId, confirmationCode, reservationStatus, paymentStatus,
+    reservationId, confirmationCode, reservationStatus, paymentStatus, checkInDate, checkOutDate,
     requiresAuthentication: ['PENDING_AUTH', 'REQUIRES_ACTION', 'REQUIRES_AUTHENTICATION'].includes(paymentStatus)
   };
 }
@@ -130,7 +132,7 @@ module.exports = async function handler(req, res) {
     }
     await record('verified',metadata);
     return res.status(200).json({success:true,paymentVerified:true,reservationVerified:true,
-      reservationId:outcome.reservationId,confirmationCode:outcome.confirmationCode,attemptId});
+      reservationId:outcome.reservationId,confirmationCode:outcome.confirmationCode,checkInDate:outcome.checkInDate,checkOutDate:outcome.checkOutDate,attemptId});
   } catch (err) {
     await record('needs_reconciliation',{errorType:err.name || 'Error'});
     console.error('Guesty payment outcome unknown',{attemptId,reason:err.message});
