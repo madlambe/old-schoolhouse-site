@@ -295,6 +295,13 @@ module.exports = async function handler(req, res) {
     );
 
     const data = await r.json().catch(() => null);
+    if (!r.ok) {
+  console.error('Guesty API rejection', {
+    httpStatus: r.status,
+    requestId: r.headers.get('x-request-id'),
+    errors: data?.errors || data?.error || data?.message || data?.details || 'No error details returned'
+  });
+}
     const out = analyze(data);
 
     const detail = {
