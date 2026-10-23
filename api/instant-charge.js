@@ -296,11 +296,11 @@ module.exports = async function handler(req, res) {
 
     const data = await r.json().catch(() => null);
     if (!r.ok) {
-  console.error('Guesty API rejection', {
+  console.error('Guesty API rejection', JSON.stringify({
     httpStatus: r.status,
     requestId: r.headers.get('x-request-id'),
     errors: data?.errors || data?.error || data?.message || data?.details || 'No error details returned'
-  });
+  }, null, 2));
 }
     const out = analyze(data);
 
