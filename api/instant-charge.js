@@ -260,23 +260,19 @@ module.exports = async function handler(req, res) {
     }
 
     const payload = {
-      quoteId,
-      ratePlanId,
-      guest: {
-        firstName,
-        lastName,
-        email,
-        phone,
-        ...(guest.address
-          ? { address: guest.address }
-          : {})
-      },
-      payment: {
-        method: 'STRIPE',
-        confirmationToken,
-        reuse: true
-      }
-    };
+  ratePlanId,
+  confirmationToken,
+  reuse: true,
+  guest: {
+    firstName,
+    lastName,
+    email,
+    phone,
+    ...(guest.address
+      ? { address: guest.address }
+      : {})
+  }
+};
 
     sent = true;
 
