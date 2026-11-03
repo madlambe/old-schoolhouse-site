@@ -9,14 +9,8 @@ const ORIGINS = new Set([
   'https://the-old-schoolhouse.com'
 ]);
 
-const SESSION_PREFIX = 'tosh:3ds-session:v1:';
-
-function hash(value) {
-  return crypto
-    .createHash('sha256')
-    .update(value)
-    .digest('hex');
-}
+const hash = v =>
+  crypto.createHash('sha256').update(v).digest('hex');
 
 async function redis(command) {
   const url =
@@ -31,7 +25,7 @@ async function redis(command) {
     throw Error('Redis unavailable');
   }
 
-  const response = await fetch(url.replace(/\/$/, ''), {
+  const r = await fetch(url, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -41,17 +35,17 @@ async function redis(command) {
     signal: AbortSignal.timeout(8000)
   });
 
-  if (!response.ok) {
+  if (!r.ok) {
     throw Error('Redis HTTP failure');
   }
 
-  const data = await response.json();
+  const j = await r.json();
 
-  if (data.error) {
+  if (j.error) {
     throw Error('Redis command failure');
   }
 
-  return data.result;
+  return j.result;
 }
 
 module.exports = async function handler(req, res) {
@@ -88,11 +82,13 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  const { authSession } = req.body || {};
+  const { authSession, checkoutNonce } = req.body || {};
 
   if (
     typeof authSession !== 'string' ||
-    !/^[a-f0-9]{64}$/.test(authSession)
+    !/^[a-f0-9]{64}$/.test(authSession) ||
+    typeof checkoutNonce !== 'string' ||
+    !/^[a-f0-9]{64}$/.test(checkoutNonce)
   ) {
     return res.status(400).json({
       errorCode: 'INVALID_SESSION'
@@ -100,12 +96,9 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const sessionKey =
-      SESSION_PREFIX + hash(authSession);
-
     const raw = await redis([
       'GET',
-      sessionKey
+      'tosh:3ds-session:v1:' + hash(authSession)
     ]);
 
     if (!raw) {
@@ -116,77 +109,68 @@ module.exports = async function handler(req, res) {
 
     const session = JSON.parse(raw);
 
-    if (
-      !session.paymentIntentId ||
-      !/^pi_[A-Za-z0-9]+$/.test(session.paymentIntentId)
-    ) {
+    if (session.nonceHash !== hash(checkoutNonce)) {
       return res.status(403).json({
-        errorCode: 'INVALID_PAYMENT_SESSION'
+        errorCode: 'SESSION_MISMATCH'
       });
     }
 
-    const stripeKey = process.env.STRIPE_SECRET_KEY;
+    const key = process.env.STRIPE_SECRET_KEY;
 
-    if (
-      !stripeKey ||
-      !/^sk_(test|live)_/.test(stripeKey)
-    ) {
+    if (!key || !/^sk_(test|live)_/.test(key)) {
       return res.status(503).json({
         errorCode: 'STRIPE_KEY_NOT_CONFIGURED'
       });
     }
 
-    const response = await fetch(
+    const stripe = await fetch(
       'https://api.stripe.com/v1/payment_intents/' +
         encodeURIComponent(session.paymentIntentId),
       {
         headers: {
-          Authorization: 'Bearer ' + stripeKey
+          Authorization: 'Bearer ' + key
         },
         signal: AbortSignal.timeout(12000)
       }
     );
 
-    if (!response.ok) {
+    if (!stripe.ok) {
       return res.status(502).json({
         errorCode: 'STRIPE_LOOKUP_FAILED'
       });
     }
 
-    const paymentIntent = await response.json();
+    const pi = await stripe.json();
 
-    if (paymentIntent.id !== session.paymentIntentId) {
+    if (pi.id !== session.paymentIntentId) {
       return res.status(502).json({
         errorCode: 'INTENT_MISMATCH'
       });
     }
 
     if (
-      paymentIntent.status === 'requires_action' &&
-      paymentIntent.next_action?.type === 'use_stripe_sdk' &&
-      typeof paymentIntent.client_secret === 'string'
+      pi.status === 'requires_action' &&
+      pi.next_action?.type === 'use_stripe_sdk' &&
+      typeof pi.client_secret === 'string'
     ) {
       return res.status(200).json({
         requiresAuthentication: true,
-        clientSecret: paymentIntent.client_secret,
+        clientSecret: pi.client_secret,
         attemptId: session.attemptId
       });
     }
 
-    // Stripe success alone does not verify Guesty's payment.
-
+    // Stripe success alone does not establish Guesty payment success.
     return res.status(200).json({
       requiresAuthentication: false,
-      stripeStatus: paymentIntent.status,
+      stripeStatus: pi.status,
       guestyVerified: false,
       attemptId: session.attemptId,
       reference: session.reference
     });
 
-  } catch (error) {
-    console.error('3DS authentication session error', {
-      name: error.name
-    });
+  } catch (e) {
+    console.error('3DS session error', e.name);
 
     return res.status(503).json({
       errorCode: 'AUTH_SESSION_UNAVAILABLE'
