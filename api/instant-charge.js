@@ -51,6 +51,42 @@ async function redis(command) {
   return j.result;
 }
 
+async function findStripeIntent(payment, reference) {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key || !/^sk_(test|live)_/.test(key)) {
+    throw Error('Stripe key unavailable');
+  }
+
+  const paymentId = str(payment?._id, 100);
+  const reservationId = str(payment?.reservationId, 100);
+  if (!paymentId || !reservationId || !reference) return null;
+
+  const query = `metadata['confirmationCode']:'${reference}'`;
+  const url = 'https://api.stripe.com/v1/payment_intents/search?' +
+    new URLSearchParams({query, limit: '20'}).toString();
+
+  const response = await fetch(url, {
+    headers: {Authorization: 'Bearer ' + key},
+    signal: AbortSignal.timeout(12000)
+  });
+
+  if (!response.ok) throw Error('Stripe intent search failed');
+
+  const result = await response.json();
+  if (result.has_more) return null;
+
+  const matches = (result.data || []).filter(pi =>
+    pi.status === 'requires_action' &&
+    pi.metadata?.confirmationCode === reference &&
+    pi.metadata?.paymentId === paymentId &&
+    pi.metadata?.reservationId === reservationId &&
+    pi.currency?.toLowerCase() === String(payment.currency || '').toLowerCase() &&
+    Number(pi.amount) === Math.round(Number(payment.amount) * 100)
+  );
+
+  return matches.length === 1 ? matches[0] : null;
+}
+
 function analyze(data) {
   const reservation =
     data?.reservation || data?.reservationDetails || {};
@@ -86,7 +122,13 @@ function analyze(data) {
   const reservationExists = Boolean(reference);
 
   const requiresAction =
-    statuses.some(s => ['requires_action', 'authentication_required', 'requires_authentication'].includes(s)) ||
+    statuses.some(s =>
+      [
+        'requires_action',
+        'authentication_required',
+        'requires_authentication'
+      ].includes(s)
+    ) ||
     [
       'requires_action',
       'requires_authentication',
@@ -123,15 +165,29 @@ function analyze(data) {
   ].includes(reservationStatus);
 
   const challenge = data?.threeDSChallenge;
+
   const diagnostic = {
-    threeDSChallengePresent: challenge !== undefined && challenge !== null,
-    threeDSChallengeType: Array.isArray(challenge) ? 'array' : typeof challenge,
-    threeDSChallengeFields: challenge && typeof challenge === 'object' && !Array.isArray(challenge)
-      ? Object.keys(challenge).filter(k => /^[a-zA-Z0-9_]{1,60}$/.test(k)).slice(0, 20)
-      : [],
-    paymentFields: data?.payment && typeof data.payment === 'object'
-      ? Object.keys(data.payment).filter(k => /^[a-zA-Z0-9_]{1,60}$/.test(k)).slice(0, 20)
-      : []
+    threeDSChallengePresent:
+      challenge !== undefined && challenge !== null,
+
+    threeDSChallengeType:
+      Array.isArray(challenge) ? 'array' : typeof challenge,
+
+    threeDSChallengeFields:
+      challenge &&
+      typeof challenge === 'object' &&
+      !Array.isArray(challenge)
+        ? Object.keys(challenge)
+            .filter(k => /^[a-zA-Z0-9_]{1,60}$/.test(k))
+            .slice(0, 20)
+        : [],
+
+    paymentFields:
+      data?.payment && typeof data.payment === 'object'
+        ? Object.keys(data.payment)
+            .filter(k => /^[a-zA-Z0-9_]{1,60}$/.test(k))
+            .slice(0, 20)
+        : []
   };
 
   return {
@@ -311,11 +367,19 @@ module.exports = async function handler(req, res) {
     const data = await r.json().catch(() => null);
 
     if (!r.ok) {
-      console.error('Guesty API rejection', JSON.stringify({
-        httpStatus: r.status,
-        requestId: r.headers.get('x-request-id'),
-        errors: data?.errors || data?.error || data?.message || data?.details || 'No error details returned'
-      }, null, 2));
+      console.error(
+        'Guesty API rejection',
+        JSON.stringify({
+          httpStatus: r.status,
+          requestId: r.headers.get('x-request-id'),
+          errors:
+            data?.errors ||
+            data?.error ||
+            data?.message ||
+            data?.details ||
+            'No error details returned'
+        }, null, 2)
+      );
     }
 
     const out = analyze(data);
@@ -352,10 +416,24 @@ module.exports = async function handler(req, res) {
         .map(a => a?.payload?.payment_intent)
         .filter(Boolean);
 
-      const intent = intents.find(i =>
+      let intent = intents.find(i =>
         i.status === 'requires_action' &&
         /^pi_[A-Za-z0-9]+$/.test(i.id || '')
       );
+
+      if (!intent) {
+        try {
+          intent = await findStripeIntent(
+            data?.payment,
+            out.reference
+          );
+        } catch (e) {
+          console.error('Stripe intent identification failed', {
+            attemptId,
+            message: e.message
+          });
+        }
+      }
 
       if (!intent) {
         await record('3ds_requires_reconciliation', detail);
@@ -369,7 +447,8 @@ module.exports = async function handler(req, res) {
       }
 
       const session = crypto.randomBytes(32).toString('hex');
-      const sessionKey = SESSION_PREFIX + sessionHash(session);
+      const sessionKey =
+        SESSION_PREFIX + sessionHash(session);
 
       try {
         await redis([
@@ -392,7 +471,9 @@ module.exports = async function handler(req, res) {
           paymentIntentId: intent.id
         });
       } catch (e) {
-        console.error('3DS session storage failed', { attemptId });
+        console.error('3DS session storage failed', {
+          attemptId
+        });
 
         return res.status(503).json({
           success: false,
