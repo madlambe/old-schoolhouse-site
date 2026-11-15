@@ -1,13 +1,42 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
-      "source": "/guest-guide-1867/(.*)",
+      "source": "/guest-guide-1867/:path*",
       "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow, noarchive, nosnippet, noimageindex"
         }
       ]
+    },
+    {
+      "source": "/preparation-for-your-stay/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet, noimageindex"
+        }
+      ]
+    },
+    {
+      "source": "/holding-page.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "https://web.the-old-schoolhouse.com/"
+    },
+    {
+      "source": "/:path((?!api|guest-guide-1867|preparation-for-your-stay|lib|robots\\.txt|favicon|apple-touch-icon|holding-page\\.html|hero\\.jpg|logo\\.png).*)",
+      "destination": "https://web.the-old-schoolhouse.com/:path"
     }
   ]
 }

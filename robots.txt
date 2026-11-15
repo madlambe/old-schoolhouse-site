@@ -1,4 +1,10 @@
 User-agent: *
 Disallow: /guest-guide-1867/
+Disallow: /preparation-for-your-stay/
+
+User-agent: ConsentProScanner
+Allow: /
+Disallow: /guest-guide-1867/
+Disallow: /preparation-for-your-stay/
 
 Sitemap: https://www.the-old-schoolhouse.com/sitemap.xml
